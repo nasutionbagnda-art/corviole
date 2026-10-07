@@ -93,10 +93,10 @@ function renderMenu() {
             <p class="small text-muted flex-grow-1 mb-3">${pizza.description}</p>
             <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top border-secondary border-opacity-25">
               <div>
-                <span class="small text-muted">Dès </span>
-                <span class="fs-5 fw-bold text-warning">${pizza.basePrice.toFixed(2)} €</span>
+                <span class="small text-muted d-block" style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">Dès</span>
+                <span class="five-price-tag">${pizza.basePrice.toFixed(2)} €</span>
               </div>
-              <button class="btn btn-sm btn-danger px-3 rounded-pill fw-semibold btn-select-pizza" data-id="${pizza.id}">
+              <button class="btn btn-five-yellow btn-select-pizza" data-id="${pizza.id}">
                 Choisir la taille 🍕
               </button>
             </div>
@@ -122,8 +122,8 @@ function renderMenu() {
               <h5 class="fw-bold mb-1">${salade.name}</h5>
               <p class="small text-muted flex-grow-1 mb-3">${salade.description}</p>
               <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top border-secondary border-opacity-25">
-                <span class="fs-5 fw-bold text-warning">${salade.price.toFixed(2)} €</span>
-                <button class="btn btn-sm btn-outline-danger px-3 rounded-pill fw-semibold btn-add-salad" data-id="${salade.id}">
+                <span class="five-price-tag">${salade.price.toFixed(2)} €</span>
+                <button class="btn btn-five-outline btn-add-salad" data-id="${salade.id}">
                   Ajouter +
                 </button>
               </div>
