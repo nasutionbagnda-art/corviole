@@ -1,6 +1,6 @@
 /**
  * Opti'Noisy Pizzeria - Style FIVE PIZZA ORIGINAL (W3C Standard)
- * HTML5 & CSS3 pur sans framework
+ * HTML5 & CSS3 pur - Zéro framework - Responsive Mobile, Tablet & Desktop
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800;1,900&display=swap');
@@ -32,6 +32,11 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
@@ -89,16 +94,6 @@ img {
   100% { transform: translateX(-50%); }
 }
 
-/* Top TP Bar */
-.w3c-tp-banner {
-  background: #000;
-  padding: 6px 14px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  border-bottom: 1px solid var(--border-color);
-  color: #fff;
-}
-
 /* Header */
 .w3c-top-header {
   position: sticky;
@@ -136,6 +131,29 @@ img {
 }
 
 .w3c-brand-title span {
+  color: var(--primary);
+}
+
+.w3c-nav-links {
+  display: none;
+  gap: 20px;
+}
+
+@media (min-width: 860px) {
+  .w3c-nav-links {
+    display: flex;
+  }
+}
+
+.w3c-nav-link {
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.w3c-nav-link:hover {
   color: var(--primary);
 }
 
@@ -181,6 +199,13 @@ img {
   padding: 0 4px;
 }
 
+/* Container */
+.w3c-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
 /* Hero Section */
 .w3c-hero-section {
   position: relative;
@@ -207,13 +232,13 @@ img {
 .w3c-hero-slide {
   flex: 0 0 100%;
   position: relative;
-  height: 250px;
+  height: 280px;
   scroll-snap-align: start;
 }
 
 @media (min-width: 768px) {
   .w3c-hero-slide {
-    height: 380px;
+    height: 400px;
   }
 }
 
@@ -235,16 +260,76 @@ img {
 }
 
 .w3c-hero-title {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 900;
   color: var(--primary);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .w3c-hero-subtitle {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--text-muted);
+}
+
+/* Deals Section */
+.w3c-deals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 20px 0 36px;
+}
+
+.w3c-deal-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+}
+
+.w3c-deal-card.featured {
+  border-color: var(--primary);
+  background: linear-gradient(145deg, #242217, #1f1f1f);
+}
+
+.w3c-deal-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+}
+
+.w3c-deal-badge {
+  background: var(--primary);
+  color: var(--primary-text);
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  align-self: flex-start;
+}
+
+/* Concept Grid */
+.w3c-concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 20px 0 36px;
+}
+
+.w3c-concept-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.w3c-concept-item:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
 }
 
 /* Category Filter Bar */
@@ -287,13 +372,7 @@ img {
   box-shadow: 0 4px 14px rgba(253, 227, 84, 0.35);
 }
 
-/* Grid & Cards Five Pizza */
-.w3c-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 16px;
-}
-
+/* Section Headings */
 .w3c-section-heading {
   font-size: 1.5rem;
   font-weight: 900;
@@ -303,6 +382,7 @@ img {
   justify-content: space-between;
 }
 
+/* Products Grid */
 .w3c-products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -735,4 +815,40 @@ img {
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+
+/* Footer Five Pizza */
+.w3c-footer {
+  background: #0a0a0a;
+  border-top: 2px solid var(--border-color);
+  padding: 40px 16px 30px;
+  margin-top: 50px;
+}
+
+.w3c-footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.w3c-footer-col h5 {
+  font-size: 1rem;
+  color: var(--primary);
+  margin-bottom: 14px;
+}
+
+.w3c-footer-col ul {
+  list-style: none;
+}
+
+.w3c-footer-col li {
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.w3c-footer-col a:hover {
+  color: var(--primary);
 }
