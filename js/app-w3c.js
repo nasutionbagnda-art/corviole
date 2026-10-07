@@ -1,6 +1,6 @@
 /**
- * Opti'Noisy Pizzeria - Logique du Prototype 2 (W3C Standard)
- * Structure & Style inspirés de Five Pizza Original
+ * Opti'Noisy Pizzeria - Logique du Prototype 2 (W3C Standard Pur)
+ * Direction Artistique : Néo-Trattoria Napoletana Contemporaine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 let currentW3CPizza = null;
-let currentW3CSize = PIZZA_SIZES[1]; // Moyenne
+let currentW3CSize = PIZZA_SIZES[1]; // Classica 31cm par défaut
 let currentW3CFilter = 'all';
 
 function initW3CApp() {
@@ -21,24 +21,39 @@ function initW3CApp() {
   updateW3CCartCount();
   updateW3CAuthUI();
 
-  // Initialisation carte restaurant sur la page principale
+  // Initialisation de la carte Leaflet sur la page principale
   setTimeout(() => {
     window.geoManager.initMap('w3c-page-restaurant-map');
-  }, 500);
+  }, 400);
+
+  // Gestion du scroll pour affiner le header glassmorphism
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('w3c-header');
+    if (header) {
+      if (window.scrollY > 40) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }
+  });
 }
 
 function renderW3CHeroSlider() {
   const slider = document.getElementById('w3c-hero-slider');
-  if (!slider) return;
+  if (!slider || !MENU_DATA.heroSlides) return;
 
   slider.innerHTML = MENU_DATA.heroSlides.map(slide => `
     <div class="w3c-hero-slide">
       <img src="${slide.image}" alt="${slide.title}">
       <div class="w3c-hero-overlay">
+        <span style="display: inline-block; background: var(--primary-soft); border: 1px solid var(--primary); color: #FFA590; font-size: 0.72rem; font-weight: 800; padding: 4px 12px; border-radius: var(--radius-pill); margin-bottom: 12px; text-transform: uppercase;">
+          ${slide.badge}
+        </span>
         <h2 class="w3c-hero-title">${slide.title}</h2>
         <p class="w3c-hero-subtitle">${slide.subtitle}</p>
-        <div style="margin-top: 14px;">
-          <button class="w3c-btn-add" style="padding: 12px 26px; font-size: 0.9rem;" onclick="document.getElementById('w3c-menu-section').scrollIntoView({behavior: 'smooth'})">
+        <div style="margin-top: 18px;">
+          <button class="w3c-btn-add" onclick="document.getElementById('w3c-menu-section').scrollIntoView({behavior: 'smooth'})">
             COMMANDER MAINTENANT ➔
           </button>
         </div>
@@ -54,11 +69,11 @@ function renderW3CDeals() {
   container.innerHTML = MENU_DATA.deals.map(deal => `
     <div class="w3c-deal-card ${deal.highlight ? 'featured' : ''}">
       <span class="w3c-deal-badge">${deal.badge}</span>
-      <h3 style="font-size: 1.25rem; font-weight: 900; margin: 10px 0 6px;">${deal.title}</h3>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px; flex-grow: 1;">${deal.desc}</p>
-      <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 12px;">
-        <span style="font-size: 1.25rem; font-weight: 900; color: var(--primary);">${deal.price}</span>
-        <button class="w3c-btn-add" onclick="document.getElementById('w3c-menu-section').scrollIntoView({behavior: 'smooth'})">
+      <h3 style="font-size: 1.25rem; font-weight: 800; margin: 10px 0 6px; color: #fff;">${deal.title}</h3>
+      <p style="font-size: 0.86rem; color: var(--cream-muted); margin-bottom: 18px; flex-grow: 1; line-height: 1.5;">${deal.desc}</p>
+      <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 14px; margin-top: auto;">
+        <span style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 900; color: var(--gold);">${deal.price}</span>
+        <button class="w3c-btn-add" style="padding: 8px 18px; font-size: 0.8rem;" onclick="document.getElementById('w3c-menu-section').scrollIntoView({behavior: 'smooth'})">
           PROFITER ➔
         </button>
       </div>
@@ -72,9 +87,9 @@ function renderW3CConcepts() {
 
   container.innerHTML = MENU_DATA.concepts.map(item => `
     <div class="w3c-concept-item">
-      <div style="font-size: 2.5rem; margin-bottom: 12px;">${item.icon}</div>
-      <h4 style="font-size: 1.1rem; font-weight: 900; margin-bottom: 8px;">${item.title}</h4>
-      <p style="font-size: 0.82rem; color: var(--text-muted);">${item.desc}</p>
+      <div style="font-size: 2.4rem; margin-bottom: 12px;">${item.icon}</div>
+      <h4 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; color: #fff;">${item.title}</h4>
+      <p style="font-size: 0.84rem; color: var(--cream-muted); line-height: 1.5;">${item.desc}</p>
     </div>
   `).join('');
 }
@@ -127,7 +142,7 @@ function renderW3CProducts() {
         <div class="w3c-card-thumb">
           <img src="${pizza.image}" alt="${pizza.name}" loading="lazy">
           <span class="w3c-tag ${pizza.isVegetarian ? 'veggie' : ''}">
-            ${pizza.badge || (pizza.isVegetarian ? 'Végétarien' : 'Artisanal')}
+            ${pizza.badge || (pizza.isVegetarian ? 'Végétarien 🌿' : 'Artisanal 🔥')}
           </span>
         </div>
         <div class="w3c-card-body">
@@ -135,7 +150,7 @@ function renderW3CProducts() {
           <p class="w3c-card-desc">${pizza.description}</p>
           <div class="w3c-card-footer">
             <div>
-              <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); display: block; text-transform: uppercase;">Dès</span>
+              <span style="font-size: 0.68rem; font-weight: 800; color: var(--cream-muted); display: block; text-transform: uppercase; letter-spacing: 0.5px;">Dès</span>
               <span class="w3c-price">${pizza.basePrice.toFixed(2)} €</span>
             </div>
             <button class="w3c-btn-add w3c-btn-select-pizza" data-id="${pizza.id}">
@@ -173,13 +188,14 @@ function renderW3CProducts() {
     }
   }
 
-  // Événements boutons
+  // Événements boutons de sélection de pizza
   document.querySelectorAll('.w3c-btn-select-pizza').forEach(btn => {
     btn.addEventListener('click', (e) => {
       openW3CSizeModal(e.currentTarget.getAttribute('data-id'));
     });
   });
 
+  // Événements boutons salades
   document.querySelectorAll('.w3c-btn-add-salad').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const salad = MENU_DATA.salades.find(s => s.id === e.currentTarget.getAttribute('data-id'));
@@ -204,7 +220,7 @@ function openW3CSizeModal(pizzaId) {
   if (!pizza) return;
 
   currentW3CPizza = pizza;
-  currentW3CSize = PIZZA_SIZES[1];
+  currentW3CSize = PIZZA_SIZES[1]; // Classica 31cm
 
   document.getElementById('w3c-modal-img').src = pizza.image;
   document.getElementById('w3c-modal-name').innerText = pizza.name;
@@ -212,19 +228,19 @@ function openW3CSizeModal(pizzaId) {
 
   const grid = document.getElementById('w3c-modal-sizes');
   grid.innerHTML = PIZZA_SIZES.map(s => `
-    <div class="w3c-size-card ${s.id === currentW3CSize.id ? 'active' : ''}" data-size="${s.id}">
+    <div class="w3c-size-card ${s.id === currentW3CSize.id ? 'selected' : ''}" data-size="${s.id}">
       <img src="${s.icon}" alt="${s.name}">
-      <div class="w3c-size-name">${s.name}</div>
-      <div class="w3c-size-cm">${s.size}</div>
-      <div class="w3c-size-price">${(pizza.basePrice + s.priceBonus).toFixed(2)} €</div>
+      <h5>${s.name}</h5>
+      <span>${s.size} &bull; ${s.label}</span>
+      <div class="size-price-tag">${(pizza.basePrice + s.priceBonus).toFixed(2)} €</div>
     </div>
   `).join('');
 
   grid.querySelectorAll('.w3c-size-card').forEach(card => {
     card.addEventListener('click', (e) => {
       currentW3CSize = PIZZA_SIZES.find(s => s.id === e.currentTarget.getAttribute('data-size'));
-      grid.querySelectorAll('.w3c-size-card').forEach(c => c.classList.remove('active'));
-      e.currentTarget.classList.add('active');
+      grid.querySelectorAll('.w3c-size-card').forEach(c => c.classList.remove('selected'));
+      e.currentTarget.classList.add('selected');
       updateW3CModalButton();
     });
   });
@@ -240,6 +256,7 @@ function updateW3CModalButton() {
 }
 
 function setupW3CEventListeners() {
+  // Ajout au panier depuis la modale de taille
   const btnAdd = document.getElementById('w3c-btn-modal-add');
   if (btnAdd) {
     btnAdd.addEventListener('click', () => {
@@ -254,11 +271,11 @@ function setupW3CEventListeners() {
         image: currentW3CPizza.image
       });
       closeW3CModal('w3c-size-modal');
-      showW3CNotification(`🍕 ${currentW3CPizza.name} ajoutée !`);
+      showW3CNotification(`🍕 ${currentW3CPizza.name} ajoutée au panier !`);
     });
   }
 
-  // Tiroir Panier
+  // Tiroir Panier Ouvrir / Fermer
   const btnOpenCart = document.getElementById('w3c-btn-cart');
   if (btnOpenCart) {
     btnOpenCart.addEventListener('click', () => openW3CDrawer());
@@ -268,6 +285,7 @@ function setupW3CEventListeners() {
     btnCloseCart.addEventListener('click', () => closeW3CDrawer());
   }
 
+  // Écouteur de mise à jour du panier
   window.addEventListener('cartUpdated', () => {
     updateW3CCartCount();
     renderW3CDrawer();
@@ -279,7 +297,12 @@ function setupW3CEventListeners() {
     btnPromo.addEventListener('click', () => {
       const code = document.getElementById('w3c-input-promo').value;
       const res = window.cartManager.applyPromo(code);
-      alert(res.message);
+      const feedback = document.getElementById('w3c-promo-feedback');
+      if (feedback) {
+        feedback.style.display = 'block';
+        feedback.style.color = res.success ? 'var(--secondary-light)' : 'var(--primary)';
+        feedback.innerText = res.message;
+      }
       renderW3CDrawer();
     });
   }
@@ -293,10 +316,10 @@ function setupW3CEventListeners() {
     });
   }
 
-  // Authentification W3C
-  const authForm = document.getElementById('w3c-auth-form');
-  if (authForm) {
-    authForm.addEventListener('submit', (e) => {
+  // Connexion W3C
+  const loginForm = document.getElementById('w3c-auth-login-form');
+  if (loginForm) {
+    loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const email = document.getElementById('w3c-auth-email').value;
       const pass = document.getElementById('w3c-auth-pass').value;
@@ -311,18 +334,41 @@ function setupW3CEventListeners() {
     });
   }
 
-  // Géolocalisation W3C
+  // Inscription W3C
+  const regForm = document.getElementById('w3c-auth-register-form');
+  if (regForm) {
+    regForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const userData = {
+        firstName: document.getElementById('w3c-reg-first').value,
+        lastName: document.getElementById('w3c-reg-last').value,
+        email: document.getElementById('w3c-reg-email').value,
+        phone: document.getElementById('w3c-reg-phone').value,
+        password: document.getElementById('w3c-reg-pass').value
+      };
+      const res = window.authManager.register(userData);
+      if (res.success) {
+        closeW3CModal('w3c-auth-modal');
+        showW3CNotification(`Bienvenue dans le Club, ${userData.firstName} !`);
+        updateW3CAuthUI();
+      } else {
+        alert(res.message);
+      }
+    });
+  }
+
+  // Géolocalisation interne W3C
   const btnGeoloc = document.getElementById('w3c-btn-geoloc');
   if (btnGeoloc) {
     btnGeoloc.addEventListener('click', async () => {
       btnGeoloc.disabled = true;
-      btnGeoloc.innerText = 'Recherche GPS en cours...';
+      btnGeoloc.innerText = 'Recherche satellite GPS en cours...';
       try {
         const loc = await window.geoManager.getCurrentPosition();
         document.getElementById('w3c-checkout-addr').value = loc.address;
         document.getElementById('w3c-geoloc-info').innerHTML = `
-          <div style="background: rgba(253,227,84,0.15); border: 1px solid var(--primary); color: #fff; padding: 10px 14px; border-radius: var(--radius-sm); font-size: 0.85rem; margin-top: 10px; font-weight: 700;">
-            📍 Distance : <b>${loc.distance} km</b> • Temps estimé : <b>${loc.estimatedTime}</b>
+          <div style="background: rgba(242, 166, 90, 0.15); border: 1px solid var(--gold); color: #fff; padding: 12px 14px; border-radius: var(--radius-sm); font-size: 0.85rem; margin-top: 10px; font-weight: 700;">
+            📍 Distance : <b>${loc.distance} km</b> de la pizzeria &bull; Temps estimé : <b>${loc.estimatedTime}</b>
           </div>
         `;
         window.geoManager.updateMapWithUser(loc.lat, loc.lng, loc.address);
@@ -330,7 +376,7 @@ function setupW3CEventListeners() {
         alert(err.message);
       } finally {
         btnGeoloc.disabled = false;
-        btnGeoloc.innerText = '📍 ME GÉOLOCALISER AUTOMATIQUEMENT';
+        btnGeoloc.innerText = '📍 UTILISER MA POSITION GPS';
       }
     });
   }
@@ -387,12 +433,33 @@ function renderW3CDrawer() {
   const totals = window.cartManager.getTotals();
   if (!container) return;
 
+  // Jauge de livraison offerte (Seuil 25€)
+  const remaining = Math.max(0, PIZZERIA_CONFIG.freeDeliveryThreshold - totals.subtotal);
+  const percent = Math.min(100, Math.round((totals.subtotal / PIZZERIA_CONFIG.freeDeliveryThreshold) * 100));
+  
+  const progBar = document.getElementById('w3c-delivery-progress');
+  const remText = document.getElementById('w3c-delivery-remaining');
+  const msgText = document.getElementById('w3c-delivery-msg');
+
+  if (progBar && remText && msgText) {
+    progBar.style.width = `${percent}%`;
+    if (remaining === 0) {
+      remText.innerText = "LIVRAISON OFFERTE ! 🎉";
+      remText.style.color = "var(--secondary-light)";
+      msgText.innerText = "Félicitations ! Vous bénéficiez des frais de port gratuits";
+    } else {
+      remText.innerText = `${remaining.toFixed(2)} € restants`;
+      remText.style.color = "var(--gold)";
+      msgText.innerText = `Livraison offerte dès ${PIZZERIA_CONFIG.freeDeliveryThreshold.toFixed(2)} €`;
+    }
+  }
+
   if (window.cartManager.cart.length === 0) {
     container.innerHTML = `
-      <div style="text-align: center; padding: 50px 10px; color: var(--text-muted);">
-        <div style="font-size: 3rem; margin-bottom: 12px;">🍕</div>
-        <h4 style="font-weight: 900; color: #fff;">VOTRE PANIER EST VIDE</h4>
-        <p style="font-size: 0.85rem; margin-top: 6px;">Ajoutez vos pizzas préférées pour commencer la commande !</p>
+      <div style="text-align: center; padding: 60px 10px; color: var(--cream-muted);">
+        <div style="font-size: 3.5rem; margin-bottom: 14px;">🍕</div>
+        <h4 style="font-weight: 900; color: #fff; font-size: 1.2rem;">VOTRE PANIER EST VIDE</h4>
+        <p style="font-size: 0.86rem; margin-top: 6px;">Découvrez nos 22 recettes napolitaines et commencez votre commande !</p>
       </div>
     `;
     document.getElementById('w3c-drawer-footer').style.display = 'none';
@@ -402,23 +469,35 @@ function renderW3CDrawer() {
   document.getElementById('w3c-drawer-footer').style.display = 'block';
 
   container.innerHTML = window.cartManager.cart.map(item => `
-    <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px; margin-bottom: 12px; background: var(--bg-elevated); border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
-      <img src="${item.image}" alt="${item.name}" style="width: 55px; height: 55px; object-fit: cover; border-radius: 8px;">
-      <div style="flex-grow: 1; margin: 0 14px;">
-        <div style="font-weight: 900; font-size: 0.95rem;">${item.name}</div>
-        <div style="font-size: 0.75rem; color: var(--text-muted);">${item.sizeName}</div>
-        <div style="font-weight: 900; color: var(--primary); font-size: 0.95rem; margin-top: 2px;">${(item.price * item.quantity).toFixed(2)} €</div>
+    <div class="w3c-cart-item">
+      <img src="${item.image}" alt="${item.name}" class="w3c-cart-item-img">
+      <div class="w3c-cart-item-details">
+        <div class="w3c-cart-item-name">${item.name}</div>
+        <div class="w3c-cart-item-size">${item.sizeName}</div>
+        <div class="w3c-cart-item-price">${(item.price * item.quantity).toFixed(2)} €</div>
       </div>
-      <div style="display: flex; align-items: center; gap: 8px;">
-        <button class="w3c-btn-icon" style="width: 32px; height: 32px;" onclick="window.cartManager.updateQuantity('${item.cartItemId}', -1)">-</button>
-        <span style="font-weight: 900; font-size: 0.95rem;">${item.quantity}</span>
-        <button class="w3c-btn-icon" style="width: 32px; height: 32px;" onclick="window.cartManager.updateQuantity('${item.cartItemId}', 1)">+</button>
+      <div class="w3c-cart-item-actions">
+        <button class="w3c-btn-qty" onclick="window.cartManager.updateQuantity('${item.cartItemId}', -1)" aria-label="Diminuer">-</button>
+        <span style="font-weight: 900; font-size: 0.95rem; min-width: 18px; text-align: center;">${item.quantity}</span>
+        <button class="w3c-btn-qty" onclick="window.cartManager.updateQuantity('${item.cartItemId}', 1)" aria-label="Augmenter">+</button>
       </div>
     </div>
   `).join('');
 
   document.getElementById('w3c-subtotal').innerText = totals.subtotal.toFixed(2) + ' €';
   document.getElementById('w3c-delivery').innerText = totals.isFreeDelivery ? 'Offerte !' : totals.deliveryFee.toFixed(2) + ' €';
+  
+  const discountRow = document.getElementById('w3c-discount-row');
+  const discountVal = document.getElementById('w3c-discount');
+  if (discountRow && discountVal) {
+    if (totals.discountAmount > 0) {
+      discountRow.style.display = 'flex';
+      discountVal.innerText = `-${totals.discountAmount.toFixed(2)} €`;
+    } else {
+      discountRow.style.display = 'none';
+    }
+  }
+
   document.getElementById('w3c-total').innerText = totals.total.toFixed(2) + ' €';
 }
 
@@ -437,20 +516,131 @@ function openW3CCheckoutModal() {
   openW3CModal('w3c-checkout-modal');
   setTimeout(() => {
     window.geoManager.initMap('w3c-checkout-map');
-  }, 250);
+  }, 300);
 }
 
 function openW3CTrackingModal(order) {
-  document.getElementById('w3c-track-id').innerText = order.id;
-  document.getElementById('w3c-track-addr').innerText = order.address;
+  const currentOrder = order || window.orderManager.activeOrder || {
+    id: 'OPT-492104',
+    address: '12 Avenue Aristide Briand, Noisy-le-Grand',
+    statusStep: 1,
+    timeline: [
+      { title: 'Commande confirmée', time: 'En direct', done: true },
+      { title: 'Cuisson au four 450°C', time: 'En cours', done: true },
+      { title: 'Livreur en route', time: 'À venir', done: false },
+      { title: 'Livraison effectuée', time: 'À venir', done: false }
+    ]
+  };
+
+  document.getElementById('w3c-track-id').innerText = currentOrder.id;
+  document.getElementById('w3c-track-addr').innerText = currentOrder.address;
+  
+  renderW3CTrackingStepper(currentOrder);
   openW3CModal('w3c-tracking-modal');
 
   setTimeout(() => {
     window.geoManager.initMap('w3c-track-map');
-    if (order.coords) {
-      window.geoManager.updateMapWithUser(order.coords.lat, order.coords.lng, order.address);
+    if (currentOrder.coords) {
+      window.geoManager.updateMapWithUser(currentOrder.coords.lat, currentOrder.coords.lng, currentOrder.address);
     }
-  }, 250);
+  }, 300);
+}
+
+function renderW3CTrackingStepper(order) {
+  const currentOrder = order || window.orderManager.activeOrder;
+  const stepperContainer = document.getElementById('w3c-tracking-stepper');
+  if (!stepperContainer || !currentOrder) return;
+
+  const steps = [
+    { title: 'Commande Reçue', icon: '📝' },
+    { title: 'Au Four à Bois (450°C)', icon: '🔥' },
+    { title: 'Livreur en Route', icon: '🛵' },
+    { title: 'Livré Chez Vous', icon: '🍕' }
+  ];
+
+  stepperContainer.innerHTML = `
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center;">
+      ${steps.map((st, idx) => {
+        const isDone = idx <= currentOrder.statusStep;
+        const isCurrent = idx === currentOrder.statusStep;
+        return `
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <div style="
+              width: 38px; height: 38px; border-radius: 50%;
+              background: ${isCurrent ? 'var(--primary)' : isDone ? 'var(--secondary)' : 'var(--bg-elevated)'};
+              border: 2px solid ${isDone ? 'transparent' : 'var(--border-color)'};
+              color: #fff; display: flex; align-items: center; justify-content: center;
+              font-size: 1.1rem; margin-bottom: 6px;
+              box-shadow: ${isCurrent ? '0 0 12px var(--primary-glow)' : 'none'};
+            ">
+              ${st.icon}
+            </div>
+            <span style="font-size: 0.68rem; font-weight: 800; color: ${isDone ? '#fff' : 'var(--cream-muted)'}; text-transform: uppercase;">
+              ${st.title}
+            </span>
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+function openW3CAuthModal(defaultTab = 'login') {
+  const user = window.authManager.getCurrentUser();
+  const profileView = document.getElementById('w3c-auth-profile-view');
+  const formsView = document.getElementById('w3c-auth-forms-view');
+
+  if (user) {
+    if (profileView) profileView.style.display = 'block';
+    if (formsView) formsView.style.display = 'none';
+
+    document.getElementById('w3c-profile-name').innerText = `${user.firstName} ${user.lastName}`;
+    document.getElementById('w3c-profile-email').innerText = user.email;
+
+    const ordersBox = document.getElementById('w3c-profile-orders');
+    if (ordersBox) {
+      if (!user.orders || user.orders.length === 0) {
+        ordersBox.innerHTML = '<p style="font-size: 0.8rem; color: var(--cream-muted); text-align: center;">Aucune commande précédente.</p>';
+      } else {
+        ordersBox.innerHTML = user.orders.map(o => `
+          <div style="background: var(--bg-surface); padding: 10px 14px; border-radius: var(--radius-sm); margin-bottom: 8px; border: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-weight: 800; font-size: 0.85rem; color: #fff;">${o.id}</div>
+              <div style="font-size: 0.72rem; color: var(--cream-muted);">${new Date(o.createdAt || o.date).toLocaleDateString()}</div>
+            </div>
+            <div style="font-family: var(--font-display); font-weight: 900; color: var(--gold); font-size: 0.95rem;">
+              ${(o.totals ? o.totals.total : o.total).toFixed(2)} €
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+  } else {
+    if (profileView) profileView.style.display = 'none';
+    if (formsView) formsView.style.display = 'block';
+    switchW3CAuthTab(defaultTab);
+  }
+
+  openW3CModal('w3c-auth-modal');
+}
+
+function switchW3CAuthTab(tab) {
+  const btnLogin = document.getElementById('w3c-tab-login');
+  const btnReg = document.getElementById('w3c-tab-register');
+  const formLogin = document.getElementById('w3c-auth-login-form');
+  const formReg = document.getElementById('w3c-auth-register-form');
+
+  if (tab === 'login') {
+    btnLogin.classList.add('active');
+    btnReg.classList.remove('active');
+    formLogin.style.display = 'block';
+    formReg.style.display = 'none';
+  } else {
+    btnReg.classList.add('active');
+    btnLogin.classList.remove('active');
+    formReg.style.display = 'block';
+    formLogin.style.display = 'none';
+  }
 }
 
 function openW3CModal(modalId) {
@@ -476,31 +666,13 @@ function showW3CNotification(text) {
   if (!notif) {
     notif = document.createElement('div');
     notif.id = 'w3c-toast';
-    notif.style.cssText = `
-      position: fixed;
-      top: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--primary);
-      color: var(--primary-text);
-      padding: 12px 24px;
-      border-radius: var(--radius-pill);
-      font-weight: 900;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
-      z-index: 2000;
-      transition: opacity 0.3s ease;
-      opacity: 0;
-      pointer-events: none;
-    `;
+    notif.className = 'w3c-toast';
     document.body.appendChild(notif);
   }
 
   notif.innerText = text;
-  notif.style.opacity = '1';
+  notif.classList.add('show');
   setTimeout(() => {
-    notif.style.opacity = '0';
-  }, 2500);
+    notif.classList.remove('show');
+  }, 2600);
 }
