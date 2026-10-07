@@ -1,59 +1,125 @@
 /**
- * Opti'Noisy Pizzeria - Styles personnalisés Bootstrap 5
- * Couleurs officielles de la marque et optimisations mobiles
+ * Opti'Noisy Pizzeria - Style FIVE PIZZA ORIGINAL
+ * Design urbain, street-food, noir profond, jaune vif #FDE354, typographie ultra-bold & boutons pilules
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800;1,900&display=swap');
+
 :root {
-  --opti-red: #BE1C1F;
-  --opti-red-dark: #961316;
-  --opti-green: #13672F;
-  --opti-gold: #F9B464;
-  --opti-brown: #432918;
-  --opti-dark: #0f172a;
-  --opti-card-bg: #1e293b;
-  --opti-border: #334155;
-  --opti-text: #f8fafc;
-  --opti-text-muted: #94a3b8;
+  --five-yellow: #FDE354;
+  --five-yellow-hover: #fae032;
+  --five-black: #121212;
+  --five-dark: #1a1a1a;
+  --five-card: #222222;
+  --five-card-hover: #2a2a2a;
+  --five-border: #333333;
+  --five-text: #ffffff;
+  --five-muted: #a3a3a3;
+  --five-red: #E5383B;
+  --five-green: #06C167;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  background-color: var(--opti-dark);
-  color: var(--opti-text);
-  padding-bottom: 75px; /* Pour la bottom nav mobile */
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
+  font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+  background-color: var(--five-black);
+  color: var(--five-text);
+  padding-bottom: 80px;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Header & Top Bar */
+/* Typographie Ultra-Bold Five Pizza */
+h1, h2, h3, h4, h5, h6, .brand-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+}
+
+/* Top Marquee Ticker (Bandeau défilant Five Club / Promos) */
+.five-marquee-bar {
+  background-color: var(--five-yellow);
+  color: var(--five-black);
+  padding: 8px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 900;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.five-marquee-track {
+  display: inline-block;
+  animation: marquee 25s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Header Five Pizza */
 .opti-header {
-  background: rgba(15, 23, 42, 0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--opti-border);
+  background-color: rgba(18, 18, 18, 0.98);
+  backdrop-filter: blur(16px);
+  border-bottom: 2px solid var(--five-border);
 }
 
 .brand-logo-img {
-  height: 44px;
+  height: 48px;
   width: auto;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
 }
 
-.top-tp-bar {
-  background: linear-gradient(90deg, #13672F, #BE1C1F);
-  font-size: 0.75rem;
-  font-weight: 600;
+/* Boutons Pilules Five Pizza */
+.btn-five-yellow {
+  background-color: var(--five-yellow);
+  color: var(--five-black);
+  border: none;
+  border-radius: 100px;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 0.85rem;
   letter-spacing: 0.5px;
+  padding: 10px 22px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(253, 227, 84, 0.25);
 }
 
-/* Hero Carousel */
+.btn-five-yellow:hover, .btn-five-yellow:focus {
+  background-color: var(--five-yellow-hover);
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(253, 227, 84, 0.4);
+}
+
+.btn-five-outline {
+  background-color: transparent;
+  color: var(--five-text);
+  border: 2px solid var(--five-border);
+  border-radius: 100px;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  padding: 8px 18px;
+  transition: all 0.2s ease;
+}
+
+.btn-five-outline:hover {
+  border-color: var(--five-yellow);
+  color: var(--five-yellow);
+  background-color: rgba(253, 227, 84, 0.08);
+}
+
+/* Hero Banner Style Five Pizza */
 .hero-carousel .carousel-item {
-  height: 220px;
+  height: 260px;
   background-color: #000;
 }
 
 @media (min-width: 768px) {
   .hero-carousel .carousel-item {
-    height: 340px;
+    height: 380px;
   }
 }
 
@@ -61,69 +127,76 @@ body {
   object-fit: cover;
   height: 100%;
   width: 100%;
-  opacity: 0.85;
+  opacity: 0.75;
 }
 
 .hero-caption {
-  background: linear-gradient(180deg, transparent, rgba(15, 23, 42, 0.9));
+  background: linear-gradient(180deg, transparent, rgba(18, 18, 18, 0.95));
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 1.5rem 1rem 0.8rem;
+  padding: 2rem 1.5rem 1rem;
   text-align: left;
 }
 
-/* Category Pills */
+.hero-caption h5 {
+  color: var(--five-yellow);
+  font-size: 1.5rem;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+}
+
+/* Category Filter Bar */
 .category-scroller {
   overflow-x: auto;
   white-space: nowrap;
   scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: 0.5rem 0;
+  padding: 0.75rem 0;
 }
 .category-scroller::-webkit-scrollbar {
   display: none;
 }
 
 .category-pill {
-  border-radius: 9999px;
-  padding: 0.45rem 1.1rem;
-  font-weight: 600;
-  font-size: 0.85rem;
-  border: 1px solid var(--opti-border);
-  background-color: var(--opti-card-bg);
-  color: var(--opti-text);
+  border-radius: 100px;
+  padding: 0.55rem 1.3rem;
+  font-weight: 900;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--five-border);
+  background-color: var(--five-dark);
+  color: var(--five-text);
   transition: all 0.2s ease;
   cursor: pointer;
   display: inline-block;
-  margin-right: 0.5rem;
+  margin-right: 0.6rem;
 }
 
 .category-pill.active, .category-pill:hover {
-  background-color: var(--opti-red);
-  color: white;
-  border-color: var(--opti-red);
-  box-shadow: 0 4px 12px rgba(190, 28, 31, 0.4);
+  background-color: var(--five-yellow);
+  color: var(--five-black);
+  border-color: var(--five-yellow);
+  box-shadow: 0 4px 15px rgba(253, 227, 84, 0.35);
 }
 
-/* Product Cards */
+/* Product Cards Five Pizza Style */
 .pizza-card {
-  background-color: var(--opti-card-bg);
-  border: 1px solid var(--opti-border);
-  border-radius: 1rem;
+  background-color: var(--five-card);
+  border: 1px solid var(--five-border);
+  border-radius: 1.25rem;
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .pizza-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-  border-color: #475569;
+  transform: translateY(-5px);
+  border-color: var(--five-yellow);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.7);
 }
 
 .pizza-img-wrapper {
   position: relative;
-  height: 180px;
+  height: 200px;
   overflow: hidden;
   background-color: #000;
 }
@@ -136,54 +209,43 @@ body {
 }
 
 .pizza-card:hover .pizza-img {
-  transform: scale(1.06);
+  transform: scale(1.08);
 }
 
 .card-badge {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  background: rgba(190, 28, 31, 0.9);
-  color: white;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.25rem 0.6rem;
-  border-radius: 9999px;
-  backdrop-filter: blur(4px);
+  top: 12px;
+  left: 12px;
+  background: var(--five-yellow);
+  color: var(--five-black);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.3rem 0.7rem;
+  border-radius: 100px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
 .card-badge-veggie {
-  background: rgba(19, 103, 47, 0.9);
+  background: #06C167;
+  color: #fff;
 }
 
-/* Size Selector in Modal */
-.size-option-card {
-  border: 2px solid var(--opti-border);
-  border-radius: 0.85rem;
-  padding: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  background-color: rgba(30, 41, 59, 0.5);
-  text-align: center;
+/* Price Display */
+.five-price-tag {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 1.35rem;
+  color: var(--five-yellow);
 }
 
-.size-option-card:hover, .size-option-card.selected {
-  border-color: var(--opti-red);
-  background-color: rgba(190, 28, 31, 0.12);
-}
-
-.size-option-card img {
-  width: 48px;
-  height: 48px;
-  margin-bottom: 0.4rem;
-}
-
-/* Passerelles Uber Eats & Deliveroo */
+/* Platform Banner */
 .platform-banner {
-  background: linear-gradient(135deg, #1e293b, #0f172a);
-  border: 1px solid var(--opti-border);
-  border-radius: 1rem;
-  padding: 1.25rem;
+  background: linear-gradient(135deg, #1c1c1c, #262626);
+  border: 2px solid var(--five-border);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
 }
 
 .platform-btn {
@@ -191,10 +253,11 @@ body {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 0.65rem 1rem;
-  border-radius: 0.75rem;
-  font-weight: 700;
-  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+  border-radius: 100px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  text-transform: uppercase;
   text-decoration: none;
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -207,25 +270,16 @@ body {
   background-color: #06C167;
   color: white;
 }
-.btn-ubereats:hover {
-  background-color: #049c53;
-  color: white;
-}
-
 .btn-deliveroo {
   background-color: #00CDBC;
   color: white;
 }
-.btn-deliveroo:hover {
-  background-color: #00b5a5;
-  color: white;
-}
 
 .platform-logo-img {
-  height: 24px;
+  height: 22px;
   width: auto;
   background: white;
-  padding: 2px 4px;
+  padding: 2px 5px;
   border-radius: 4px;
 }
 
@@ -235,10 +289,10 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 64px;
-  background: rgba(15, 23, 42, 0.96);
-  backdrop-filter: blur(16px);
-  border-top: 1px solid var(--opti-border);
+  height: 68px;
+  background: rgba(18, 18, 18, 0.98);
+  backdrop-filter: blur(18px);
+  border-top: 2px solid var(--five-border);
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -251,10 +305,12 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--opti-text-muted);
+  color: var(--five-muted);
   text-decoration: none;
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   transition: color 0.2s ease;
   background: none;
   border: none;
@@ -264,99 +320,70 @@ body {
 }
 
 .nav-item-btn.active, .nav-item-btn:hover {
-  color: var(--opti-red);
+  color: var(--five-yellow);
 }
 
-.nav-item-btn i, .nav-item-btn svg {
-  font-size: 1.25rem;
+.nav-item-btn i {
+  font-size: 1.3rem;
   margin-bottom: 2px;
 }
 
 .nav-cart-badge {
   position: absolute;
   top: 2px;
-  right: 14px;
-  background-color: var(--opti-red);
-  color: white;
+  right: 12px;
+  background-color: var(--five-yellow);
+  color: var(--five-black);
   font-size: 0.65rem;
-  font-weight: bold;
-  border-radius: 9999px;
+  font-weight: 900;
+  border-radius: 100px;
   padding: 2px 6px;
 }
 
-/* Interactive Map Container */
-#order-map, #geo-modal-map {
-  height: 240px;
-  width: 100%;
-  border-radius: 0.75rem;
-  border: 1px solid var(--opti-border);
-  background: #1e293b;
+/* Modals Five Pizza */
+.modal-content {
+  background-color: var(--five-dark);
+  border: 2px solid var(--five-border);
+  border-radius: 1.5rem;
 }
 
-/* Order Tracker Steps */
-.order-step {
-  display: flex;
-  align-items: flex-start;
-  position: relative;
-  padding-bottom: 1.5rem;
+.modal-header, .modal-footer {
+  border-color: var(--five-border);
 }
 
-.order-step:last-child {
-  padding-bottom: 0;
+.size-option-card {
+  border: 2px solid var(--five-border);
+  border-radius: 1rem;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: var(--five-card);
+  text-align: center;
 }
 
-.order-step-bullet {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #334155;
-  color: #94a3b8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  margin-right: 1rem;
-  z-index: 2;
-  flex-shrink: 0;
+.size-option-card:hover, .size-option-card.selected {
+  border-color: var(--five-yellow);
+  background-color: rgba(253, 227, 84, 0.12);
+  transform: translateY(-2px);
 }
 
-.order-step.completed .order-step-bullet {
-  background: var(--opti-green);
-  color: white;
+.size-option-card.selected .badge {
+  background-color: var(--five-yellow) !important;
+  color: var(--five-black) !important;
 }
 
-.order-step.current .order-step-bullet {
-  background: var(--opti-red);
-  color: white;
-  animation: pulse 1.5s infinite;
-}
-
-.order-step:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  left: 15px;
-  top: 32px;
-  bottom: 0;
-  width: 2px;
-  background: #334155;
-}
-
-.order-step.completed:not(:last-child)::after {
-  background: var(--opti-green);
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(190, 28, 31, 0.7); }
-  70% { box-shadow: 0 0 0 10px rgba(190, 28, 31, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(190, 28, 31, 0); }
+.size-option-card img {
+  width: 52px;
+  height: 52px;
+  margin-bottom: 0.5rem;
 }
 
 /* Switcher Banner */
 .prototype-switcher-bar {
-  background: #090d16;
-  border-bottom: 1px solid #1e293b;
+  background: #000;
+  border-bottom: 1px solid var(--five-border);
   padding: 6px 12px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
