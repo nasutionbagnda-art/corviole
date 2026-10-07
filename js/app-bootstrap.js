@@ -1,5 +1,6 @@
 /**
  * Opti'Noisy Pizzeria - Logique du Prototype 1 (Bootstrap 5)
+ * Structure & Style inspirés de Five Pizza Original
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -7,17 +8,24 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 let currentSelectedPizza = null;
-let currentSelectedSize = PIZZA_SIZES[1]; // Moyenne par défaut
+let currentSelectedSize = PIZZA_SIZES[1]; // Moyenne
 let currentCategoryFilter = 'all';
 
 function initBootstrapApp() {
   renderHeroCarousel();
+  renderDeals();
+  renderConcepts();
   renderCategoryPills();
   renderMenu();
   setupEventListeners();
   updateCartBadge();
   updateAuthUI();
   setupActiveOrderListener();
+
+  // Carte restaurant sur la page principale
+  setTimeout(() => {
+    window.geoManager.initMap('bootstrap-page-restaurant-map');
+  }, 500);
 }
 
 function renderHeroCarousel() {
@@ -28,8 +36,49 @@ function renderHeroCarousel() {
     <div class="carousel-item ${idx === 0 ? 'active' : ''}">
       <img src="${slide.image}" alt="${slide.title}">
       <div class="hero-caption">
-        <h5 class="fw-bold mb-1">${slide.title}</h5>
-        <p class="small text-light mb-0">${slide.subtitle}</p>
+        <h3 class="fw-bold mb-1">${slide.title}</h3>
+        <p class="small text-light mb-3">${slide.subtitle}</p>
+        <button class="btn btn-five-yellow" onclick="document.getElementById('pizzas-section').scrollIntoView({behavior: 'smooth'})">
+          COMMANDER MAINTENANT ➔
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderDeals() {
+  const container = document.getElementById('deals-container');
+  if (!container || !MENU_DATA.deals) return;
+
+  container.innerHTML = MENU_DATA.deals.map(deal => `
+    <div class="col-12 col-md-4">
+      <div class="pizza-card h-100 p-4 d-flex flex-column border-2 ${deal.highlight ? 'border-warning' : ''}">
+        <span class="badge ${deal.highlight ? 'bg-warning text-dark' : 'bg-secondary text-white'} rounded-pill align-self-start px-3 py-2 fw-bold mb-2">
+          ${deal.badge}
+        </span>
+        <h4 class="fw-bold text-white mb-2">${deal.title}</h4>
+        <p class="small text-muted flex-grow-1 mb-3">${deal.desc}</p>
+        <div class="d-flex justify-content-between align-items-center pt-3 border-top border-secondary border-opacity-25 mt-auto">
+          <span class="five-price-tag">${deal.price}</span>
+          <button class="btn btn-five-yellow btn-sm" onclick="document.getElementById('pizzas-section').scrollIntoView({behavior: 'smooth'})">
+            PROFITER ➔
+          </button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderConcepts() {
+  const container = document.getElementById('concepts-container');
+  if (!container || !MENU_DATA.concepts) return;
+
+  container.innerHTML = MENU_DATA.concepts.map(item => `
+    <div class="col-6 col-md-3">
+      <div class="pizza-card h-100 p-3 text-center">
+        <div class="display-6 mb-2">${item.icon}</div>
+        <h5 class="fw-bold text-white mb-2 fs-6">${item.title}</h5>
+        <p class="small text-muted mb-0" style="font-size: 0.8rem;">${item.desc}</p>
       </div>
     </div>
   `).join('');
@@ -39,17 +88,19 @@ function renderCategoryPills() {
   const container = document.getElementById('category-pills-container');
   if (!container) return;
 
-  // Extraire les catégories uniques
-  const categories = ['all', 'Classique', 'Fromagère', 'Carnivore', 'Épicée', 'Marinière', 'Spécialité', 'salades'];
+  const categories = [
+    { id: 'all', label: '🍕 TOUT LE MENU' },
+    { id: 'tomate', label: '🥫 BASE TOMATE' },
+    { id: 'creme', label: '🥛 BASE CRÈME' },
+    { id: 'speciale', label: '⭐ SPÉCIALITÉS' },
+    { id: 'salades', label: '🥗 SALADES & DESSERTS' }
+  ];
 
-  container.innerHTML = categories.map(cat => {
-    const label = cat === 'all' ? '🍕 Tout le menu' : (cat === 'salades' ? '🥗 Nos Salades' : cat);
-    return `
-      <button class="category-pill ${cat === currentCategoryFilter ? 'active' : ''}" data-cat="${cat}">
-        ${label}
-      </button>
-    `;
-  }).join('');
+  container.innerHTML = categories.map(cat => `
+    <button class="category-pill ${cat.id === currentCategoryFilter ? 'active' : ''}" data-cat="${cat.id}">
+      ${cat.label}
+    </button>
+  `).join('');
 
   container.querySelectorAll('.category-pill').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -69,13 +120,13 @@ function renderMenu() {
 
   let filteredPizzas = MENU_DATA.pizzas;
   if (currentCategoryFilter !== 'all' && currentCategoryFilter !== 'salades') {
-    filteredPizzas = MENU_DATA.pizzas.filter(p => p.category.toLowerCase() === currentCategoryFilter.toLowerCase());
+    filteredPizzas = MENU_DATA.pizzas.filter(p => p.base === currentCategoryFilter);
   }
 
   if (currentCategoryFilter === 'salades') {
-    pizzaContainer.parentElement.classList.add('d-none');
+    document.getElementById('pizzas-section').classList.add('d-none');
   } else {
-    pizzaContainer.parentElement.classList.remove('d-none');
+    document.getElementById('pizzas-section').classList.remove('d-none');
     pizzaContainer.innerHTML = filteredPizzas.map(pizza => `
       <div class="col-12 col-sm-6 col-lg-4">
         <div class="pizza-card h-100 d-flex flex-column">
@@ -86,18 +137,15 @@ function renderMenu() {
             </span>
           </div>
           <div class="p-3 d-flex flex-column flex-grow-1">
-            <div class="d-flex justify-content-between align-items-start mb-1">
-              <h5 class="fw-bold mb-0">${pizza.name}</h5>
-              <span class="badge bg-secondary">${pizza.category}</span>
-            </div>
+            <h4 class="fw-bold mb-1 text-white">${pizza.name}</h4>
             <p class="small text-muted flex-grow-1 mb-3">${pizza.description}</p>
             <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top border-secondary border-opacity-25">
               <div>
-                <span class="small text-muted d-block" style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">Dès</span>
+                <span class="small text-muted d-block" style="font-size: 0.7rem; font-weight: 800; text-transform: uppercase;">Dès</span>
                 <span class="five-price-tag">${pizza.basePrice.toFixed(2)} €</span>
               </div>
               <button class="btn btn-five-yellow btn-select-pizza" data-id="${pizza.id}">
-                Choisir la taille 🍕
+                CHOISIR LA TAILLE 🍕
               </button>
             </div>
           </div>
@@ -108,9 +156,9 @@ function renderMenu() {
 
   if (saladContainer) {
     if (currentCategoryFilter !== 'all' && currentCategoryFilter !== 'salades') {
-      saladContainer.parentElement.classList.add('d-none');
+      document.getElementById('salades-section').classList.add('d-none');
     } else {
-      saladContainer.parentElement.classList.remove('d-none');
+      document.getElementById('salades-section').classList.remove('d-none');
       saladContainer.innerHTML = MENU_DATA.salades.map(salade => `
         <div class="col-12 col-sm-6 col-lg-4">
           <div class="pizza-card h-100 d-flex flex-column">
@@ -119,12 +167,12 @@ function renderMenu() {
               <span class="card-badge card-badge-veggie">${salade.badge}</span>
             </div>
             <div class="p-3 d-flex flex-column flex-grow-1">
-              <h5 class="fw-bold mb-1">${salade.name}</h5>
+              <h4 class="fw-bold mb-1 text-white">${salade.name}</h4>
               <p class="small text-muted flex-grow-1 mb-3">${salade.description}</p>
               <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top border-secondary border-opacity-25">
                 <span class="five-price-tag">${salade.price.toFixed(2)} €</span>
                 <button class="btn btn-five-outline btn-add-salad" data-id="${salade.id}">
-                  Ajouter +
+                  AJOUTER +
                 </button>
               </div>
             </div>
@@ -134,11 +182,10 @@ function renderMenu() {
     }
   }
 
-  // Attach button listeners
+  // Événements
   document.querySelectorAll('.btn-select-pizza').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      const pizzaId = e.currentTarget.getAttribute('data-id');
-      openPizzaSizeModal(pizzaId);
+      openPizzaSizeModal(e.currentTarget.getAttribute('data-id'));
     });
   });
 
@@ -167,7 +214,7 @@ function openPizzaSizeModal(pizzaId) {
   if (!pizza) return;
 
   currentSelectedPizza = pizza;
-  currentSelectedSize = PIZZA_SIZES[1]; // Moyenne par défaut
+  currentSelectedSize = PIZZA_SIZES[1];
 
   document.getElementById('modal-pizza-img').src = pizza.image;
   document.getElementById('modal-pizza-name').innerText = pizza.name;
@@ -182,7 +229,7 @@ function openPizzaSizeModal(pizzaId) {
           <img src="${s.icon}" alt="${s.name}">
           <div class="fw-bold fs-6">${s.name}</div>
           <div class="small text-muted mb-1">${s.size}</div>
-          <div class="badge bg-danger fs-6">${price.toFixed(2)} €</div>
+          <div class="badge bg-warning text-dark fs-6">${price.toFixed(2)} €</div>
         </div>
       </div>
     `;
@@ -208,11 +255,10 @@ function openPizzaSizeModal(pizzaId) {
 function updateModalTotal() {
   if (!currentSelectedPizza || !currentSelectedSize) return;
   const totalPrice = currentSelectedPizza.basePrice + currentSelectedSize.priceBonus;
-  document.getElementById('modal-btn-add-text').innerText = `Ajouter au panier • ${totalPrice.toFixed(2)} €`;
+  document.getElementById('modal-btn-add-text').innerText = `AJOUTER AU PANIER • ${totalPrice.toFixed(2)} €`;
 }
 
 function setupEventListeners() {
-  // Confirmation d'ajout de pizza avec taille
   const btnConfirmAdd = document.getElementById('btn-modal-confirm-add');
   if (btnConfirmAdd) {
     btnConfirmAdd.addEventListener('click', () => {
@@ -230,17 +276,15 @@ function setupEventListeners() {
 
       const modalEl = document.getElementById('pizzaSizeModal');
       bootstrap.Modal.getInstance(modalEl).hide();
-      showToast(`🍕 Pizza ${currentSelectedPizza.name} (${currentSelectedSize.name}) ajoutée !`);
+      showToast(`🍕 Pizza ${currentSelectedPizza.name} ajoutée !`);
     });
   }
 
-  // Événement panier mis à jour
   window.addEventListener('cartUpdated', () => {
     updateCartBadge();
     renderCartOffcanvas();
   });
 
-  // Appliquer code promo
   const btnApplyPromo = document.getElementById('btn-apply-promo');
   if (btnApplyPromo) {
     btnApplyPromo.addEventListener('click', () => {
@@ -251,7 +295,6 @@ function setupEventListeners() {
     });
   }
 
-  // Bouton Passer la commande dans le panier
   const btnCheckout = document.getElementById('btn-checkout-start');
   if (btnCheckout) {
     btnCheckout.addEventListener('click', () => {
@@ -261,7 +304,6 @@ function setupEventListeners() {
     });
   }
 
-  // Authentification
   const loginForm = document.getElementById('form-login');
   if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
@@ -294,7 +336,7 @@ function setupEventListeners() {
       const res = window.authManager.register(data);
       if (res.success) {
         bootstrap.Modal.getInstance(document.getElementById('authModal')).hide();
-        showToast('Compte créé avec succès ! Bienvenue.');
+        showToast('Compte Five Club créé avec succès !');
         updateAuthUI();
       } else {
         alert(res.message);
@@ -302,7 +344,6 @@ function setupEventListeners() {
     });
   }
 
-  // Géolocalisation interne
   const btnGeoloc = document.getElementById('btn-geoloc-locate');
   if (btnGeoloc) {
     btnGeoloc.addEventListener('click', async () => {
@@ -312,7 +353,7 @@ function setupEventListeners() {
         const loc = await window.geoManager.getCurrentPosition();
         document.getElementById('checkout-address').value = loc.address;
         document.getElementById('geoloc-result-badge').innerHTML = `
-          <div class="alert alert-success py-2 px-3 small mt-2 mb-0">
+          <div class="alert alert-warning py-2 px-3 small mt-2 mb-0 fw-bold text-dark">
             📍 Position détectée à <b>${loc.distance} km</b> de la pizzeria.<br>
             ⏱ Temps de livraison estimé : <b>${loc.estimatedTime}</b>
           </div>
@@ -322,21 +363,17 @@ function setupEventListeners() {
         alert(err.message);
       } finally {
         btnGeoloc.disabled = false;
-        btnGeoloc.innerHTML = `📍 Me géolocaliser automatiquement`;
+        btnGeoloc.innerHTML = `📍 ME GÉOLOCALISER AUTOMATIQUEMENT`;
       }
     });
   }
 
-  // Soumission finale de commande & Paiement
   const checkoutForm = document.getElementById('form-checkout');
   if (checkoutForm) {
     checkoutForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const totals = window.cartManager.getTotals();
-      if (totals.count === 0) {
-        alert('Votre panier est vide.');
-        return;
-      }
+      if (totals.count === 0) return alert('Votre panier est vide.');
 
       const orderData = {
         customer: {
@@ -376,9 +413,9 @@ function renderCartOffcanvas() {
   if (window.cartManager.cart.length === 0) {
     container.innerHTML = `
       <div class="text-center py-5">
-        <div class="fs-1 mb-2">🍕</div>
-        <h5 class="fw-bold">Votre panier est vide</h5>
-        <p class="text-muted small">Ajoutez vos pizzas artisanales préférées pour commencer la commande !</p>
+        <div class="display-4 mb-2">🍕</div>
+        <h4 class="fw-bold text-white">VOTRE PANIER EST VIDE</h4>
+        <p class="text-muted small">Ajoutez vos pizzas préférées pour commencer la commande !</p>
       </div>
     `;
     document.getElementById('cart-checkout-box').classList.add('d-none');
@@ -391,13 +428,13 @@ function renderCartOffcanvas() {
     <div class="d-flex align-items-center justify-content-between p-2 mb-2 bg-dark rounded border border-secondary border-opacity-25">
       <img src="${item.image}" alt="${item.name}" style="width: 55px; height: 55px; object-fit: cover; border-radius: 8px;">
       <div class="flex-grow-1 mx-3">
-        <h6 class="mb-0 fw-bold">${item.name}</h6>
+        <h6 class="mb-0 fw-bold text-white">${item.name}</h6>
         <div class="small text-muted">${item.sizeName}</div>
         <div class="fw-bold text-warning small">${(item.price * item.quantity).toFixed(2)} €</div>
       </div>
       <div class="d-flex align-items-center gap-2">
         <button class="btn btn-sm btn-outline-secondary py-0 px-2 btn-cart-minus" data-id="${item.cartItemId}">-</button>
-        <span class="fw-bold">${item.quantity}</span>
+        <span class="fw-bold text-white">${item.quantity}</span>
         <button class="btn btn-sm btn-outline-secondary py-0 px-2 btn-cart-plus" data-id="${item.cartItemId}">+</button>
       </div>
     </div>
@@ -437,7 +474,6 @@ function openCheckoutModal() {
   const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
   modal.show();
 
-  // Initialiser la carte Leaflet dans le checkout après ouverture
   modalEl.addEventListener('shown.bs.modal', () => {
     window.geoManager.initMap('checkout-map');
   }, { once: true });
@@ -453,7 +489,7 @@ function openTrackingModal(order) {
   modal.show();
 
   modalEl.addEventListener('shown.bs.modal', () => {
-    const map = window.geoManager.initMap('tracking-map');
+    window.geoManager.initMap('tracking-map');
     if (order.coords) {
       window.geoManager.updateMapWithUser(order.coords.lat, order.coords.lng, order.address);
     }
@@ -463,10 +499,10 @@ function openTrackingModal(order) {
 function setupActiveOrderListener() {
   window.addEventListener('activeOrderChanged', (e) => {
     const order = e.detail;
-    if (order) {
-      document.getElementById('btn-active-order-floating').classList.remove('d-none');
-    } else {
-      document.getElementById('btn-active-order-floating').classList.add('d-none');
+    const btnFloating = document.getElementById('btn-active-order-floating');
+    if (btnFloating) {
+      if (order) btnFloating.classList.remove('d-none');
+      else btnFloating.classList.add('d-none');
     }
   });
 
@@ -497,10 +533,8 @@ function updateTrackingUI() {
 function updateAuthUI() {
   const user = window.authManager.getCurrentUser();
   const authBtnText = document.getElementById('auth-btn-label');
-  if (user) {
-    if (authBtnText) authBtnText.innerText = user.firstName;
-  } else {
-    if (authBtnText) authBtnText.innerText = 'Compte';
+  if (authBtnText) {
+    authBtnText.innerText = user ? user.firstName : 'Club';
   }
 }
 
@@ -509,12 +543,12 @@ function showToast(msg) {
   if (!toastContainer) return;
 
   const toastEl = document.createElement('div');
-  toastEl.className = 'toast align-items-center text-white bg-danger border-0';
+  toastEl.className = 'toast align-items-center text-dark bg-warning border-0 fw-bold';
   toastEl.setAttribute('role', 'alert');
   toastEl.innerHTML = `
     <div class="d-flex">
-      <div class="toast-body fw-bold">${msg}</div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      <div class="toast-body">${msg}</div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"></button>
     </div>
   `;
   toastContainer.appendChild(toastEl);
