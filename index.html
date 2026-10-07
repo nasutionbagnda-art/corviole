@@ -1,244 +1,430 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Opti'Noisy Pizzeria - Style Five Pizza Original (MMI3)</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --five-yellow: #FDE354;
-      --five-black: #121212;
-      --five-dark: #1a1a1a;
-      --five-card: #222222;
-      --five-border: #333333;
-    }
-    body {
-      background-color: var(--five-black);
-      color: #ffffff;
-      font-family: 'Montserrat', system-ui, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: -0.5px;
-    }
-    .marquee-bar {
-      background: var(--five-yellow);
-      color: #000;
-      padding: 8px 0;
-      overflow: hidden;
-      white-space: nowrap;
-      font-weight: 900;
-      font-size: 0.8rem;
-      letter-spacing: 1px;
-    }
-    .marquee-track {
-      display: inline-block;
-      animation: marquee 24s linear infinite;
-    }
-    @keyframes marquee {
-      0% { transform: translateX(0%); }
-      100% { transform: translateX(-50%); }
-    }
-    .hero-banner {
-      background: radial-gradient(circle at 50% 20%, #292510 0%, var(--five-black) 75%);
-      border-bottom: 2px solid var(--five-border);
-      padding: 3.5rem 1rem 2.5rem;
-      text-align: center;
-    }
-    .logo-hero {
-      height: 95px;
-      width: auto;
-      filter: drop-shadow(0 6px 16px rgba(253, 227, 84, 0.4));
-      margin-bottom: 1.5rem;
-    }
-    .feature-card {
-      background: var(--five-card);
-      border: 2px solid var(--five-border);
-      border-radius: 1.25rem;
-      padding: 1.75rem;
-      height: 100%;
-      transition: transform 0.25s ease, border-color 0.25s ease;
-    }
-    .feature-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--five-yellow);
-    }
-    .prototype-box {
-      border: 2px solid var(--five-border);
-      border-radius: 1.5rem;
-      background: linear-gradient(145deg, #1f1f1f, #161616);
-      padding: 2.25rem;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .prototype-box:hover {
-      transform: translateY(-6px);
-      border-color: var(--five-yellow);
-      box-shadow: 0 16px 36px rgba(253, 227, 84, 0.25);
-    }
-    .btn-five-yellow {
-      background-color: var(--five-yellow);
-      color: #000;
-      border-radius: 100px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      padding: 14px 28px;
-      transition: all 0.25s ease;
-      border: none;
-    }
-    .btn-five-yellow:hover {
-      background-color: #fae032;
-      color: #000;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(253, 227, 84, 0.4);
-    }
-  </style>
+  <title>Opti'Noisy Pizzeria - Five Pizza Original (W3C Standard)</title>
+  
+  <!-- Leaflet CSS pour la cartographie -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <!-- Styles 100% W3C HTML5 / CSS3 pur Five Pizza -->
+  <link rel="stylesheet" href="css/w3c-style.css">
 </head>
 <body>
 
-  <!-- Bandeau Défilant Five Pizza Style -->
-  <div class="marquee-bar">
-    <div class="marquee-track">
-      🔥 FIVE PIZZA ORIGINAL STYLE &bull; PAR VOUS, POUR TOUS &bull; MMI3 TP WEB MOBILE 2026 &bull; PIZZAS AU FEU DE BOIS DÈS 9€50 &bull; LIVRAISON GÉOLOCALISÉE EN TEMPS RÉEL &bull; REJOIGNEZ LE FIVE CLUB &bull; 🔥 FIVE PIZZA ORIGINAL STYLE &bull; PAR VOUS, POUR TOUS &bull; MMI3 TP WEB MOBILE 2026 &bull; PIZZAS AU FEU DE BOIS DÈS 9€50 &bull; LIVRAISON GÉOLOCALISÉE EN TEMPS RÉEL &bull; REJOIGNEZ LE FIVE CLUB &bull;&nbsp;
-    </div>
-  </div>
+  <!-- En-tête Sticky Style Five Pizza (Aucune barre au-dessus) -->
+  <header class="w3c-top-header">
+    <div class="w3c-header-container">
+      <div class="w3c-logo-wrap">
+        <a href="w3c.html" style="display: flex; align-items: center; gap: 10px;">
+          <img src="assets/logo-opti-noisy.svg" alt="Opti'Noisy Pizzeria" class="w3c-logo-img">
+          <div>
+            <h1 class="w3c-brand-title">Opti'Noisy <span>Original</span></h1>
+          </div>
+        </a>
+      </div>
 
-  <!-- Hero Principal -->
-  <header class="hero-banner">
-    <div class="container">
-      <img src="assets/logo-opti-noisy.svg" alt="Opti'Noisy Pizzeria" class="logo-hero">
-      <h1 class="display-4 fw-bolder mb-2 text-white">OPTI'NOISY ORIGINAL</h1>
-      <p class="lead text-secondary mb-4 mx-auto" style="max-width: 720px; font-weight: 600;">
-        Design inspiré de <b>Five Pizza Original</b> &bull; TP Web Mobile MMI3 (Octobre 2026) &bull; <b>Cahier des charges 3 : Commande de pizzas, paiement en ligne & livraison</b>
-      </p>
-      
-      <div class="d-inline-flex gap-2 flex-wrap justify-content-center">
-        <span class="badge bg-warning text-dark rounded-pill px-3 py-2 fw-bold"><i class="bi bi-fire me-1"></i> 22 RECETTES ARTISANALES</span>
-        <span class="badge bg-light text-dark rounded-pill px-3 py-2 fw-bold"><i class="bi bi-pie-chart-fill me-1"></i> 3 FORMATS (JUNIOR, MOYENNE, FAMILIALE)</span>
-        <span class="badge bg-success text-white rounded-pill px-3 py-2 fw-bold"><i class="bi bi-geo-alt-fill me-1"></i> GÉOLOC GPS & LIVRAISON CHRONO</span>
-        <span class="badge bg-info text-dark rounded-pill px-3 py-2 fw-bold"><i class="bi bi-bicycle me-1"></i> UBER EATS & DELIVEROO</span>
+      <!-- Navigation Desktop / Tablette -->
+      <nav class="w3c-nav-links" aria-label="Navigation principale">
+        <a href="#w3c-menu-section" class="w3c-nav-link">La Carte</a>
+        <a href="#w3c-deals-section" class="w3c-nav-link">Les Offres</a>
+        <a href="#w3c-concept-section" class="w3c-nav-link">Le Concept</a>
+        <a href="#w3c-club-section" class="w3c-nav-link">Five Club</a>
+        <a href="#w3c-resto-section" class="w3c-nav-link">Restaurant & Livraison</a>
+      </nav>
+
+      <!-- Actions Header -->
+      <div class="w3c-header-actions">
+        <button class="w3c-btn-add" style="display: none; @media(min-width: 600px){display: flex;}" onclick="document.getElementById('w3c-menu-section').scrollIntoView({behavior: 'smooth'})">
+          COMMANDER
+        </button>
+        <button class="w3c-btn-icon" onclick="openW3CModal('w3c-auth-modal')" aria-label="Compte utilisateur">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+          </svg>
+        </button>
+        <button class="w3c-btn-icon" id="w3c-btn-cart" aria-label="Panier">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+          </svg>
+          <span class="w3c-badge w3c-cart-badge-count" style="display: none;">0</span>
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- Section de sélection des 2 Prototypes Attendus -->
-  <main class="container my-5">
-
-    <div class="text-center mb-5">
-      <h2 class="fw-bold text-white mb-2">🚀 CHOISISSEZ LE PROTOTYPE À TESTER</h2>
-      <p class="text-secondary">Deux prototypes complets, responsives et prêts à l'usage (MMI3 - Vélizy) :</p>
+  <!-- Marquee Ticker Five Pizza -->
+  <div class="w3c-marquee">
+    <div class="w3c-marquee-track">
+      🔥 FIVE PIZZA VIBE &bull; PAR VOUS, POUR TOUS &bull; PÂTE FRAÎCHE PÉTRIE CHAQUE MATIN &bull; PIZZAS ARTISANALES DÈS 9€50 &bull; LIVRAISON CHRONO CHEZ VOUS &bull; DISPO SUR UBER EATS & DELIVEROO &bull; REJOIGNEZ LE FIVE CLUB &bull; ON RÉCOMPENSE VOTRE FIDÉLITÉ &bull; 🔥 FIVE PIZZA VIBE &bull; PAR VOUS, POUR TOUS &bull; PÂTE FRAÎCHE PÉTRIE CHAQUE MATIN &bull; PIZZAS ARTISANALES DÈS 9€50 &bull; LIVRAISON CHRONO CHEZ VOUS &bull; DISPO SUR UBER EATS & DELIVEROO &bull; REJOIGNEZ LE FIVE CLUB &bull; ON RÉCOMPENSE VOTRE FIDÉLITÉ &bull;&nbsp;
     </div>
+  </div>
 
-    <div class="row g-4 justify-content-center mb-5">
-      <!-- Prototype 1 : Bootstrap 5 -->
-      <div class="col-12 col-md-6">
-        <div class="prototype-box h-100 d-flex flex-column">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <span class="badge bg-warning text-dark px-3 py-2 fs-6 fw-bold">1 / TRAVAUX ATTENDUS</span>
-            <span class="badge bg-dark border border-secondary text-light">Bootstrap 5.3</span>
-          </div>
-          <h3 class="fw-bold text-white mb-2">PROTOTYPE 1 : VERSION BOOTSTRAP 5</h3>
-          <p class="text-secondary small mb-4 flex-grow-1">
-            Site web mobile complet utilisant <b>Bootstrap 5.3</b> dans le style <b>Five Pizza Original</b> (noir profond, jaune vif #FDE354, boutons pilules, carrousel d'intro, modale de sélection de taille avec pictos, panier offcanvas et carte Leaflet).
-          </p>
-          <a href="bootstrap.html" class="btn btn-five-yellow d-flex align-items-center justify-content-center gap-2">
-            <span>LANCER LE PROTOTYPE BOOTSTRAP</span>
-            <i class="bi bi-arrow-right-circle-fill fs-5"></i>
-          </a>
+  <!-- Contenu Principal -->
+  <main>
+
+    <!-- 1. HERO SLIDER SECTION -->
+    <section class="w3c-hero-section">
+      <div class="w3c-hero-slider" id="w3c-hero-slider">
+        <!-- Injected from data.js -->
+      </div>
+    </section>
+
+    <!-- 2. SECTION LES OFFRES DU MOMENT (Five Deals) -->
+    <section class="w3c-container" id="w3c-deals-section">
+      <div class="w3c-section-heading">
+        <span>⚡ LES OFFRES DU MOMENT</span>
+        <span style="font-size: 0.8rem; background: var(--primary); color: #000; font-weight: 900; padding: 4px 12px; border-radius: var(--radius-pill);">FIVE DEALS</span>
+      </div>
+      <div class="w3c-deals-grid" id="w3c-deals-grid">
+        <!-- Injected dynamically -->
+      </div>
+    </section>
+
+    <!-- 3. SECTION NOTRE CARTE -->
+    <section class="w3c-container" id="w3c-menu-section">
+      <div class="w3c-section-heading">
+        <span>🔥 NOTRE CARTE ORIGINALE</span>
+        <span style="font-size: 0.8rem; background: var(--border-color); color: #fff; font-weight: 800; padding: 4px 12px; border-radius: var(--radius-pill);">22 RECETTES</span>
+      </div>
+
+      <!-- Filtres par Base -->
+      <nav class="w3c-filters-wrap" style="padding: 0; margin-bottom: 20px;" aria-label="Filtres de la carte">
+        <div class="w3c-category-bar" id="w3c-category-bar">
+          <!-- Injected dynamically -->
+        </div>
+      </nav>
+
+      <!-- Grille Pizzas -->
+      <div id="w3c-pizza-section">
+        <div class="w3c-products-grid" id="w3c-pizzas-grid">
+          <!-- Injected dynamically -->
         </div>
       </div>
 
-      <!-- Prototype 2 : W3C Standard -->
-      <div class="col-12 col-md-6">
-        <div class="prototype-box h-100 d-flex flex-column">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <span class="badge bg-warning text-dark px-3 py-2 fs-6 fw-bold">2 / TRAVAUX ATTENDUS</span>
-            <span class="badge bg-success text-white">100% W3C STANDARD</span>
-          </div>
-          <h3 class="fw-bold text-white mb-2">PROTOTYPE 2 : VERSION W3C PUR</h3>
-          <p class="text-secondary small mb-4 flex-grow-1">
-            Site web mobile complet en <b>HTML5 sémantique strict & CSS3 pur</b> sans aucun framework externe (zéro Bootstrap). Design Five Pizza ultra soigné, CSS Grid, Flexbox, tiroir panier personnalisé et conformité totale aux normes W3C.
-          </p>
-          <a href="w3c.html" class="btn btn-five-yellow d-flex align-items-center justify-content-center gap-2">
-            <span>LANCER LE PROTOTYPE W3C PUR</span>
-            <i class="bi bi-arrow-right-circle-fill fs-5"></i>
-          </a>
+      <!-- Grille Salades -->
+      <div id="w3c-salad-section">
+        <div class="w3c-section-heading" style="margin-top: 10px;">
+          <span>🥗 SALADES FRAÎCHEUR & DESSERTS</span>
         </div>
-      </div>
-    </div>
-
-    <!-- Récapitulatif du Cahier des Charges -->
-    <section class="mt-4">
-      <h3 class="fw-bold text-white mb-4 text-center">📋 CAHIER DES CHARGES 3 : VALIDATION COMPLÈTE</h3>
-      <div class="row g-3">
-        <div class="col-12 col-md-4">
-          <div class="feature-card">
-            <div class="fs-1 text-warning mb-2"><i class="bi bi-pie-chart-fill"></i></div>
-            <h5 class="fw-bold text-white">MENU & TAILLES</h5>
-            <p class="small text-secondary mb-0">
-              22 pizzas + salades fraîches. 3 formats officiels avec pictos SVG : <b>Junior (26 cm)</b>, <b>Moyenne (31 cm)</b> et <b>Familiale (40 cm)</b>.
-            </p>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-4">
-          <div class="feature-card">
-            <div class="fs-1 text-warning mb-2"><i class="bi bi-geo-alt-fill"></i></div>
-            <h5 class="fw-bold text-white">GÉOLOC & SUIVI</h5>
-            <p class="small text-secondary mb-0">
-              Détection GPS via l'API <code>navigator.geolocation</code>, calcul de distance réelle, estimation du temps de livraison, et carte interactive Leaflet pour le suivi du scooter en direct.
-            </p>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-4">
-          <div class="feature-card">
-            <div class="fs-1 text-warning mb-2"><i class="bi bi-credit-card-2-front-fill"></i></div>
-            <h5 class="fw-bold text-white">COMPTE & PAIEMENT</h5>
-            <p class="small text-secondary mb-0">
-              Five Club avec inscription, connexion et historique des commandes. Paiement sécurisé par Carte Bancaire, Apple Pay / Google Pay et espèces.
-            </p>
-          </div>
+        <div class="w3c-products-grid" id="w3c-salades-grid">
+          <!-- Injected dynamically -->
         </div>
       </div>
     </section>
 
-    <!-- Passerelles Partenaires -->
-    <section class="mt-4 p-4 rounded-4" style="background: var(--five-card); border: 2px solid var(--five-border);">
-      <div class="row align-items-center g-3">
-        <div class="col-12 col-md-6">
-          <h4 class="fw-bold text-white mb-1">🛵 PASSERELLE PARTENAIRES OFFICIELS</h4>
-          <p class="small text-secondary mb-0">Commandez également sur Uber Eats et Deliveroo avec intégration directe.</p>
+    <!-- 4. SECTION LE CONCEPT -->
+    <section class="w3c-container" id="w3c-concept-section" style="margin-top: 30px;">
+      <div class="w3c-section-heading">
+        <span>⭐ LE CONCEPT FIVE PIZZA</span>
+        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700;">QUALITÉ & TRADITION</span>
+      </div>
+      <div class="w3c-concept-grid" id="w3c-concept-grid">
+        <!-- Injected dynamically -->
+      </div>
+    </section>
+
+    <!-- 5. SECTION FIVE CLUB (Programme Fidélité) -->
+    <section class="w3c-container" id="w3c-club-section" style="margin-top: 20px;">
+      <div style="background: linear-gradient(135deg, #242217, #171717); border: 2px solid var(--primary); border-radius: var(--radius-lg); padding: 36px 24px; text-align: center;">
+        <span style="background: var(--primary); color: #000; font-size: 0.75rem; font-weight: 900; padding: 6px 16px; border-radius: var(--radius-pill); text-transform: uppercase;">
+          PROGRAMME FIDÉLITÉ
+        </span>
+        <h2 style="font-size: 2rem; font-weight: 900; margin: 16px 0 8px; color: #fff;">REJOIGNEZ LE FIVE CLUB OPTI'NOISY</h2>
+        <p style="max-width: 650px; margin: 0 auto 24px; font-size: 0.95rem; color: var(--text-muted);">
+          Créez votre compte en 30 secondes pour cumuler des points à chaque bouchée, débloquer des pizzas gratuites et suivre votre livreur en temps réel !
+        </p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <button class="w3c-btn-add" style="padding: 14px 30px; font-size: 0.95rem;" onclick="openW3CModal('w3c-auth-modal')">
+            CRÉER UN COMPTE ➔
+          </button>
+          <button class="w3c-btn-add" style="background: transparent; color: #fff; border: 2px solid var(--border-color); padding: 14px 30px; font-size: 0.95rem;" onclick="openW3CModal('w3c-auth-modal')">
+            SE CONNECTER
+          </button>
         </div>
-        <div class="col-12 col-md-6 d-flex gap-3 justify-content-md-end">
-          <a href="https://www.ubereats.com/fr" target="_blank" class="btn btn-sm px-4 py-2 fw-bold text-white rounded-pill" style="background: #06C167;">
-            <img src="assets/LOGO-UBER-EAT.png" alt="Uber Eats" style="height: 18px; background: white; padding: 2px 4px; border-radius: 4px; margin-right: 6px;">
-            UBER EATS
-          </a>
-          <a href="https://deliveroo.fr/fr" target="_blank" class="btn btn-sm px-4 py-2 fw-bold text-white rounded-pill" style="background: #00CDBC;">
-            <img src="assets/logo-deliveroo.png" alt="Deliveroo" style="height: 18px; background: white; padding: 2px 4px; border-radius: 4px; margin-right: 6px;">
-            DELIVEROO
-          </a>
+      </div>
+    </section>
+
+    <!-- 6. SECTION RESTAURANT, GÉOLOCALISATION & LIVRAISON -->
+    <section class="w3c-container" id="w3c-resto-section" style="margin-top: 40px;">
+      <div class="w3c-section-heading">
+        <span>📍 NOTRE RESTAURANT & LIVRAISON</span>
+        <span style="font-size: 0.8rem; background: var(--secondary); color: #fff; font-weight: 900; padding: 4px 12px; border-radius: var(--radius-pill);">CHRONO 25 MIN</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; background: var(--bg-card); border: 2px solid var(--border-color); border-radius: var(--radius-md); padding: 24px;">
+        <div>
+          <h3 style="font-size: 1.35rem; font-weight: 900; color: var(--primary); margin-bottom: 8px;">OPTI'NOISY PIZZERIA</h3>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 6px;">📍 12 Avenue Aristide Briand, 93160 Noisy-le-Grand</p>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 6px;">📞 01 43 05 12 34</p>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px;">⏱ Ouvert 7j/7 : 11h30 - 14h30 / 18h00 - 23h30</p>
+
+          <button class="w3c-btn-add" style="width: 100%; justify-content: center; margin-bottom: 14px;" onclick="openW3CModal('w3c-tracking-modal')">
+            🛵 SUIVI DU LIVREUR EN TEMPS RÉEL
+          </button>
+
+          <!-- Passerelles Uber Eats & Deliveroo -->
+          <div class="w3c-platforms-grid" style="margin-top: 10px;">
+            <a href="https://www.ubereats.com/fr" target="_blank" class="w3c-btn-uber">
+              <img src="assets/LOGO-UBER-EAT.png" alt="Uber Eats" style="height: 18px; background: white; padding: 2px 4px; border-radius: 4px;">
+              <span>Uber Eats</span>
+            </a>
+            <a href="https://deliveroo.fr/fr" target="_blank" class="w3c-btn-deliveroo">
+              <img src="assets/logo-deliveroo.png" alt="Deliveroo" style="height: 18px; background: white; padding: 2px 4px; border-radius: 4px;">
+              <span>Deliveroo</span>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 900; margin-bottom: 8px; color: var(--text-muted); text-transform: uppercase;">Zone de livraison :</h4>
+          <div id="w3c-page-restaurant-map" style="height: 240px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);"></div>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- Footer -->
-  <footer class="mt-auto py-3 text-center border-top border-secondary border-opacity-25 text-secondary small">
-    Opti'Noisy Pizzeria &bull; Style Five Pizza Original &bull; Projet Étudiant MMI3 Vélizy (Université Paris-Saclay).
+  <!-- FOOTER FIVE PIZZA ORIGINAL -->
+  <footer class="w3c-footer">
+    <div class="w3c-footer-grid">
+      <div class="w3c-footer-col">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <img src="assets/logo-opti-noisy.svg" alt="Opti'Noisy Pizzeria" style="height: 40px;">
+          <span style="font-weight: 900; font-size: 1.1rem; color: #fff;">OPTI'NOISY</span>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+          Par vous, pour tous. Des pizzas artisanales au feu de bois avec des ingrédients de qualité supérieure.
+        </p>
+      </div>
+
+      <div class="w3c-footer-col">
+        <h5>NOTRE CARTE</h5>
+        <ul>
+          <li><a href="#w3c-menu-section">Pizzas Base Tomate</a></li>
+          <li><a href="#w3c-menu-section">Pizzas Base Crème</a></li>
+          <li><a href="#w3c-menu-section">Spécialités Gourmandes</a></li>
+          <li><a href="#w3c-menu-section">Salades & Desserts</a></li>
+        </ul>
+      </div>
+
+      <div class="w3c-footer-col">
+        <h5>LE CONCEPT</h5>
+        <ul>
+          <li><a href="#w3c-concept-section">Pâte fraîche 48h</a></li>
+          <li><a href="#w3c-club-section">Five Club Fidélité</a></li>
+          <li><a href="#w3c-resto-section">Livraison Chrono</a></li>
+          <li><a href="#w3c-resto-section">Horaires & Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="w3c-footer-col">
+        <h5>VERSIONS DU PROJET</h5>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">TP Web Mobile MMI3 (Octobre 2026) :</p>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <a href="bootstrap.html" style="background: var(--bg-elevated); padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: 800; border: 1px solid var(--border-color); color: var(--primary);">
+            ➔ Voir Version Bootstrap 5
+          </a>
+          <a href="index.html" style="background: var(--bg-elevated); padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: 700; border: 1px solid var(--border-color);">
+            ➔ Portail de Présentation
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; border-top: 1px solid var(--border-color); padding-top: 20px; margin-top: 30px; font-size: 0.78rem; color: var(--text-muted);">
+      Opti'Noisy Original &bull; Inspiré de Five Pizza Original &bull; Réalisé en HTML5/CSS3 pur conforme W3C &bull; IUT de Vélizy.
+    </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Bottom Navigation Mobile Five Pizza -->
+  <nav class="w3c-bottom-nav">
+    <button class="w3c-nav-item active" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>Accueil</span>
+    </button>
+    <button class="w3c-nav-item" onclick="document.getElementById('w3c-menu-section').scrollIntoView({behavior: 'smooth'})">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+      <span>Carte</span>
+    </button>
+    <button class="w3c-nav-item" onclick="openW3CDrawer()">
+      <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+      <span>Panier</span>
+      <span class="w3c-badge w3c-cart-badge-count" style="display: none;">0</span>
+    </button>
+    <button class="w3c-nav-item" onclick="openW3CModal('w3c-tracking-modal')">
+      <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+      <span>Suivi</span>
+    </button>
+    <button class="w3c-nav-item" onclick="openW3CModal('w3c-auth-modal')">
+      <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      <span id="w3c-auth-user-label">Club</span>
+    </button>
+  </nav>
+
+  <!-- TIROIR PANIER W3C Five Pizza -->
+  <div class="w3c-drawer-overlay" id="w3c-cart-drawer-overlay">
+    <aside class="w3c-drawer">
+      <div class="w3c-drawer-header">
+        <h3 style="font-size: 1.3rem; font-weight: 900;">🛒 VOTRE PANIER</h3>
+        <button class="w3c-btn-close" id="w3c-btn-close-drawer">&times;</button>
+      </div>
+      <div class="w3c-drawer-body" id="w3c-drawer-items">
+        <!-- Injected -->
+      </div>
+      <div class="w3c-drawer-footer" id="w3c-drawer-footer">
+        <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+          <input type="text" id="w3c-input-promo" class="w3c-input" placeholder="Code promo (ex: OPTI10)">
+          <button class="w3c-btn-add" id="w3c-btn-promo">Appliquer</button>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">
+          <span>Sous-total</span>
+          <span id="w3c-subtotal" style="color: #fff; font-weight: 700;">0.00 €</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">
+          <span>Frais de livraison</span>
+          <span id="w3c-delivery" style="color: #fff; font-weight: 700;">2.50 €</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: 900; border-top: 1px solid var(--border-color); padding-top: 10px; margin-bottom: 16px;">
+          <span>TOTAL</span>
+          <span style="color: var(--primary);" id="w3c-total">0.00 €</span>
+        </div>
+        <button class="w3c-btn-block" id="w3c-btn-start-checkout">COMMANDER & PAYER EN LIGNE ➔</button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- MODAL : Sélection de taille de pizza avec Pictos SVG -->
+  <div class="w3c-modal-overlay" id="w3c-size-modal">
+    <div class="w3c-modal-box">
+      <div class="w3c-modal-header">
+        <h3 class="w3c-modal-title" id="w3c-modal-name">Sélectionner la taille</h3>
+        <button class="w3c-btn-close" onclick="closeW3CModal('w3c-size-modal')">&times;</button>
+      </div>
+      <div style="text-align: center; margin-bottom: 16px;">
+        <img id="w3c-modal-img" src="" alt="Pizza" style="width: 100%; max-height: 170px; object-fit: cover; border-radius: var(--radius-md);">
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;" id="w3c-modal-desc"></p>
+      </div>
+      <h4 style="font-size: 0.95rem; font-weight: 900; text-align: center; margin-bottom: 8px;">FORMATS DISPONIBLES :</h4>
+      <div class="w3c-size-grid" id="w3c-modal-sizes">
+        <!-- Injected -->
+      </div>
+      <div style="margin-top: 24px;">
+        <button class="w3c-btn-block" id="w3c-btn-modal-add">AJOUTER AU PANIER</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL : Checkout & Paiement en ligne -->
+  <div class="w3c-modal-overlay" id="w3c-checkout-modal">
+    <div class="w3c-modal-box" style="max-width: 600px;">
+      <div class="w3c-modal-header">
+        <h3 class="w3c-modal-title">PAIEMENT & LIVRAISON</h3>
+        <button class="w3c-btn-close" onclick="closeW3CModal('w3c-checkout-modal')">&times;</button>
+      </div>
+      <form id="w3c-checkout-form">
+        <div class="w3c-form-group">
+          <label class="w3c-label">Nom complet</label>
+          <input type="text" id="w3c-checkout-name" class="w3c-input" required placeholder="Alexandre Dupont">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;" class="w3c-form-group">
+          <div>
+            <label class="w3c-label">Téléphone</label>
+            <input type="tel" id="w3c-checkout-phone" class="w3c-input" required placeholder="06 12 34 56 78">
+          </div>
+          <div>
+            <label class="w3c-label">Email</label>
+            <input type="email" id="w3c-checkout-email" class="w3c-input" required placeholder="alex@mmi.fr">
+          </div>
+        </div>
+
+        <div class="w3c-form-group">
+          <label class="w3c-label">Adresse de livraison</label>
+          <input type="text" id="w3c-checkout-addr" class="w3c-input" required placeholder="Votre adresse">
+          <button type="button" class="w3c-btn-add" style="width: 100%; justify-content: center; margin-top: 8px; background: var(--bg-elevated); color: var(--primary); border: 1px solid var(--primary);" id="w3c-btn-geoloc">
+            📍 ME GÉOLOCALISER AUTOMATIQUEMENT
+          </button>
+          <div id="w3c-geoloc-info"></div>
+        </div>
+
+        <!-- Carte Leaflet -->
+        <div id="w3c-checkout-map" style="height: 180px; border-radius: var(--radius-sm); margin-bottom: 16px; border: 1px solid var(--border-color);"></div>
+
+        <div class="w3c-form-group">
+          <label class="w3c-label">Mode de règlement</label>
+          <div style="display: grid; gap: 8px;">
+            <label style="display: flex; align-items: center; gap: 10px; background: var(--bg-elevated); padding: 12px; border-radius: var(--radius-sm); cursor: pointer; border: 1px solid var(--border-color);">
+              <input type="radio" name="w3cPayMethod" value="CB" checked>
+              <span style="font-weight: 700;">💳 Carte bancaire sécurisée (Visa / MC)</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 10px; background: var(--bg-elevated); padding: 12px; border-radius: var(--radius-sm); cursor: pointer; border: 1px solid var(--border-color);">
+              <input type="radio" name="w3cPayMethod" value="APPLE_PAY">
+              <span style="font-weight: 700;">📱 Apple Pay / Google Pay</span>
+            </label>
+          </div>
+        </div>
+
+        <div style="text-align: center; padding: 16px; background: var(--bg-elevated); border-radius: var(--radius-sm); margin-bottom: 20px;">
+          <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 800;">Montant total :</div>
+          <div style="font-size: 1.6rem; font-weight: 900; color: var(--primary);" id="w3c-checkout-total-display">0.00 €</div>
+        </div>
+
+        <button type="submit" class="w3c-btn-block">CONFIRMER & PAYER LA COMMANDE</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL : Suivi de Commande en direct -->
+  <div class="w3c-modal-overlay" id="w3c-tracking-modal">
+    <div class="w3c-modal-box" style="max-width: 600px;">
+      <div class="w3c-modal-header">
+        <h3 class="w3c-modal-title">🛵 SUIVI DU LIVREUR EN DIRECT</h3>
+        <button class="w3c-btn-close" onclick="closeW3CModal('w3c-tracking-modal')">&times;</button>
+      </div>
+      <div style="background: var(--bg-elevated); padding: 16px; border-radius: var(--radius-sm); margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between;">
+          <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 700;">N° COMMANDE :</span>
+          <span style="font-weight: 900; color: var(--primary);" id="w3c-track-id">OPT-384910</span>
+        </div>
+        <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
+          Destination : <strong id="w3c-track-addr" style="color: #fff;">12 Avenue Aristide Briand</strong>
+        </div>
+      </div>
+      <div id="w3c-track-map" style="height: 250px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-bottom: 16px;"></div>
+      <p style="text-align: center; font-size: 0.85rem; color: var(--primary); font-weight: 900;">
+        🔥 CUISSON AU FOUR EN COURS &bull; LE LIVREUR ARRIVE TRÈS VITE !
+      </p>
+    </div>
+  </div>
+
+  <!-- MODAL : Authentification W3C Five Club -->
+  <div class="w3c-modal-overlay" id="w3c-auth-modal">
+    <div class="w3c-modal-box">
+      <div class="w3c-modal-header">
+        <h3 class="w3c-modal-title">FIVE CLUB OPTI'NOISY</h3>
+        <button class="w3c-btn-close" onclick="closeW3CModal('w3c-auth-modal')">&times;</button>
+      </div>
+      <form id="w3c-auth-form">
+        <div class="w3c-form-group">
+          <label class="w3c-label">Email</label>
+          <input type="email" id="w3c-auth-email" class="w3c-input" required value="etudiant@mmi.fr">
+        </div>
+        <div class="w3c-form-group">
+          <label class="w3c-label">Mot de passe</label>
+          <input type="password" id="w3c-auth-pass" class="w3c-input" required value="password123">
+        </div>
+        <button type="submit" class="w3c-btn-block">SE CONNECTER AU CLUB</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/geo.js"></script>
+  <script src="js/orders.js"></script>
+  <script src="js/app-w3c.js"></script>
 </body>
 </html>
