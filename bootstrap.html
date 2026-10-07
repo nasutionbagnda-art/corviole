@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Opti'Noisy Pizzeria - Five Pizza Original (Bootstrap 5)</title>
+  <title>Opti'Noisy — Trattoria & Pizza Napoletana Contemporanea (Bootstrap 5.3)</title>
   
   <!-- Bootstrap 5.3 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -12,20 +12,20 @@
   <!-- Leaflet CSS (OpenStreetMap) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   
-  <!-- Custom Five Pizza Style -->
+  <!-- Feuille de style personnalisée Néo-Trattoria Contemporaine -->
   <link rel="stylesheet" href="css/bootstrap-custom.css">
 </head>
 <body>
 
-  <!-- Header Mobile & Desktop Style Five Pizza (Aucune barre au-dessus) -->
+  <!-- 1. HEADER FLOTTANT CONTEMPORAIN (GLASSMORPHISM PILL) - Aucune barre au-dessus -->
   <header class="opti-header sticky-top py-2 px-3">
     <div class="container d-flex align-items-center justify-content-between">
       <div class="d-flex align-items-center gap-3">
         <a href="bootstrap.html" class="d-flex align-items-center gap-2 text-decoration-none">
           <img src="assets/logo-opti-noisy.svg" alt="Opti'Noisy Pizzeria" class="brand-logo-img">
           <div>
-            <h1 class="h5 mb-0 fw-bolder text-white">Opti'Noisy</h1>
-            <span class="badge bg-warning text-dark fw-bold" style="font-size: 0.65rem; letter-spacing: 0.5px;">ORIGINAL</span>
+            <h1 class="h5 mb-0 fw-bolder text-white font-display">Opti'Noisy</h1>
+            <span class="badge text-uppercase fw-bold" style="font-size: 0.65rem; letter-spacing: 1px; background: rgba(242, 166, 90, 0.2); color: var(--gold); border: 1px solid rgba(242, 166, 90, 0.4);">TRATTORIA</span>
           </div>
         </a>
       </div>
@@ -34,9 +34,9 @@
       <nav class="d-none d-lg-flex align-items-center gap-4">
         <a href="#pizzas-section" class="text-white text-decoration-none small fw-bold text-uppercase">La Carte</a>
         <a href="#deals-section" class="text-white text-decoration-none small fw-bold text-uppercase">Les Offres</a>
-        <a href="#concepts-section" class="text-white text-decoration-none small fw-bold text-uppercase">Le Concept</a>
-        <a href="#club-section" class="text-white text-decoration-none small fw-bold text-uppercase">Five Club</a>
-        <a href="#resto-section" class="text-white text-decoration-none small fw-bold text-uppercase">Restaurant & Livraison</a>
+        <a href="#concepts-section" class="text-white text-decoration-none small fw-bold text-uppercase">Savoir-Faire</a>
+        <a href="#club-section" class="text-white text-decoration-none small fw-bold text-uppercase">Club Gourmet</a>
+        <a href="#resto-section" class="text-white text-decoration-none small fw-bold text-uppercase">Trattoria & Livraison</a>
       </nav>
 
       <!-- Actions Header -->
@@ -54,10 +54,10 @@
     </div>
   </header>
 
-  <!-- Marquee Ticker Five Pizza Original -->
+  <!-- 2. MARQUEE TICKER TENDANCE ÉLÉGANT -->
   <div class="five-marquee-bar">
     <div class="five-marquee-track">
-      🔥 FIVE PIZZA VIBE &bull; PAR VOUS, POUR TOUS &bull; PÂTE FRAÎCHE PÉTRIE CHAQUE MATIN &bull; PIZZAS ARTISANALES DÈS 9€50 &bull; LIVRAISON EXPRESS &bull; DISPO SUR UBER EATS & DELIVEROO &bull; REJOIGNEZ LE FIVE CLUB &bull; ON RÉCOMPENSE VOTRE FIDÉLITÉ &bull; 🔥 FIVE PIZZA VIBE &bull; PAR VOUS, POUR TOUS &bull; PÂTE FRAÎCHE PÉTRIE CHAQUE MATIN &bull; PIZZAS ARTISANALES DÈS 9€50 &bull; LIVRAISON EXPRESS &bull; DISPO SUR UBER EATS & DELIVEROO &bull; REJOIGNEZ LE FIVE CLUB &bull; ON RÉCOMPENSE VOTRE FIDÉLITÉ &bull;&nbsp;
+      🔥 FATTO A MANO &bull; <span>PÂTE ALVÉOLÉE MATURÉE 48H</span> &bull; TOMATES SAN MARZANO D.O.P &bull; <span>FIOR DI LATTE D'AGEROLA</span> &bull; FOUR À BOIS 450°C &bull; <span>PIZZAS DÈS 10€50</span> &bull; LIVRAISON CHRONO EN 25 MIN &bull; <span>DISPO SUR UBER EATS & DELIVEROO</span> &bull; REJOIGNEZ LE CLUB GOURMET &bull; <span>POINTS DE FIDÉLITÉ DOUBLÉS</span> &bull; 🔥 FATTO A MANO &bull; <span>PÂTE ALVÉOLÉE MATURÉE 48H</span> &bull; TOMATES SAN MARZANO D.O.P &bull; <span>FIOR DI LATTE D'AGEROLA</span> &bull; FOUR À BOIS 450°C &bull; <span>PIZZAS DÈS 10€50</span> &bull; LIVRAISON CHRONO EN 25 MIN &bull;&nbsp;
     </div>
   </div>
 
@@ -79,11 +79,11 @@
       </div>
     </section>
 
-    <!-- 2. SECTION LES OFFRES DU MOMENT (Five Deals) -->
+    <!-- 2. SECTION LES OFFRES DU MOMENT (Deals) -->
     <section class="mb-5" id="deals-section">
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="fw-bold mb-0 text-white">⚡ LES OFFRES DU MOMENT</h3>
-        <span class="badge bg-warning text-dark px-3 py-2 fw-bold rounded-pill" style="font-size: 0.8rem;">FIVE DEALS</span>
+        <h3 class="fw-bold mb-0 text-white font-display">⚡ FORMULES & OFFRES DU MOMENT</h3>
+        <span class="badge px-3 py-2 fw-bold rounded-pill" style="font-size: 0.8rem; background: var(--primary); color: #fff;">TRATTORIA DEALS</span>
       </div>
       <div class="row g-3" id="deals-container">
         <!-- Dynamically injected -->
@@ -93,8 +93,8 @@
     <!-- 3. SECTION NOTRE CARTE -->
     <section class="mb-5" id="pizzas-section">
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="fw-bold mb-0 text-white">🔥 NOTRE CARTE ORIGINALE</h3>
-        <span class="badge bg-warning text-dark px-3 py-2 fw-bold rounded-pill" style="font-size: 0.8rem;">22 RECETTES</span>
+        <h3 class="fw-bold mb-0 text-white font-display">🍕 NOTRE CARTE GOURMET</h3>
+        <span class="badge px-3 py-2 fw-bold rounded-pill" style="font-size: 0.8rem; background: var(--bg-elevated); color: var(--gold); border: 1px solid var(--border-color);">22 RECETTES MAISON</span>
       </div>
 
       <!-- Filtres par Base -->
@@ -111,30 +111,30 @@
     <!-- Grille Salades -->
     <section class="mb-5" id="salades-section">
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="fw-bold mb-0 text-white">🥗 SALADES FRAÎCHEUR & DESSERTS</h3>
-        <span class="badge bg-success px-3 py-2 fw-bold rounded-pill" style="font-size: 0.8rem;">FRAÎCHEUR</span>
+        <h3 class="fw-bold mb-0 text-white font-display">🥗 SALADES FRAÎCHEUR & CONTORNI</h3>
+        <span class="badge px-3 py-2 fw-bold rounded-pill" style="font-size: 0.8rem; background: rgba(56, 102, 65, 0.2); color: var(--secondary-light); border: 1px solid rgba(56, 102, 65, 0.4);">PRODUITS FRAIS</span>
       </div>
       <div class="row g-3" id="salades-grid">
         <!-- Dynamically injected -->
       </div>
     </section>
 
-    <!-- 4. SECTION LE CONCEPT -->
+    <!-- 4. SECTION LE SAVOIR-FAIRE -->
     <section class="mb-5" id="concepts-section">
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="fw-bold mb-0 text-white">⭐ LE CONCEPT FIVE PIZZA</h3>
-        <span class="small text-muted fw-bold">QUALITÉ & TRADITION</span>
+        <h3 class="fw-bold mb-0 text-white font-display">⭐ LE SAVOIR-FAIRE OPTI'NOISY</h3>
+        <span class="small text-muted fw-bold">PASSIONE & TRADIZIONE</span>
       </div>
       <div class="row g-3" id="concepts-container">
         <!-- Dynamically injected -->
       </div>
     </section>
 
-    <!-- 5. SECTION FIVE CLUB (Programme Fidélité) -->
+    <!-- 5. SECTION CLUB GOURMET (Programme Fidélité) -->
     <section class="mb-5" id="club-section">
-      <div class="platform-banner p-4 p-md-5 text-center border-warning">
-        <span class="badge bg-warning text-dark px-3 py-2 fw-bold rounded-pill mb-2">PROGRAMME FIDÉLITÉ</span>
-        <h2 class="display-6 fw-bold text-white mb-2">REJOIGNEZ LE FIVE CLUB OPTI'NOISY</h2>
+      <div class="p-4 p-md-5 text-center rounded-4 border" style="background: linear-gradient(135deg, rgba(217, 79, 52, 0.12), rgba(242, 166, 90, 0.08)), var(--bg-card); border-color: rgba(217, 79, 52, 0.4) !important;">
+        <span class="badge px-3 py-2 fw-bold rounded-pill mb-2" style="background: var(--primary); color: #fff;">PROGRAMME PRIVILÈGE</span>
+        <h2 class="display-6 fw-bold text-white mb-2 font-display">REJOIGNEZ LE CLUB GOURMET OPTI'NOISY</h2>
         <p class="small text-muted mb-4 mx-auto" style="max-width: 650px;">
           Créez votre compte en 30 secondes pour cumuler des points à chaque commande, débloquer des pizzas gratuites et suivre votre livreur en temps réel !
         </p>
@@ -150,13 +150,13 @@
     </section>
 
     <!-- 6. SECTION RESTAURANT, GÉOLOCALISATION & LIVRAISON -->
-    <section class="platform-banner mb-5" id="resto-section">
+    <section class="p-4 p-md-5 rounded-4 mb-5 border" id="resto-section" style="background: var(--bg-card); border-color: var(--border-color) !important;">
       <div class="row g-4 align-items-center">
         <div class="col-12 col-md-6">
-          <h3 class="fw-bold text-warning mb-2">📍 OPTI'NOISY PIZZERIA</h3>
-          <p class="small text-muted mb-1"><i class="bi bi-geo-alt-fill text-warning me-1"></i> 12 Avenue Aristide Briand, 93160 Noisy-le-Grand</p>
-          <p class="small text-muted mb-1"><i class="bi bi-telephone-fill text-warning me-1"></i> 01 43 05 12 34</p>
-          <p class="small text-muted mb-3"><i class="bi bi-clock-fill text-warning me-1"></i> Ouvert 7j/7 : 11h30 - 14h30 / 18h00 - 23h30</p>
+          <h3 class="fw-bold mb-2 font-display" style="color: var(--gold);">📍 OPTI'NOISY TRATTORIA</h3>
+          <p class="small text-muted mb-1"><i class="bi bi-geo-alt-fill me-1" style="color: var(--gold);"></i> 12 Avenue Aristide Briand, 93160 Noisy-le-Grand</p>
+          <p class="small text-muted mb-1"><i class="bi bi-telephone-fill me-1" style="color: var(--gold);"></i> 01 43 05 12 34 &bull; ciao@optinoisy-pizza.fr</p>
+          <p class="small text-muted mb-3"><i class="bi bi-clock-fill me-1" style="color: var(--gold);"></i> Ouvert du Mardi au Dimanche : 12h00 - 14h30 / 19h00 - 23h30</p>
 
           <button class="btn btn-five-yellow w-100 py-2 mb-3" data-bs-toggle="modal" data-bs-target="#trackingModal">
             <i class="bi bi-map me-1"></i> SUIVI DU LIVREUR EN TEMPS RÉEL
@@ -165,45 +165,45 @@
           <!-- Passerelles Uber Eats & Deliveroo -->
           <div class="row g-2">
             <div class="col-6">
-              <a href="https://www.ubereats.com/fr" target="_blank" class="platform-btn btn-ubereats w-100">
-                <img src="assets/LOGO-UBER-EAT.png" alt="Uber Eats" class="platform-logo-img">
-                <span>Uber Eats</span>
+              <a href="https://www.ubereats.com/fr" target="_blank" rel="noopener noreferrer" class="btn btn-dark border border-secondary border-opacity-50 w-100 d-flex align-items-center justify-content-center gap-2 py-2">
+                <img src="assets/LOGO-UBER-EAT.png" alt="Uber Eats" style="height: 18px; background: white; padding: 2px 4px; border-radius: 4px;">
+                <span class="small fw-bold text-white">Uber Eats</span>
               </a>
             </div>
             <div class="col-6">
-              <a href="https://deliveroo.fr/fr" target="_blank" class="platform-btn btn-deliveroo w-100">
-                <img src="assets/logo-deliveroo.png" alt="Deliveroo" class="platform-logo-img">
-                <span>Deliveroo</span>
+              <a href="https://deliveroo.fr/fr" target="_blank" rel="noopener noreferrer" class="btn w-100 d-flex align-items-center justify-content-center gap-2 py-2" style="background: #00CDBC; color: #fff;">
+                <img src="assets/logo-deliveroo.png" alt="Deliveroo" style="height: 18px; background: white; padding: 2px 4px; border-radius: 4px;">
+                <span class="small fw-bold">Deliveroo</span>
               </a>
             </div>
           </div>
         </div>
 
         <div class="col-12 col-md-6">
-          <h5 class="fw-bold text-white mb-2">ZONE DE LIVRAISON :</h5>
-          <div id="bootstrap-page-restaurant-map" style="height: 250px;" class="rounded-3 border border-secondary border-opacity-25"></div>
+          <h5 class="fw-bold text-white mb-2 font-display">ZONE DE LIVRAISON NOISY :</h5>
+          <div id="bootstrap-page-restaurant-map" style="height: 250px; background: #111;" class="rounded-3 border border-secondary border-opacity-25"></div>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- FOOTER FIVE PIZZA ORIGINAL -->
+  <!-- FOOTER CONTEMPORAIN -->
   <footer class="bg-black py-5 border-top border-secondary border-opacity-25">
     <div class="container">
       <div class="row g-4">
         <div class="col-12 col-md-4">
           <div class="d-flex align-items-center gap-2 mb-2">
             <img src="assets/logo-opti-noisy.svg" alt="Opti'Noisy Pizzeria" style="height: 40px;">
-            <span class="fw-bold fs-5 text-white">OPTI'NOISY</span>
+            <span class="fw-bold fs-5 text-white font-display">OPTI'NOISY</span>
           </div>
           <p class="small text-muted">
-            Par vous, pour tous. Des pizzas artisanales au feu de bois avec des ingrédients de qualité supérieure.
+            Farina, Acqua, Lievito e Passione. Des pizzas napolitaines cuites au feu de bois dans la plus pure tradition italienne contemporaine.
           </p>
         </div>
 
         <div class="col-6 col-md-2">
-          <h6 class="fw-bold text-warning text-uppercase mb-3">La Carte</h6>
+          <h6 class="fw-bold text-uppercase mb-3 font-display" style="color: var(--gold);">La Carte</h6>
           <ul class="list-unstyled small text-muted">
             <li class="mb-2"><a href="#pizzas-section" class="text-muted text-decoration-none">Base Tomate</a></li>
             <li class="mb-2"><a href="#pizzas-section" class="text-muted text-decoration-none">Base Crème</a></li>
@@ -213,31 +213,31 @@
         </div>
 
         <div class="col-6 col-md-2">
-          <h6 class="fw-bold text-warning text-uppercase mb-3">Le Concept</h6>
+          <h6 class="fw-bold text-uppercase mb-3 font-display" style="color: var(--gold);">Le Concept</h6>
           <ul class="list-unstyled small text-muted">
             <li class="mb-2"><a href="#concepts-section" class="text-muted text-decoration-none">Pâte Fraîche 48h</a></li>
-            <li class="mb-2"><a href="#club-section" class="text-muted text-decoration-none">Five Club</a></li>
+            <li class="mb-2"><a href="#club-section" class="text-muted text-decoration-none">Club Gourmet</a></li>
             <li class="mb-2"><a href="#resto-section" class="text-muted text-decoration-none">Livraison Chrono</a></li>
             <li class="mb-2"><a href="#resto-section" class="text-muted text-decoration-none">Horaires & Contact</a></li>
           </ul>
         </div>
 
         <div class="col-12 col-md-4">
-          <h6 class="fw-bold text-warning text-uppercase mb-3">Versions du Projet</h6>
+          <h6 class="fw-bold text-uppercase mb-3 font-display" style="color: var(--gold);">Versions du Projet</h6>
           <p class="small text-muted mb-2">TP Web Mobile MMI3 (Octobre 2026) :</p>
           <div class="d-flex flex-column gap-2">
+            <a href="bootstrap.html" class="btn btn-five-outline btn-sm text-start" style="border-color: var(--primary) !important; color: #fff !important;">
+              ➔ Prototype 1 (Bootstrap 5.3) ⭐
+            </a>
             <a href="w3c.html" class="btn btn-five-outline btn-sm text-start">
               ➔ Voir Prototype 2 (100% W3C Standard)
-            </a>
-            <a href="index.html" class="btn btn-five-outline btn-sm text-start">
-              ➔ Portail de Présentation
             </a>
           </div>
         </div>
       </div>
 
       <div class="text-center pt-4 mt-4 border-top border-secondary border-opacity-25 small text-muted">
-        Opti'Noisy Original &bull; Inspiré de Five Pizza Original &bull; Framework Bootstrap 5.3 &bull; IUT de Vélizy.
+        Opti'Noisy Trattoria &bull; Framework Bootstrap 5.3 &bull; IUT de Vélizy.
       </div>
     </div>
   </footer>
@@ -255,7 +255,7 @@
     <button class="nav-item-btn position-relative" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
       <i class="bi bi-bag-check-fill"></i>
       <span>Panier</span>
-      <span class="nav-cart-badge cart-count-badge" style="display: none;">0</span>
+      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white cart-count-badge" style="display: none;">0</span>
     </button>
     <button class="nav-item-btn" data-bs-toggle="modal" data-bs-target="#trackingModal">
       <i class="bi bi-compass-fill"></i>
@@ -272,16 +272,16 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title fw-bold" id="modal-pizza-name">Sélectionner la taille</h4>
+          <h4 class="modal-title fw-bold font-display" id="modal-pizza-name">Sélectionner la taille</h4>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="text-center mb-3">
-            <img src="" id="modal-pizza-img" alt="Pizza" class="img-fluid rounded-4 shadow" style="max-height: 170px; object-fit: cover;">
+            <img src="" id="modal-pizza-img" alt="Pizza" class="img-fluid rounded-4 shadow border border-secondary border-opacity-25" style="max-height: 180px; width: 100%; object-fit: cover;">
             <p class="small text-muted mt-2 mb-0" id="modal-pizza-desc"></p>
           </div>
 
-          <h5 class="fw-bold text-center mb-3">FORMATS DISPONIBLES :</h5>
+          <h5 class="fw-bold text-center mb-3 font-display" style="font-size: 0.9rem; color: var(--gold);">FORMATS DISPONIBLES :</h5>
           <div class="row g-2" id="modal-size-cards">
             <!-- Dynamically injected size options -->
           </div>
@@ -296,10 +296,10 @@
     </div>
   </div>
 
-  <!-- OFFCANVAS : Panier déroulant Five Pizza -->
-  <div class="offcanvas offcanvas-end bg-dark text-white border-secondary" tabindex="-1" id="cartOffcanvas" style="background-color: var(--five-dark) !important;">
+  <!-- OFFCANVAS : Panier déroulant -->
+  <div class="offcanvas offcanvas-end text-white border-secondary" tabindex="-1" id="cartOffcanvas" style="background-color: var(--bg-surface) !important;">
     <div class="offcanvas-header border-bottom border-secondary border-opacity-25">
-      <h4 class="offcanvas-title fw-bold"><i class="bi bi-bag-check-fill text-warning me-2"></i>MON PANIER</h4>
+      <h4 class="offcanvas-title fw-bold font-display"><i class="bi bi-bag-check-fill me-2" style="color: var(--gold);"></i>MON PANIER</h4>
       <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body d-flex flex-column">
@@ -309,7 +309,7 @@
 
       <div id="cart-checkout-box" class="border-top border-secondary border-opacity-25 pt-3">
         <div class="input-group mb-3">
-          <input type="text" id="promo-code-input" class="form-control form-control-sm bg-secondary bg-opacity-25 border-secondary text-white" placeholder="Code promo (ex: OPTI10)">
+          <input type="text" id="promo-code-input" class="form-control form-control-sm" placeholder="Code promo (ex: OPTI10)">
           <button class="btn btn-sm btn-five-yellow" id="btn-apply-promo">Appliquer</button>
         </div>
 
@@ -321,13 +321,13 @@
           <span>Livraison</span>
           <span id="cart-delivery" class="fw-bold text-white">2.50 €</span>
         </div>
-        <div class="d-flex justify-content-between small text-success mb-2">
-          <span>Remise Five Club</span>
-          <span id="cart-discount" class="fw-bold">0.00 €</span>
+        <div class="d-flex justify-content-between small mb-2" id="cart-discount-row" style="display: none; color: var(--secondary-light);">
+          <span>Remise Club</span>
+          <span id="cart-discount" class="fw-bold">-0.00 €</span>
         </div>
         <div class="d-flex justify-content-between fs-4 fw-bold text-white border-top border-secondary border-opacity-25 pt-2 mb-3">
           <span>TOTAL</span>
-          <span class="text-warning" id="cart-total">0.00 €</span>
+          <span id="cart-total" style="color: var(--gold);">0.00 €</span>
         </div>
 
         <button class="btn btn-five-yellow w-100 py-3" id="btn-checkout-start">
@@ -342,98 +342,72 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title fw-bold">PAIEMENT & LIVRAISON EN LIGNE</h4>
+          <h4 class="modal-title fw-bold font-display">PAIEMENT & LIVRAISON EN LIGNE</h4>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
-        <form id="form-checkout">
+        <form id="checkoutForm">
           <div class="modal-body">
-            <div class="row g-3">
-              <div class="col-12 col-md-6 border-end border-secondary border-opacity-25 pe-md-3">
-                <h5 class="fw-bold text-warning mb-3">1. COORDONNÉES & ADRESSE</h5>
-                <div class="mb-2">
-                  <label class="form-label small text-muted mb-1">Nom complet</label>
-                  <input type="text" id="checkout-name" class="form-control form-control-sm bg-secondary bg-opacity-25 border-secondary text-white" required placeholder="Alexandre Dupont">
-                </div>
-                <div class="row g-2 mb-2">
-                  <div class="col-6">
-                    <label class="form-label small text-muted mb-1">Téléphone</label>
-                    <input type="tel" id="checkout-phone" class="form-control form-control-sm bg-secondary bg-opacity-25 border-secondary text-white" required placeholder="06 12 34 56 78">
-                  </div>
-                  <div class="col-6">
-                    <label class="form-label small text-muted mb-1">Email</label>
-                    <input type="email" id="checkout-email" class="form-control form-control-sm bg-secondary bg-opacity-25 border-secondary text-white" required placeholder="alex@mmi.fr">
-                  </div>
-                </div>
-
-                <div class="mb-3">
-                  <label class="form-label small text-muted mb-1">Adresse de livraison</label>
-                  <div class="input-group input-group-sm">
-                    <input type="text" id="checkout-address" class="form-control bg-secondary bg-opacity-25 border-secondary text-white" required placeholder="Entrez votre rue ou utilisez le GPS">
-                  </div>
-                  <button type="button" class="btn btn-sm btn-five-outline w-100 mt-2" id="btn-geoloc-locate">
-                    <i class="bi bi-geo-alt-fill me-1"></i> 📍 ME GÉOLOCALISER AUTOMATIQUEMENT
-                  </button>
-                  <div id="geoloc-result-badge"></div>
-                </div>
-
-                <div id="checkout-map" style="height: 180px;" class="rounded-3 border border-secondary border-opacity-25"></div>
+            <div class="row g-3 mb-3">
+              <div class="col-12 col-md-6">
+                <label class="form-label small fw-bold text-muted text-uppercase">Nom complet</label>
+                <input type="text" id="checkout-name" class="form-control" required placeholder="Alexandre Dupont">
               </div>
+              <div class="col-12 col-md-6">
+                <label class="form-label small fw-bold text-muted text-uppercase">Téléphone portable</label>
+                <input type="tel" id="checkout-phone" class="form-control" required placeholder="06 12 34 56 78">
+              </div>
+              <div class="col-12">
+                <label class="form-label small fw-bold text-muted text-uppercase">Email</label>
+                <input type="email" id="checkout-email" class="form-control" required placeholder="etudiant@mmi.fr">
+              </div>
+            </div>
 
-              <div class="col-12 col-md-6 ps-md-3">
-                <h5 class="fw-bold text-warning mb-3">2. PAIEMENT SÉCURISÉ</h5>
+            <!-- Adresse et Géolocalisation -->
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted text-uppercase">Adresse de livraison</label>
+              <div class="input-group mb-2">
+                <input type="text" id="checkout-address" class="form-control" required placeholder="Ex: 4 Rue de l'Université, 78140 Vélizy">
+                <button type="button" class="btn btn-five-yellow" id="btn-geoloc-checkout">
+                  <i class="bi bi-crosshair me-1"></i> GPS
+                </button>
+              </div>
+              <div id="geoloc-feedback" class="small mt-1"></div>
+            </div>
 
-                <div class="mb-3">
-                  <div class="form-check p-3 rounded border border-secondary border-opacity-25 mb-2 bg-dark">
-                    <input class="form-check-input" type="radio" name="paymentMethod" id="payCB" value="CB" checked>
-                    <label class="form-check-label fw-bold d-flex align-items-center justify-content-between" for="payCB">
-                      <span><i class="bi bi-credit-card-2-front text-warning me-2"></i>Carte Bancaire</span>
-                      <span class="badge bg-warning text-dark">Visa / MC</span>
-                    </label>
-                  </div>
-                  <div class="form-check p-3 rounded border border-secondary border-opacity-25 mb-2 bg-dark">
-                    <input class="form-check-input" type="radio" name="paymentMethod" id="payApple" value="APPLE_PAY">
-                    <label class="form-check-label fw-bold d-flex align-items-center justify-content-between" for="payApple">
-                      <span><i class="bi bi-phone text-info me-2"></i>Apple Pay / Google Pay</span>
-                      <span class="badge bg-secondary">1-Click</span>
-                    </label>
-                  </div>
-                  <div class="form-check p-3 rounded border border-secondary border-opacity-25 bg-dark">
-                    <input class="form-check-input" type="radio" name="paymentMethod" id="payCash" value="CASH">
-                    <label class="form-check-label fw-bold d-flex align-items-center justify-content-between" for="payCash">
-                      <span><i class="bi bi-cash-coin text-success me-2"></i>Espèces au livreur</span>
-                      <span class="badge bg-secondary">Sur place</span>
-                    </label>
-                  </div>
+            <!-- Carte Leaflet dans la modale -->
+            <div class="mb-3">
+              <div id="checkout-map" style="height: 180px; background: #111;" class="rounded-3 border border-secondary border-opacity-25"></div>
+            </div>
+
+            <!-- Moyens de paiement -->
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-muted text-uppercase">Mode de paiement sécurisé</label>
+              <div class="d-flex flex-column gap-2">
+                <div class="form-check p-3 rounded-3 border border-secondary border-opacity-25" style="background: var(--bg-elevated);">
+                  <input class="form-check-input ms-0 me-2" type="radio" name="paymentMethod" id="pay-cb" value="CB" checked>
+                  <label class="form-check-label fw-bold text-white" for="pay-cb">
+                    <i class="bi bi-credit-card-2-front-fill me-2" style="color: var(--gold);"></i>Carte bancaire sécurisée
+                  </label>
                 </div>
-
-                <div id="card-fields" class="p-3 bg-dark rounded border border-secondary border-opacity-25 mb-3">
-                  <div class="mb-2">
-                    <label class="form-label small text-muted mb-1">Numéro de carte</label>
-                    <input type="text" class="form-control form-control-sm bg-secondary bg-opacity-25 border-secondary text-white" placeholder="4970 •••• •••• 1234" value="4970 8291 0341 9021">
-                  </div>
-                  <div class="row g-2">
-                    <div class="col-6">
-                      <label class="form-label small text-muted mb-1">Expiration</label>
-                      <input type="text" class="form-control form-control-sm bg-secondary bg-opacity-25 border-secondary text-white" placeholder="MM/AA" value="12/28">
-                    </div>
-                    <div class="col-6">
-                      <label class="form-label small text-muted mb-1">CVV</label>
-                      <input type="password" maxlength="3" class="form-control form-control-sm bg-secondary bg-opacity-25 border-secondary text-white" placeholder="123" value="789">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="p-3 bg-secondary bg-opacity-10 rounded text-center">
-                  <div class="small text-muted text-uppercase fw-bold">Montant total débité :</div>
-                  <div class="fs-3 fw-bold text-warning" id="checkout-final-total">0.00 €</div>
+                <div class="form-check p-3 rounded-3 border border-secondary border-opacity-25" style="background: var(--bg-elevated);">
+                  <input class="form-check-input ms-0 me-2" type="radio" name="paymentMethod" id="pay-apple" value="APPLE_PAY">
+                  <label class="form-check-label fw-bold text-white" for="pay-apple">
+                    <i class="bi bi-apple me-2" style="color: var(--gold);"></i>Apple Pay / Google Pay
+                  </label>
                 </div>
               </div>
+            </div>
+
+            <!-- Récapitulatif Total -->
+            <div class="p-3 rounded-3 text-center mb-3" style="background: var(--bg-elevated);">
+              <span class="small text-muted text-uppercase fw-bold">Montant Total TTC :</span>
+              <div class="display-6 fw-bold font-display" style="color: var(--gold);" id="checkout-total-badge">0.00 €</div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-five-outline" data-bs-dismiss="modal">Retour</button>
-            <button type="submit" class="btn btn-five-yellow px-5">
-              <i class="bi bi-lock-fill me-1"></i> CONFIRMER & PAYER
+            <button type="submit" class="btn btn-five-yellow py-2 px-4">
+              CONFIRMER & PAYER LA COMMANDE ➔
             </button>
           </div>
         </form>
@@ -446,70 +420,32 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title fw-bold">🛵 SUIVI DE COMMANDE EN DIRECT</h4>
+          <h4 class="modal-title fw-bold font-display">🛵 SUIVI DE COMMANDE EN DIRECT</h4>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <div class="row g-3">
-            <div class="col-12 col-md-6">
-              <div class="p-3 bg-secondary bg-opacity-10 rounded-3 mb-3">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="small text-muted text-uppercase fw-bold">N° COMMANDE :</span>
-                  <span class="badge bg-warning text-dark fs-6 fw-bold" id="track-order-id">OPT-948201</span>
-                </div>
-                <div class="d-flex justify-content-between align-items-center mt-2">
-                  <span class="small text-muted text-uppercase fw-bold">TEMPS ESTIMÉ :</span>
-                  <span class="fw-bold text-warning" id="track-order-eta">25 - 35 min</span>
-                </div>
-                <div class="small text-muted mt-2">
-                  Destination : <b id="track-order-address" class="text-white">12 Avenue Aristide Briand, Noisy-le-Grand</b>
-                </div>
-              </div>
-
-              <h5 class="fw-bold mb-3">PROGRESSION :</h5>
-              <div id="tracking-steps-container">
-                <div class="order-step completed">
-                  <div class="order-step-bullet"><i class="bi bi-check-lg"></i></div>
-                  <div>
-                    <div class="fw-bold">Commande confirmée</div>
-                    <div class="small text-muted">Validée et transmise en cuisine</div>
-                  </div>
-                </div>
-                <div class="order-step current">
-                  <div class="order-step-bullet"><i class="bi bi-fire"></i></div>
-                  <div>
-                    <div class="fw-bold">Cuisson au feu de bois</div>
-                    <div class="small text-muted">Au four traditionnel à 450°C</div>
-                  </div>
-                </div>
-                <div class="order-step">
-                  <div class="order-step-bullet"><i class="bi bi-bicycle"></i></div>
-                  <div>
-                    <div class="fw-bold">Livreur en route</div>
-                    <div class="small text-muted">En scooter vers votre adresse</div>
-                  </div>
-                </div>
-                <div class="order-step">
-                  <div class="order-step-bullet"><i class="bi bi-geo-alt"></i></div>
-                  <div>
-                    <div class="fw-bold">Livraison effectuée</div>
-                    <div class="small text-muted">Bon appétit !</div>
-                  </div>
-                </div>
-              </div>
-
-              <button class="btn btn-sm btn-five-outline w-100 mt-3" id="btn-simulate-step">
-                ⚡ SIMULER L'AVANCEMENT DU LIVREUR
-              </button>
+          <div class="p-3 rounded-3 mb-3" style="background: var(--bg-elevated);">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <span class="small text-muted fw-bold">N° DE COMMANDE :</span>
+              <span class="fw-bold font-display" style="color: var(--gold);" id="tracking-order-id">OPT-102938</span>
             </div>
-
-            <div class="col-12 col-md-6">
-              <h5 class="fw-bold mb-2">TRAJET DU LIVREUR :</h5>
-              <div id="tracking-map" style="height: 300px;" class="rounded-3 border border-secondary border-opacity-25"></div>
-              <div class="small text-muted mt-2 text-center">
-                🍕 Pizzeria Opti'Noisy &nbsp;➔&nbsp; 📍 Votre position GPS
-              </div>
+            <div class="small text-muted">
+              Adresse : <strong class="text-white" id="tracking-address">12 Avenue Aristide Briand</strong>
             </div>
+          </div>
+
+          <!-- Stepper des étapes -->
+          <div class="mb-4" id="tracking-stepper">
+            <!-- Timeline steps injected -->
+          </div>
+
+          <!-- Carte Leaflet de suivi -->
+          <div id="tracking-map-container" style="height: 250px; background: #111;" class="rounded-3 border border-secondary border-opacity-25 mb-3"></div>
+
+          <div class="text-center">
+            <button class="btn btn-five-outline btn-sm" id="btn-advance-order-step">
+              <i class="bi bi-skip-forward-fill me-1"></i> Simuler l'avancement de la livraison
+            </button>
           </div>
         </div>
       </div>
@@ -521,61 +457,96 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <ul class="nav nav-pills w-100" id="authTabs" role="tablist">
-            <li class="nav-item flex-fill text-center">
-              <button class="nav-link active w-100 fw-bold" data-bs-toggle="pill" data-bs-target="#tab-login">CONNEXION</button>
-            </li>
-            <li class="nav-item flex-fill text-center">
-              <button class="nav-link w-100 fw-bold" data-bs-toggle="pill" data-bs-target="#tab-register">REJOINDRE LE CLUB</button>
-            </li>
-          </ul>
+          <h4 class="modal-title fw-bold font-display" id="auth-modal-title">CLUB GOURMET OPTI'NOISY</h4>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
-        <div class="modal-body">
-          <div class="tab-content">
-            <div class="tab-pane fade show active" id="tab-login">
-              <form id="form-login">
-                <div class="mb-3">
-                  <label class="form-label small text-muted">Email</label>
-                  <input type="email" id="login-email" class="form-control bg-secondary bg-opacity-25 border-secondary text-white" value="etudiant@mmi.fr" required>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label small text-muted">Mot de passe</label>
-                  <input type="password" id="login-password" class="form-control bg-secondary bg-opacity-25 border-secondary text-white" value="password123" required>
-                </div>
-                <button type="submit" class="btn btn-five-yellow w-100 py-2">SE CONNECTER</button>
-              </form>
-            </div>
 
-            <div class="tab-pane fade" id="tab-register">
-              <form id="form-register">
-                <div class="row g-2 mb-2">
-                  <div class="col-6">
-                    <label class="form-label small text-muted">Prénom</label>
-                    <input type="text" id="reg-firstname" class="form-control form-control-sm bg-secondary bg-opacity-25 border-secondary text-white" required>
+        <!-- Vue Profil Utilisateur -->
+        <div id="auth-profile-box" class="p-3" style="display: none;">
+          <div class="text-center mb-3">
+            <div class="d-inline-flex align-items-center justify-content-center rounded-circle p-3 mb-2" style="background: var(--primary-soft); border: 2px solid var(--primary); font-size: 2rem;">
+              🍕
+            </div>
+            <h5 class="fw-bold text-white mb-0 font-display" id="profile-user-name">Alexandre Dupont</h5>
+            <span class="small text-muted" id="profile-user-email">etudiant@mmi.fr</span>
+          </div>
+
+          <div class="p-3 rounded-3 text-center mb-3" style="background: var(--bg-elevated); border: 1px solid var(--border-color);">
+            <div class="small text-uppercase fw-bold" style="color: var(--gold);">POINTS GOURMET FIDÉLITÉ</div>
+            <div class="display-6 fw-bold text-white mb-1">120 <span class="fs-6" style="color: var(--gold);">PTS</span></div>
+            <span class="small text-success">🎉 Plus que 30 points pour une pizza offerte !</span>
+          </div>
+
+          <h6 class="small fw-bold text-muted text-uppercase mb-2">Historique des commandes</h6>
+          <div id="profile-orders-list" class="mb-3 overflow-y-auto" style="max-height: 180px;">
+            <!-- Order history -->
+          </div>
+
+          <button class="btn btn-five-outline w-100" id="btn-logout">
+            <i class="bi bi-box-arrow-right me-1"></i> Se déconnecter
+          </button>
+        </div>
+
+        <!-- Vue Formulaires Connexion / Inscription -->
+        <div id="auth-forms-box">
+          <div class="modal-body">
+            <ul class="nav nav-pills nav-fill mb-3" id="authTabs" role="tablist">
+              <li class="nav-item">
+                <button class="nav-link active rounded-pill fw-bold" id="login-tab" data-bs-toggle="pill" data-bs-target="#login-pane" type="button">Connexion</button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link rounded-pill fw-bold" id="register-tab" data-bs-toggle="pill" data-bs-target="#register-pane" type="button">Inscription</button>
+              </li>
+            </ul>
+
+            <div class="tab-content">
+              <!-- Connexion -->
+              <div class="tab-pane fade show active" id="login-pane">
+                <form id="loginForm">
+                  <div class="mb-3">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Email</label>
+                    <input type="email" id="login-email" class="form-control" required value="etudiant@mmi.fr">
                   </div>
-                  <div class="col-6">
-                    <label class="form-label small text-muted">Nom</label>
-                    <input type="text" id="reg-lastname" class="form-control form-control-sm bg-secondary bg-opacity-25 border-secondary text-white" required>
+                  <div class="mb-3">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Mot de passe</label>
+                    <input type="password" id="login-password" class="form-control" required value="password123">
                   </div>
-                </div>
-                <div class="mb-2">
-                  <label class="form-label small text-muted">Email</label>
-                  <input type="email" id="reg-email" class="form-control form-control-sm bg-secondary bg-opacity-25 border-secondary text-white" required>
-                </div>
-                <div class="mb-2">
-                  <label class="form-label small text-muted">Téléphone</label>
-                  <input type="tel" id="reg-phone" class="form-control form-control-sm bg-secondary bg-opacity-25 border-secondary text-white" required>
-                </div>
-                <div class="mb-2">
-                  <label class="form-label small text-muted">Adresse habituelle</label>
-                  <input type="text" id="reg-address" class="form-control form-control-sm bg-secondary bg-opacity-25 border-secondary text-white" placeholder="Optionnel">
-                </div>
-                <div class="mb-3">
-                  <label class="form-label small text-muted">Mot de passe</label>
-                  <input type="password" id="reg-password" class="form-control form-control-sm bg-secondary bg-opacity-25 border-secondary text-white" required>
-                </div>
-                <button type="submit" class="btn btn-five-yellow w-100 py-2">CRÉER MON COMPTE</button>
-              </form>
+                  <button type="submit" class="btn btn-five-yellow w-100 py-2">
+                    SE CONNECTER ➔
+                  </button>
+                </form>
+              </div>
+
+              <!-- Inscription -->
+              <div class="tab-pane fade" id="register-pane">
+                <form id="registerForm">
+                  <div class="row g-2 mb-2">
+                    <div class="col-6">
+                      <label class="form-label small fw-bold text-muted text-uppercase">Prénom</label>
+                      <input type="text" id="reg-firstname" class="form-control" required placeholder="Alex">
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label small fw-bold text-muted text-uppercase">Nom</label>
+                      <input type="text" id="reg-lastname" class="form-control" required placeholder="Dupont">
+                    </div>
+                  </div>
+                  <div class="mb-2">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Email</label>
+                    <input type="email" id="reg-email" class="form-control" required placeholder="alex@mmi.fr">
+                  </div>
+                  <div class="mb-2">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Téléphone</label>
+                    <input type="tel" id="reg-phone" class="form-control" required placeholder="06 12 34 56 78">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label small fw-bold text-muted text-uppercase">Mot de passe</label>
+                    <input type="password" id="reg-password" class="form-control" required placeholder="••••••••">
+                  </div>
+                  <button type="submit" class="btn btn-five-yellow w-100 py-2">
+                    CRÉER MON COMPTE & REJOINDRE LE CLUB ➔
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -583,17 +554,28 @@
     </div>
   </div>
 
-  <!-- Toast Container -->
-  <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3" style="bottom: 75px !important; z-index: 1090;" id="toast-container"></div>
+  <!-- Toast de notification -->
+  <div class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 3000;">
+    <div id="appToast" class="toast align-items-center text-white border-0 rounded-pill px-3 py-1" style="background: var(--bg-surface); border: 1px solid var(--primary) !important;" role="alert">
+      <div class="d-flex">
+        <div class="toast-body fw-bold" id="toast-message">
+          Article ajouté au panier !
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- Scripts -->
+  <!-- Bootstrap 5.3 JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Modules Métier -->
   <script src="js/data.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/geo.js"></script>
   <script src="js/orders.js"></script>
+  <!-- Script Application Bootstrap -->
   <script src="js/app-bootstrap.js"></script>
 </body>
 </html>
