@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Opti'Noisy Pizzeria - Prototype W3C Standard (MMI3)</title>
+  <title>Opti'Noisy Pizzeria - Style Five Pizza Original (W3C Standard)</title>
   
   <!-- Leaflet CSS pour la cartographie -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <!-- Styles 100% W3C HTML5 / CSS3 pur -->
+  <!-- Styles 100% W3C HTML5 / CSS3 pur Five Pizza -->
   <link rel="stylesheet" href="css/w3c-style.css">
 </head>
 <body>
@@ -15,31 +15,38 @@
   <!-- Barre MMI3 & Sélecteur de Prototype -->
   <aside class="w3c-tp-banner">
     <div style="display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; gap: 6px;">
-      <span>🎓 MMI3 TP Web Mobile - <strong>Prototype 2 : 100% W3C Standard (Sans Framework)</strong></span>
+      <span>🎓 MMI3 TP Web Mobile - <strong>PROTOTYPE 2 : 100% W3C STANDARD</strong> (Style Five Pizza)</span>
       <div style="display: flex; gap: 8px;">
-        <a href="index.html" style="background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px; font-size: 0.72rem;">Portail TP</a>
-        <a href="bootstrap.html" style="background: #BE1C1F; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.72rem;">➔ Voir Prototype 1 (Bootstrap 5)</a>
+        <a href="index.html" style="background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 100px; font-size: 0.72rem; font-weight: 700;">Portail TP</a>
+        <a href="bootstrap.html" style="background: var(--primary); color: #000; padding: 4px 10px; border-radius: 100px; font-weight: 900; font-size: 0.72rem;">➔ Voir Prototype 1 (Bootstrap 5)</a>
       </div>
     </div>
   </aside>
 
-  <!-- En-tête Mobile W3C -->
+  <!-- Marquee Ticker Five Pizza -->
+  <div class="w3c-marquee">
+    <div class="w3c-marquee-track">
+      🔥 FIVE PIZZA VIBE &bull; PAR VOUS, POUR TOUS &bull; PÂTE FRAÎCHE PÉTRIE CHAQUE MATIN &bull; PIZZAS ARTISANALES DÈS 9€50 &bull; LIVRAISON CHRONO CHEZ VOUS &bull; DISPO SUR UBER EATS & DELIVEROO &bull; REJOIGNEZ LE FIVE CLUB &bull; ON RÉCOMPENSE VOTRE FIDÉLITÉ &bull; 🔥 FIVE PIZZA VIBE &bull; PAR VOUS, POUR TOUS &bull; PÂTE FRAÎCHE PÉTRIE CHAQUE MATIN &bull; PIZZAS ARTISANALES DÈS 9€50 &bull; LIVRAISON CHRONO CHEZ VOUS &bull; DISPO SUR UBER EATS & DELIVEROO &bull; REJOIGNEZ LE FIVE CLUB &bull; ON RÉCOMPENSE VOTRE FIDÉLITÉ &bull;&nbsp;
+    </div>
+  </div>
+
+  <!-- En-tête Mobile W3C Five Pizza -->
   <header class="w3c-top-header">
     <div class="w3c-header-container">
       <div class="w3c-logo-wrap">
         <img src="assets/logo-opti-noisy.svg" alt="Opti'Noisy Pizzeria" class="w3c-logo-img">
         <div>
-          <h1 class="w3c-brand-title">Opti'Noisy <span>Pizza</span></h1>
+          <h1 class="w3c-brand-title">Opti'Noisy <span>Original</span></h1>
         </div>
       </div>
       <div class="w3c-header-actions">
         <button class="w3c-btn-icon" onclick="openW3CModal('w3c-auth-modal')" aria-label="Compte utilisateur">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
             <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
           </svg>
         </button>
         <button class="w3c-btn-icon" id="w3c-btn-cart" aria-label="Panier">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
             <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
           </svg>
           <span class="w3c-badge w3c-cart-badge-count" style="display: none;">0</span>
@@ -51,7 +58,7 @@
   <!-- Contenu Principal -->
   <main>
 
-    <!-- Slider Hero CSS Snap -->
+    <!-- Slider Hero CSS Snap Five Pizza -->
     <section class="w3c-hero-section">
       <div class="w3c-hero-slider" id="w3c-hero-slider">
         <!-- Injected from data.js -->
@@ -61,8 +68,8 @@
     <!-- Passerelles Uber Eats & Deliveroo -->
     <section class="w3c-container">
       <div class="w3c-platforms-box">
-        <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 4px;">🛵 Livraison Express Partenaire</h3>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">Commandez sur notre application ou directement via nos plateformes partenaires :</p>
+        <h3 style="font-size: 1.3rem; font-weight: 900; margin-bottom: 4px; color: #fff;">🛵 LIVRAISON CHRONO CHEZ VOUS</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">Commandez sur notre application ou directement via nos plateformes partenaires officielles :</p>
         <div class="w3c-platforms-grid">
           <a href="https://www.ubereats.com/fr" target="_blank" class="w3c-btn-uber">
             <img src="assets/LOGO-UBER-EAT.png" alt="Uber Eats" style="height: 20px; background: white; padding: 2px 4px; border-radius: 4px;">
@@ -86,8 +93,8 @@
     <!-- Section Pizzas -->
     <section class="w3c-container" id="w3c-pizza-section">
       <div class="w3c-section-heading">
-        <span>Nos Pizzas Artisanales</span>
-        <span style="font-size: 0.8rem; background: var(--primary); padding: 4px 10px; border-radius: 9999px;">22 Variétés</span>
+        <span>🔥 NOS PIZZAS ORIGINALES</span>
+        <span style="font-size: 0.8rem; background: var(--primary); color: #000; font-weight: 900; padding: 4px 12px; border-radius: 100px;">22 RECETTES</span>
       </div>
       <div class="w3c-products-grid" id="w3c-pizzas-grid">
         <!-- Injected -->
@@ -97,8 +104,8 @@
     <!-- Section Salades -->
     <section class="w3c-container" id="w3c-salad-section">
       <div class="w3c-section-heading">
-        <span>Nos Salades & Desserts</span>
-        <span style="font-size: 0.8rem; background: var(--secondary); padding: 4px 10px; border-radius: 9999px;">Frais & Maison</span>
+        <span>🥗 NOS SALADES & DESSERTS</span>
+        <span style="font-size: 0.8rem; background: var(--secondary); color: #fff; font-weight: 900; padding: 4px 12px; border-radius: 100px;">FRAÎCHEUR</span>
       </div>
       <div class="w3c-products-grid" id="w3c-salades-grid">
         <!-- Injected -->
@@ -107,7 +114,7 @@
 
   </main>
 
-  <!-- Bottom Navigation Mobile -->
+  <!-- Bottom Navigation Mobile Five Pizza -->
   <nav class="w3c-bottom-nav">
     <button class="w3c-nav-item active" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
       <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
@@ -128,15 +135,15 @@
     </button>
     <button class="w3c-nav-item" onclick="openW3CModal('w3c-auth-modal')">
       <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-      <span id="w3c-auth-user-label">Compte</span>
+      <span id="w3c-auth-user-label">Club</span>
     </button>
   </nav>
 
-  <!-- TIROIR PANIER W3C (Pure CSS/JS) -->
+  <!-- TIROIR PANIER W3C Five Pizza -->
   <div class="w3c-drawer-overlay" id="w3c-cart-drawer-overlay">
     <aside class="w3c-drawer">
       <div class="w3c-drawer-header">
-        <h3 style="font-size: 1.2rem; font-weight: 800;">🛒 Votre Panier</h3>
+        <h3 style="font-size: 1.3rem; font-weight: 900;">🛒 VOTRE PANIER</h3>
         <button class="w3c-btn-close" id="w3c-btn-close-drawer">&times;</button>
       </div>
       <div class="w3c-drawer-body" id="w3c-drawer-items">
@@ -149,17 +156,17 @@
         </div>
         <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">
           <span>Sous-total</span>
-          <span id="w3c-subtotal">0.00 €</span>
+          <span id="w3c-subtotal" style="color: #fff; font-weight: 700;">0.00 €</span>
         </div>
         <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">
           <span>Frais de livraison</span>
-          <span id="w3c-delivery">2.50 €</span>
+          <span id="w3c-delivery" style="color: #fff; font-weight: 700;">2.50 €</span>
         </div>
-        <div style="display: flex; justify-content: space-between; font-size: 1.15rem; font-weight: 800; border-top: 1px solid var(--border-color); padding-top: 8px; margin-bottom: 14px;">
-          <span>Total à payer</span>
-          <span style="color: var(--accent);" id="w3c-total">0.00 €</span>
+        <div style="display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: 900; border-top: 1px solid var(--border-color); padding-top: 10px; margin-bottom: 16px;">
+          <span>TOTAL</span>
+          <span style="color: var(--primary);" id="w3c-total">0.00 €</span>
         </div>
-        <button class="w3c-btn-block" id="w3c-btn-start-checkout">Valider & Payer en ligne ➔</button>
+        <button class="w3c-btn-block" id="w3c-btn-start-checkout">COMMANDER & PAYER EN LIGNE ➔</button>
       </div>
     </aside>
   </div>
@@ -172,15 +179,15 @@
         <button class="w3c-btn-close" onclick="closeW3CModal('w3c-size-modal')">&times;</button>
       </div>
       <div style="text-align: center; margin-bottom: 16px;">
-        <img id="w3c-modal-img" src="" alt="Pizza" style="width: 100%; max-height: 160px; object-fit: cover; border-radius: var(--radius-md);">
+        <img id="w3c-modal-img" src="" alt="Pizza" style="width: 100%; max-height: 170px; object-fit: cover; border-radius: var(--radius-md);">
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;" id="w3c-modal-desc"></p>
       </div>
-      <h4 style="font-size: 0.95rem; font-weight: 700; text-align: center; margin-bottom: 8px;">Choisissez la taille :</h4>
+      <h4 style="font-size: 0.95rem; font-weight: 900; text-align: center; margin-bottom: 8px;">FORMATS DISPONIBLES :</h4>
       <div class="w3c-size-grid" id="w3c-modal-sizes">
         <!-- Injected -->
       </div>
-      <div style="margin-top: 20px;">
-        <button class="w3c-btn-block" id="w3c-btn-modal-add">Ajouter au panier</button>
+      <div style="margin-top: 24px;">
+        <button class="w3c-btn-block" id="w3c-btn-modal-add">AJOUTER AU PANIER</button>
       </div>
     </div>
   </div>
@@ -189,7 +196,7 @@
   <div class="w3c-modal-overlay" id="w3c-checkout-modal">
     <div class="w3c-modal-box" style="max-width: 600px;">
       <div class="w3c-modal-header">
-        <h3 class="w3c-modal-title">Paiement & Livraison</h3>
+        <h3 class="w3c-modal-title">PAIEMENT & LIVRAISON</h3>
         <button class="w3c-btn-close" onclick="closeW3CModal('w3c-checkout-modal')">&times;</button>
       </div>
       <form id="w3c-checkout-form">
@@ -211,8 +218,8 @@
         <div class="w3c-form-group">
           <label class="w3c-label">Adresse de livraison</label>
           <input type="text" id="w3c-checkout-addr" class="w3c-input" required placeholder="Votre adresse">
-          <button type="button" class="w3c-btn-add" style="width: 100%; justify-content: center; margin-top: 8px; background: var(--secondary);" id="w3c-btn-geoloc">
-            📍 Me géolocaliser automatiquement
+          <button type="button" class="w3c-btn-add" style="width: 100%; justify-content: center; margin-top: 8px; background: var(--bg-elevated); color: var(--primary); border: 1px solid var(--primary);" id="w3c-btn-geoloc">
+            📍 ME GÉOLOCALISER AUTOMATIQUEMENT
           </button>
           <div id="w3c-geoloc-info"></div>
         </div>
@@ -223,23 +230,23 @@
         <div class="w3c-form-group">
           <label class="w3c-label">Mode de règlement</label>
           <div style="display: grid; gap: 8px;">
-            <label style="display: flex; align-items: center; gap: 10px; background: var(--bg-elevated); padding: 10px; border-radius: var(--radius-sm); cursor: pointer;">
+            <label style="display: flex; align-items: center; gap: 10px; background: var(--bg-elevated); padding: 12px; border-radius: var(--radius-sm); cursor: pointer; border: 1px solid var(--border-color);">
               <input type="radio" name="w3cPayMethod" value="CB" checked>
-              <span>💳 Carte bancaire sécurisée</span>
+              <span style="font-weight: 700;">💳 Carte bancaire sécurisée (Visa / MC)</span>
             </label>
-            <label style="display: flex; align-items: center; gap: 10px; background: var(--bg-elevated); padding: 10px; border-radius: var(--radius-sm); cursor: pointer;">
+            <label style="display: flex; align-items: center; gap: 10px; background: var(--bg-elevated); padding: 12px; border-radius: var(--radius-sm); cursor: pointer; border: 1px solid var(--border-color);">
               <input type="radio" name="w3cPayMethod" value="APPLE_PAY">
-              <span>📱 Apple Pay / Google Pay</span>
+              <span style="font-weight: 700;">📱 Apple Pay / Google Pay</span>
             </label>
           </div>
         </div>
 
-        <div style="text-align: center; padding: 12px; background: var(--bg-elevated); border-radius: var(--radius-sm); margin-bottom: 16px;">
-          <div style="font-size: 0.8rem; color: var(--text-muted);">Montant total :</div>
-          <div style="font-size: 1.4rem; font-weight: 800; color: var(--accent);" id="w3c-checkout-total-display">0.00 €</div>
+        <div style="text-align: center; padding: 16px; background: var(--bg-elevated); border-radius: var(--radius-sm); margin-bottom: 20px;">
+          <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; font-weight: 800;">Montant total :</div>
+          <div style="font-size: 1.6rem; font-weight: 900; color: var(--primary);" id="w3c-checkout-total-display">0.00 €</div>
         </div>
 
-        <button type="submit" class="w3c-btn-block" style="background: var(--secondary);">Confirmer & Payer la commande</button>
+        <button type="submit" class="w3c-btn-block">CONFIRMER & PAYER LA COMMANDE</button>
       </form>
     </div>
   </div>
@@ -248,30 +255,30 @@
   <div class="w3c-modal-overlay" id="w3c-tracking-modal">
     <div class="w3c-modal-box" style="max-width: 600px;">
       <div class="w3c-modal-header">
-        <h3 class="w3c-modal-title">🛵 Suivi de votre Commande</h3>
+        <h3 class="w3c-modal-title">🛵 SUIVI DU LIVREUR EN DIRECT</h3>
         <button class="w3c-btn-close" onclick="closeW3CModal('w3c-tracking-modal')">&times;</button>
       </div>
-      <div style="background: var(--bg-elevated); padding: 14px; border-radius: var(--radius-sm); margin-bottom: 16px;">
+      <div style="background: var(--bg-elevated); padding: 16px; border-radius: var(--radius-sm); margin-bottom: 16px;">
         <div style="display: flex; justify-content: space-between;">
-          <span style="font-size: 0.85rem; color: var(--text-muted);">N° Commande :</span>
-          <span style="font-weight: 800; color: var(--primary);" id="w3c-track-id">OPT-384910</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 700;">N° COMMANDE :</span>
+          <span style="font-weight: 900; color: var(--primary);" id="w3c-track-id">OPT-384910</span>
         </div>
         <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">
           Destination : <strong id="w3c-track-addr" style="color: #fff;">12 Avenue Aristide Briand</strong>
         </div>
       </div>
-      <div id="w3c-track-map" style="height: 240px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-bottom: 16px;"></div>
-      <p style="text-align: center; font-size: 0.85rem; color: var(--secondary); font-weight: 700;">
-        🔥 Pizza en cours de cuisson au feu de bois ! Livreur prêt au départ.
+      <div id="w3c-track-map" style="height: 250px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-bottom: 16px;"></div>
+      <p style="text-align: center; font-size: 0.85rem; color: var(--primary); font-weight: 900;">
+        🔥 CUISSON AU FOUR EN COURS &bull; LE LIVREUR ARRIVE TRÈS VITE !
       </p>
     </div>
   </div>
 
-  <!-- MODAL : Authentification W3C -->
+  <!-- MODAL : Authentification W3C Five Club -->
   <div class="w3c-modal-overlay" id="w3c-auth-modal">
     <div class="w3c-modal-box">
       <div class="w3c-modal-header">
-        <h3 class="w3c-modal-title">Espace Client</h3>
+        <h3 class="w3c-modal-title">FIVE CLUB OPTI'NOISY</h3>
         <button class="w3c-btn-close" onclick="closeW3CModal('w3c-auth-modal')">&times;</button>
       </div>
       <form id="w3c-auth-form">
@@ -283,7 +290,7 @@
           <label class="w3c-label">Mot de passe</label>
           <input type="password" id="w3c-auth-pass" class="w3c-input" required value="password123">
         </div>
-        <button type="submit" class="w3c-btn-block">Se connecter</button>
+        <button type="submit" class="w3c-btn-block">SE CONNECTER AU CLUB</button>
       </form>
     </div>
   </div>
