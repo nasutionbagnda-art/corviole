@@ -1,6 +1,6 @@
 /**
  * Opti'Noisy Pizzeria - Logique du Prototype 2 (W3C Standard)
- * HTML5 & CSS3 pur - Zéro dépendance Bootstrap
+ * Structure & Style inspirés de Five Pizza Original
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -13,11 +13,18 @@ let currentW3CFilter = 'all';
 
 function initW3CApp() {
   renderW3CHeroSlider();
+  renderW3CDeals();
+  renderW3CConcepts();
   renderW3CFilters();
   renderW3CProducts();
   setupW3CEventListeners();
   updateW3CCartCount();
   updateW3CAuthUI();
+
+  // Initialisation carte restaurant sur la page principale
+  setTimeout(() => {
+    window.geoManager.initMap('w3c-page-restaurant-map');
+  }, 500);
 }
 
 function renderW3CHeroSlider() {
@@ -30,7 +37,44 @@ function renderW3CHeroSlider() {
       <div class="w3c-hero-overlay">
         <h2 class="w3c-hero-title">${slide.title}</h2>
         <p class="w3c-hero-subtitle">${slide.subtitle}</p>
+        <div style="margin-top: 14px;">
+          <button class="w3c-btn-add" style="padding: 12px 26px; font-size: 0.9rem;" onclick="document.getElementById('w3c-menu-section').scrollIntoView({behavior: 'smooth'})">
+            COMMANDER MAINTENANT ➔
+          </button>
+        </div>
       </div>
+    </div>
+  `).join('');
+}
+
+function renderW3CDeals() {
+  const container = document.getElementById('w3c-deals-grid');
+  if (!container || !MENU_DATA.deals) return;
+
+  container.innerHTML = MENU_DATA.deals.map(deal => `
+    <div class="w3c-deal-card ${deal.highlight ? 'featured' : ''}">
+      <span class="w3c-deal-badge">${deal.badge}</span>
+      <h3 style="font-size: 1.25rem; font-weight: 900; margin: 10px 0 6px;">${deal.title}</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px; flex-grow: 1;">${deal.desc}</p>
+      <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 12px;">
+        <span style="font-size: 1.25rem; font-weight: 900; color: var(--primary);">${deal.price}</span>
+        <button class="w3c-btn-add" onclick="document.getElementById('w3c-menu-section').scrollIntoView({behavior: 'smooth'})">
+          PROFITER ➔
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderW3CConcepts() {
+  const container = document.getElementById('w3c-concept-grid');
+  if (!container || !MENU_DATA.concepts) return;
+
+  container.innerHTML = MENU_DATA.concepts.map(item => `
+    <div class="w3c-concept-item">
+      <div style="font-size: 2.5rem; margin-bottom: 12px;">${item.icon}</div>
+      <h4 style="font-size: 1.1rem; font-weight: 900; margin-bottom: 8px;">${item.title}</h4>
+      <p style="font-size: 0.82rem; color: var(--text-muted);">${item.desc}</p>
     </div>
   `).join('');
 }
@@ -39,16 +83,19 @@ function renderW3CFilters() {
   const container = document.getElementById('w3c-category-bar');
   if (!container) return;
 
-  const categories = ['all', 'Classique', 'Fromagère', 'Carnivore', 'Épicée', 'Marinière', 'Spécialité', 'salades'];
+  const categories = [
+    { id: 'all', label: '🍕 TOUT LE MENU' },
+    { id: 'tomate', label: '🥫 BASE TOMATE' },
+    { id: 'creme', label: '🥛 BASE CRÈME' },
+    { id: 'speciale', label: '⭐ SPÉCIALITÉS' },
+    { id: 'salades', label: '🥗 SALADES & DESSERTS' }
+  ];
 
-  container.innerHTML = categories.map(cat => {
-    const label = cat === 'all' ? '🍕 Tout le menu' : (cat === 'salades' ? '🥗 Nos Salades' : cat);
-    return `
-      <button class="w3c-pill ${cat === currentW3CFilter ? 'active' : ''}" data-cat="${cat}">
-        ${label}
-      </button>
-    `;
-  }).join('');
+  container.innerHTML = categories.map(cat => `
+    <button class="w3c-pill ${cat.id === currentW3CFilter ? 'active' : ''}" data-cat="${cat.id}">
+      ${cat.label}
+    </button>
+  `).join('');
 
   container.querySelectorAll('.w3c-pill').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -68,7 +115,7 @@ function renderW3CProducts() {
 
   let filtered = MENU_DATA.pizzas;
   if (currentW3CFilter !== 'all' && currentW3CFilter !== 'salades') {
-    filtered = MENU_DATA.pizzas.filter(p => p.category.toLowerCase() === currentW3CFilter.toLowerCase());
+    filtered = MENU_DATA.pizzas.filter(p => p.base === currentW3CFilter);
   }
 
   if (currentW3CFilter === 'salades') {
@@ -87,9 +134,12 @@ function renderW3CProducts() {
           <h3 class="w3c-card-title">${pizza.name}</h3>
           <p class="w3c-card-desc">${pizza.description}</p>
           <div class="w3c-card-footer">
-            <span class="w3c-price">${pizza.basePrice.toFixed(2)} €</span>
+            <div>
+              <span style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); display: block; text-transform: uppercase;">Dès</span>
+              <span class="w3c-price">${pizza.basePrice.toFixed(2)} €</span>
+            </div>
             <button class="w3c-btn-add w3c-btn-select-pizza" data-id="${pizza.id}">
-              Tailles 🍕
+              CHOISIR LA TAILLE 🍕
             </button>
           </div>
         </div>
@@ -114,7 +164,7 @@ function renderW3CProducts() {
             <div class="w3c-card-footer">
               <span class="w3c-price">${salad.price.toFixed(2)} €</span>
               <button class="w3c-btn-add w3c-btn-add-salad" data-id="${salad.id}">
-                Ajouter +
+                AJOUTER +
               </button>
             </div>
           </div>
@@ -186,11 +236,10 @@ function openW3CSizeModal(pizzaId) {
 function updateW3CModalButton() {
   if (!currentW3CPizza || !currentW3CSize) return;
   const price = currentW3CPizza.basePrice + currentW3CSize.priceBonus;
-  document.getElementById('w3c-btn-modal-add').innerText = `Ajouter au panier • ${price.toFixed(2)} €`;
+  document.getElementById('w3c-btn-modal-add').innerText = `AJOUTER AU PANIER • ${price.toFixed(2)} €`;
 }
 
 function setupW3CEventListeners() {
-  // Confirmation taille pizza
   const btnAdd = document.getElementById('w3c-btn-modal-add');
   if (btnAdd) {
     btnAdd.addEventListener('click', () => {
@@ -244,7 +293,7 @@ function setupW3CEventListeners() {
     });
   }
 
-  // Formulaire d'authentification W3C
+  // Authentification W3C
   const authForm = document.getElementById('w3c-auth-form');
   if (authForm) {
     authForm.addEventListener('submit', (e) => {
@@ -267,12 +316,12 @@ function setupW3CEventListeners() {
   if (btnGeoloc) {
     btnGeoloc.addEventListener('click', async () => {
       btnGeoloc.disabled = true;
-      btnGeoloc.innerText = 'Recherche GPS...';
+      btnGeoloc.innerText = 'Recherche GPS en cours...';
       try {
         const loc = await window.geoManager.getCurrentPosition();
         document.getElementById('w3c-checkout-addr').value = loc.address;
         document.getElementById('w3c-geoloc-info').innerHTML = `
-          <div style="background: rgba(19,103,47,0.2); border: 1px solid var(--secondary); padding: 8px 12px; border-radius: 8px; font-size: 0.8rem; margin-top: 8px;">
+          <div style="background: rgba(253,227,84,0.15); border: 1px solid var(--primary); color: #fff; padding: 10px 14px; border-radius: var(--radius-sm); font-size: 0.85rem; margin-top: 10px; font-weight: 700;">
             📍 Distance : <b>${loc.distance} km</b> • Temps estimé : <b>${loc.estimatedTime}</b>
           </div>
         `;
@@ -281,7 +330,7 @@ function setupW3CEventListeners() {
         alert(err.message);
       } finally {
         btnGeoloc.disabled = false;
-        btnGeoloc.innerText = '📍 Me géolocaliser automatiquement';
+        btnGeoloc.innerText = '📍 ME GÉOLOCALISER AUTOMATIQUEMENT';
       }
     });
   }
@@ -292,7 +341,7 @@ function setupW3CEventListeners() {
     checkoutForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const totals = window.cartManager.getTotals();
-      if (totals.count === 0) return alert('Panier vide.');
+      if (totals.count === 0) return alert('Votre panier est vide.');
 
       const orderData = {
         customer: {
@@ -340,10 +389,10 @@ function renderW3CDrawer() {
 
   if (window.cartManager.cart.length === 0) {
     container.innerHTML = `
-      <div style="text-align: center; padding: 40px 10px; color: var(--text-muted);">
-        <div style="font-size: 2.5rem; margin-bottom: 10px;">🍕</div>
-        <h4>Votre panier est vide</h4>
-        <p style="font-size: 0.85rem;">Sélectionnez une pizza pour commencer !</p>
+      <div style="text-align: center; padding: 50px 10px; color: var(--text-muted);">
+        <div style="font-size: 3rem; margin-bottom: 12px;">🍕</div>
+        <h4 style="font-weight: 900; color: #fff;">VOTRE PANIER EST VIDE</h4>
+        <p style="font-size: 0.85rem; margin-top: 6px;">Ajoutez vos pizzas préférées pour commencer la commande !</p>
       </div>
     `;
     document.getElementById('w3c-drawer-footer').style.display = 'none';
@@ -353,17 +402,17 @@ function renderW3CDrawer() {
   document.getElementById('w3c-drawer-footer').style.display = 'block';
 
   container.innerHTML = window.cartManager.cart.map(item => `
-    <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px; margin-bottom: 10px; background: var(--bg-elevated); border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
-      <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
-      <div style="flex-grow: 1; margin: 0 12px;">
-        <div style="font-weight: 700; font-size: 0.9rem;">${item.name}</div>
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px; margin-bottom: 12px; background: var(--bg-elevated); border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+      <img src="${item.image}" alt="${item.name}" style="width: 55px; height: 55px; object-fit: cover; border-radius: 8px;">
+      <div style="flex-grow: 1; margin: 0 14px;">
+        <div style="font-weight: 900; font-size: 0.95rem;">${item.name}</div>
         <div style="font-size: 0.75rem; color: var(--text-muted);">${item.sizeName}</div>
-        <div style="font-weight: 800; color: var(--accent); font-size: 0.85rem;">${(item.price * item.quantity).toFixed(2)} €</div>
+        <div style="font-weight: 900; color: var(--primary); font-size: 0.95rem; margin-top: 2px;">${(item.price * item.quantity).toFixed(2)} €</div>
       </div>
       <div style="display: flex; align-items: center; gap: 8px;">
-        <button class="w3c-btn-icon" style="width: 28px; height: 28px;" onclick="window.cartManager.updateQuantity('${item.cartItemId}', -1)">-</button>
-        <span style="font-weight: 700; font-size: 0.9rem;">${item.quantity}</span>
-        <button class="w3c-btn-icon" style="width: 28px; height: 28px;" onclick="window.cartManager.updateQuantity('${item.cartItemId}', 1)">+</button>
+        <button class="w3c-btn-icon" style="width: 32px; height: 32px;" onclick="window.cartManager.updateQuantity('${item.cartItemId}', -1)">-</button>
+        <span style="font-weight: 900; font-size: 0.95rem;">${item.quantity}</span>
+        <button class="w3c-btn-icon" style="width: 32px; height: 32px;" onclick="window.cartManager.updateQuantity('${item.cartItemId}', 1)">+</button>
       </div>
     </div>
   `).join('');
@@ -388,7 +437,7 @@ function openW3CCheckoutModal() {
   openW3CModal('w3c-checkout-modal');
   setTimeout(() => {
     window.geoManager.initMap('w3c-checkout-map');
-  }, 200);
+  }, 250);
 }
 
 function openW3CTrackingModal(order) {
@@ -401,7 +450,7 @@ function openW3CTrackingModal(order) {
     if (order.coords) {
       window.geoManager.updateMapWithUser(order.coords.lat, order.coords.lng, order.address);
     }
-  }, 200);
+  }, 250);
 }
 
 function openW3CModal(modalId) {
@@ -418,7 +467,7 @@ function updateW3CAuthUI() {
   const user = window.authManager.getCurrentUser();
   const label = document.getElementById('w3c-auth-user-label');
   if (label) {
-    label.innerText = user ? user.firstName : 'Connexion';
+    label.innerText = user ? user.firstName : 'Club';
   }
 }
 
@@ -429,16 +478,18 @@ function showW3CNotification(text) {
     notif.id = 'w3c-toast';
     notif.style.cssText = `
       position: fixed;
-      top: 20px;
+      top: 24px;
       left: 50%;
       transform: translateX(-50%);
       background: var(--primary);
-      color: white;
-      padding: 10px 20px;
-      border-radius: 30px;
-      font-weight: 700;
+      color: var(--primary-text);
+      padding: 12px 24px;
+      border-radius: var(--radius-pill);
+      font-weight: 900;
       font-size: 0.9rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
       z-index: 2000;
       transition: opacity 0.3s ease;
       opacity: 0;
