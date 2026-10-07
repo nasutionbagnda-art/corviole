@@ -1,0 +1,9 @@
+{
+  "appId": "fr.mmi.optinoisypizza",
+  "appName": "OptiNoisy Pizza",
+  "webDir": ".",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}

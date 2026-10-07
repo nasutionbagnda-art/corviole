@@ -1,0 +1,689 @@
+/**
+ * Opti'Noisy Pizzeria - Feuille de style 100% W3C Standard
+ * HTML5 & CSS3 pur - Zéro framework externe
+ */
+
+:root {
+  --primary: #BE1C1F;
+  --primary-hover: #961316;
+  --secondary: #13672F;
+  --accent: #F9B464;
+  --bg-main: #0b0f19;
+  --bg-card: #161f30;
+  --bg-elevated: #1f2b42;
+  --border-color: #27354f;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 2px 6px rgba(0,0,0,0.25);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.35);
+  --shadow-lg: 0 16px 36px rgba(0,0,0,0.5);
+  --transition: all 0.25s ease-in-out;
+}
+
+/* Reset W3C */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.5;
+  padding-bottom: 80px;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Header & Nav */
+.w3c-top-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(11, 15, 25, 0.95);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.w3c-tp-banner {
+  background: linear-gradient(90deg, var(--secondary), var(--primary));
+  padding: 4px 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.w3c-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.w3c-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.w3c-logo-img {
+  height: 42px;
+  width: auto;
+}
+
+.w3c-brand-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+}
+
+.w3c-brand-title span {
+  color: var(--primary);
+}
+
+.w3c-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.w3c-btn-icon {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: var(--transition);
+}
+
+.w3c-btn-icon:hover {
+  background: var(--bg-elevated);
+  border-color: var(--primary);
+}
+
+.w3c-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+/* Hero CSS Scroll Snap */
+.w3c-hero-section {
+  position: relative;
+  overflow: hidden;
+  max-width: 1200px;
+  margin: 16px auto;
+  border-radius: var(--radius-md);
+  padding: 0 16px;
+}
+
+.w3c-hero-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.w3c-hero-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.w3c-hero-slide {
+  flex: 0 0 100%;
+  position: relative;
+  height: 220px;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 768px) {
+  .w3c-hero-slide {
+    height: 320px;
+  }
+}
+
+.w3c-hero-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.w3c-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(11, 15, 25, 0.92) 0%, rgba(11, 15, 25, 0.2) 60%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.w3c-hero-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.w3c-hero-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Category Filter Bar */
+.w3c-filters-wrap {
+  max-width: 1200px;
+  margin: 0 auto 16px;
+  padding: 0 16px;
+}
+
+.w3c-category-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.w3c-category-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.w3c-pill {
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.w3c-pill.active, .w3c-pill:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(190, 28, 31, 0.4);
+}
+
+/* Main Container & Grid */
+.w3c-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.w3c-section-heading {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.w3c-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 600px) {
+  .w3c-products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Product Card */
+.w3c-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+}
+
+.w3c-card:hover {
+  transform: translateY(-4px);
+  border-color: #3b4e72;
+  box-shadow: var(--shadow-md);
+}
+
+.w3c-card-thumb {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+  background: #000;
+}
+
+.w3c-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.w3c-card:hover .w3c-card-thumb img {
+  transform: scale(1.05);
+}
+
+.w3c-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  box-shadow: var(--shadow-sm);
+}
+
+.w3c-tag.veggie {
+  background: var(--secondary);
+}
+
+.w3c-card-body {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.w3c-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.w3c-card-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  flex-grow: 1;
+  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.w3c-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-color);
+}
+
+.w3c-price {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.w3c-btn-add {
+  background: var(--primary);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+
+.w3c-btn-add:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+/* Modals & Dialogs (W3C Pure CSS/JS) */
+.w3c-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.w3c-modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.w3c-modal-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  padding: 24px;
+  transform: scale(0.95);
+  transition: transform 0.25s ease;
+}
+
+.w3c-modal-overlay.active .w3c-modal-box {
+  transform: scale(1);
+}
+
+.w3c-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.w3c-modal-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.w3c-btn-close {
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: var(--transition);
+}
+
+.w3c-btn-close:hover {
+  color: #fff;
+  background: var(--primary);
+}
+
+/* Size Options in Modal */
+.w3c-size-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.w3c-size-card {
+  background: var(--bg-elevated);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.w3c-size-card:hover, .w3c-size-card.active {
+  border-color: var(--primary);
+  background: rgba(190, 28, 31, 0.15);
+}
+
+.w3c-size-card img {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 6px;
+}
+
+.w3c-size-name {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.w3c-size-cm {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.w3c-size-price {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-top: 4px;
+}
+
+/* Bottom Navigation Mobile */
+.w3c-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: rgba(11, 15, 25, 0.96);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 200;
+}
+
+.w3c-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 6px;
+  position: relative;
+  transition: var(--transition);
+}
+
+.w3c-nav-item.active, .w3c-nav-item:hover {
+  color: var(--primary);
+}
+
+.w3c-nav-item svg {
+  width: 22px;
+  height: 22px;
+  margin-bottom: 2px;
+  fill: currentColor;
+}
+
+/* Cart Drawer (Pure CSS/JS) */
+.w3c-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.w3c-drawer-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.w3c-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 420px;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+  z-index: 1001;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.w3c-drawer-overlay.active .w3c-drawer {
+  transform: translateX(0);
+}
+
+.w3c-drawer-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.w3c-drawer-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.w3c-drawer-footer {
+  padding: 20px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-elevated);
+}
+
+/* Forms */
+.w3c-form-group {
+  margin-bottom: 14px;
+}
+
+.w3c-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-muted);
+}
+
+.w3c-input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.w3c-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(190, 28, 31, 0.2);
+}
+
+.w3c-btn-block {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.w3c-btn-block:hover {
+  background: var(--primary-hover);
+}
+
+/* External Platforms Banner */
+.w3c-platforms-box {
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-elevated));
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin: 24px 0;
+}
+
+.w3c-platforms-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.w3c-btn-uber {
+  background: #06C167;
+  color: #fff;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.w3c-btn-deliveroo {
+  background: #00CDBC;
+  color: #fff;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
