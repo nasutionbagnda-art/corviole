@@ -1,0 +1,19 @@
+{
+  "name": "Opti'Noisy Pizza (Bootstrap 5.3)",
+  "short_name": "Opti'Noisy BS",
+  "description": "Application web mobile de commandes de pizzas artisanales au feu de bois - MMI3 Vélizy",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0E1013",
+  "theme_color": "#BE1C1F",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "../assets/logo-opti-noisy.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

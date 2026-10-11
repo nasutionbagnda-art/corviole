@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opti'Noisy Pizza • Back-Office Atelier & Commandes en Direct</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- Barre superieure d'en-tete -->
+  <header class="admin-header">
+    <div class="header-left">
+      <img src="../assets/logo-opti-noisy.svg" alt="Opti'Noisy Pizza" class="admin-logo">
+      <div>
+        <h1 class="admin-title">Opti'Noisy <span>Back-Office Atelier</span></h1>
+        <p class="admin-subtitle">Gestion des commandes en direct, cuisson au feu de bois & expeditions coursier</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="live-status-pill">
+        <span class="live-pulse-dot"></span>
+        <span>Service en direct • Four 450°C</span>
+      </div>
+      <div class="clock-display" id="adminClock">--:--:--</div>
+      <a href="../index.html" class="btn-top-back">Portail Principal</a>
+    </div>
+  </header>
+
+  <div class="admin-container">
+
+    <!-- KPI / Statistiques en direct -->
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Commandes Totales</div>
+        <div class="kpi-value" id="kpiTotalOrders">0</div>
+        <div class="kpi-sub">Enregistrees en session</div>
+      </div>
+      <div class="kpi-card highlight-orange">
+        <div class="kpi-label">Au Four a Bois</div>
+        <div class="kpi-value" id="kpiInOven">0</div>
+        <div class="kpi-sub">Cuisson active en cours</div>
+      </div>
+      <div class="kpi-card highlight-blue">
+        <div class="kpi-label">En Route / Coursier</div>
+        <div class="kpi-value" id="kpiInDelivery">0</div>
+        <div class="kpi-sub">Livraison dans Noisy-le-Grand</div>
+      </div>
+      <div class="kpi-card highlight-green">
+        <div class="kpi-label">Livrees</div>
+        <div class="kpi-value" id="kpiDelivered">0</div>
+        <div class="kpi-sub">Terminees avec succes</div>
+      </div>
+      <div class="kpi-card highlight-gold">
+        <div class="kpi-label">Chiffre d'Affaires</div>
+        <div class="kpi-value" id="kpiRevenue">0.00 €</div>
+        <div class="kpi-sub">Total TTC cumule</div>
+      </div>
+    </section>
+
+    <!-- Barre d'outils et de filtres -->
+    <div class="toolbar-section">
+      <div class="filter-tabs">
+        <button type="button" class="tab-btn active" data-filter="all" onclick="AdminApp.setFilter('all')">
+          Toutes (<span id="filterCountAll">0</span>)
+        </button>
+        <button type="button" class="tab-btn" data-filter="active" onclick="AdminApp.setFilter('active')">
+          En cours (<span id="filterCountActive">0</span>)
+        </button>
+        <button type="button" class="tab-btn" data-filter="oven" onclick="AdminApp.setFilter('oven')">
+          Au four (<span id="filterCountOven">0</span>)
+        </button>
+        <button type="button" class="tab-btn" data-filter="delivery" onclick="AdminApp.setFilter('delivery')">
+          En route (<span id="filterCountDelivery">0</span>)
+        </button>
+        <button type="button" class="tab-btn" data-filter="delivered" onclick="AdminApp.setFilter('delivered')">
+          Livrees (<span id="filterCountDelivered">0</span>)
+        </button>
+      </div>
+
+      <div class="toolbar-right">
+        <div class="admin-search-wrap">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="adminSearchInput" placeholder="Rechercher commande, client..." oninput="AdminApp.handleSearch(this.value)">
+        </div>
+        <div class="action-buttons">
+          <button type="button" class="btn-action btn-simulate" onclick="AdminApp.createDemoOrder()">
+            + Simuler Commande
+          </button>
+          <button type="button" class="btn-action btn-danger-soft" onclick="AdminApp.clearAllOrders()">
+            Vider l'historique
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification d'arrivee en direct -->
+    <div id="newOrderBanner" class="new-order-alert" style="display: none;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+      <div>
+        <strong>Nouvelle commande client recue en direct !</strong>
+        <span id="newOrderText">N° OPT-XXXX</span>
+      </div>
+      <button type="button" class="close-alert-btn" onclick="document.getElementById('newOrderBanner').style.display='none'">&times;</button>
+    </div>
+
+    <!-- Grille des Commandes -->
+    <main class="orders-grid" id="adminOrdersGrid">
+      <!-- Rempli par admin.js -->
+    </main>
+
+  </div>
+
+  <!-- Modale d'edition d'instruction, prix, notes & statut -->
+  <div class="admin-modal-overlay" id="editOrderModal" style="display: none;" onclick="if(event.target===this) AdminApp.closeEditModal()">
+    <div class="admin-modal-box">
+      <div class="admin-modal-header">
+        <h3 id="editModalTitle">Modifier la commande</h3>
+        <button type="button" class="close-modal-btn" onclick="AdminApp.closeEditModal()">&times;</button>
+      </div>
+      <div class="admin-modal-body">
+        <input type="hidden" id="editOrderId">
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div class="form-group">
+            <label>Ajustement Prix TTC (€) :</label>
+            <input type="number" id="editOrderPrice" step="0.50" min="0">
+          </div>
+          <div class="form-group">
+            <label>Remise Exceptionnelle (€) :</label>
+            <input type="number" id="editOrderDiscount" step="0.50" min="0">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Statut de preparation :</label>
+          <select id="editOrderStepSelect" class="form-select-dark">
+            <option value="1">1. Commande Validee</option>
+            <option value="2">2. Au Four a Bois (Cuisson)</option>
+            <option value="3">3. En Route (Coursier)</option>
+            <option value="4">4. Livree avec Succes</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Instructions particulieres du client :</label>
+          <textarea id="editOrderInstructions" rows="2"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Note interne Atelier Pizzaiolo (visible cuisine) :</label>
+          <input type="text" id="editOrderKitchenNote" placeholder="Ex: Prioritaire, client habitue, preparer avec soin">
+        </div>
+      </div>
+      <div class="admin-modal-footer">
+        <button type="button" class="btn-cancel" onclick="AdminApp.closeEditModal()">Annuler</button>
+        <button type="button" class="btn-save" onclick="AdminApp.saveOrderModifications()">Enregistrer les modifications</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../shared/data.js"></script>
+  <script src="../shared/storage.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

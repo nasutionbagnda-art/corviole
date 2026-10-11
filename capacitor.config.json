@@ -1,0 +1,20 @@
+{
+  "appId": "fr.mmi.optinoisypizza",
+  "appName": "Opti'Noisy Pizza",
+  "webDir": "prototype-bootstrap",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "Geolocation": {
+      "permissions": ["location"]
+    },
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "backgroundColor": "#BE1C1F",
+      "showSpinner": true,
+      "spinnerColor": "#FFFFFF"
+    }
+  }
+}

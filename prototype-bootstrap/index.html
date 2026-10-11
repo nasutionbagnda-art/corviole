@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#BE1C1F">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Opti'Noisy Pizza - Commande de pizzas artisanales au feu de bois a Noisy-le-Grand.">
+  <title>Opti'Noisy Pizza - Prototype Bootstrap 5.3</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../assets/logo-opti-noisy.svg">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+  <!-- Feuille de styles custom -->
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+
+  <!-- Barre superieure discrete PC -->
+  <div class="app-top-control-bar">
+    <div class="d-flex align-items-center gap-2">
+      <span class="badge bg-danger text-uppercase fw-bold" style="font-size: 0.68rem; letter-spacing: 0.5px;">Bootstrap 5.3</span>
+      <span class="opacity-75 d-none d-sm-inline">Opti'Noisy Pizza</span>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+      <button type="button" id="toggleDesktopModeBtn" title="Basculer largeur PC / Smartphone">
+        <span id="desktopModeBtnText">Vue PC Elargie</span>
+      </button>
+      <a href="../index.html" class="fw-bold text-warning">
+        Portail TP
+      </a>
+    </div>
+  </div>
+
+  <!-- Conteneur principal de l'application Mobile -->
+  <div class="mobile-app-wrapper">
+
+    <!-- En-tete Sticky epure -->
+    <header class="app-header">
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-2 cursor-pointer" role="button" onclick="App.switchTab('home')">
+          <img src="../assets/logo-opti-noisy.svg" alt="Opti'Noisy Pizza" class="brand-logo-img">
+          <div>
+            <div class="fw-bold lh-1 text-dark" style="font-size: 1.1rem; letter-spacing: -0.3px;">Opti'Noisy Pizza</div>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+          <button type="button" class="btn btn-light rounded-circle p-2 text-dark shadow-sm border" onclick="App.switchTab('geo')" title="Zone de livraison" aria-label="Zone de livraison">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#BE1C1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          </button>
+          <button type="button" class="btn btn-light rounded-circle p-2 text-dark shadow-sm border position-relative" onclick="App.switchTab('cart')" title="Panier" aria-label="Panier">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1C20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="headerCartBadge" style="display: none; font-size: 0.65rem;">
+              0
+            </span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- ONGLET 1 : ACCUEIL (#tab-home) -->
+    <!-- ========================================== -->
+    <main id="tab-home" class="p-3">
+      
+      <!-- Hero Banner -->
+      <div class="hero-card shadow-sm mb-3">
+        <img src="../assets/OPTINOISY-Mob-visuel-intro3.jpg" alt="Pizzas Artisanales au Feu de Bois Opti'Noisy">
+        <div class="hero-overlay">
+          <span class="badge bg-danger mb-1 px-2 py-1 text-uppercase fw-bold" style="font-size: 0.65rem;">Fait Maison • Pate Maturation 48h</span>
+          <h2 class="h5 fw-bold mb-1 text-white">L'artisanat italien a Noisy</h2>
+          <p class="small mb-2 text-light opacity-90" style="font-size: 0.78rem;">Cuites au feu de bois avec des ingredients AOP importes d'Italie.</p>
+          <div class="d-flex gap-2">
+            <button class="btn btn-danger btn-sm fw-bold px-3 rounded-pill shadow" onclick="App.switchTab('menu')">
+              Commander en ligne
+            </button>
+            <button class="btn btn-outline-light btn-sm fw-bold px-3 rounded-pill" onclick="App.switchTab('geo')">
+              Zone de livraison
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passerelles Partenaires Uber Eats & Deliveroo -->
+      <div class="card border-0 shadow-sm rounded-4 p-3 mb-3 bg-light">
+        <span class="fw-bold text-dark small mb-2 d-block">Passerelles de commande partenaires</span>
+        <div class="row g-2">
+          <div class="col-6">
+            <div class="partner-box" role="button" onclick="App.openPartnerGatewayModal('ubereats')">
+              <img src="../assets/LOGO-UBER-EAT.png" alt="Uber Eats" style="height: 22px; max-width: 100px; object-fit: contain;">
+              <small class="text-muted mt-2 fw-semibold" style="font-size: 0.72rem;">Commander via Uber</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="partner-box" role="button" onclick="App.openPartnerGatewayModal('deliveroo')">
+              <img src="../assets/logo-deliveroo.png" alt="Deliveroo" style="height: 22px; max-width: 100px; object-fit: contain;">
+              <small class="text-muted mt-2 fw-semibold" style="font-size: 0.72rem;">Commander via Deliveroo</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Les 3 Tailles de Pizzas au choix -->
+      <div class="mb-3">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <h3 class="h6 fw-bold mb-0 text-dark">3 Tailles au choix pour chaque pizza</h3>
+          <span class="small text-muted" style="font-size: 0.72rem;">Artisanales</span>
+        </div>
+        <div class="row g-2">
+          <div class="col-4">
+            <div class="size-preview-card" id="homeSizeCard-junior" role="button" onclick="App.selectHomeSize('junior')">
+              <img src="../assets/picto-pizza-junior-26.svg" alt="Junior">
+              <div class="fw-bold small text-dark" id="homeSizeLabel-junior">Junior</div>
+              <div class="text-muted" style="font-size: 0.68rem;">26 cm • 1 pers.</div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="size-preview-card selected" id="homeSizeCard-moyenne" role="button" onclick="App.selectHomeSize('moyenne')">
+              <img src="../assets/picto-pizza-moyenne-31.svg" alt="Moyenne">
+              <div class="fw-bold small text-danger" id="homeSizeLabel-moyenne">Moyenne</div>
+              <div class="text-muted" style="font-size: 0.68rem;">31 cm • 1-2 pers.</div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="size-preview-card" id="homeSizeCard-familiale" role="button" onclick="App.selectHomeSize('familiale')">
+              <img src="../assets/picto-pizza-familiale-40.svg" alt="Familiale">
+              <div class="fw-bold small text-dark" id="homeSizeLabel-familiale">Familiale</div>
+              <div class="text-muted" style="font-size: 0.68rem;">40 cm • 3-4 pers.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Incontournables de la semaine -->
+      <div class="mb-3">
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <h3 class="h6 fw-bold mb-0 text-dark">Les Incontournables de la semaine</h3>
+          <a href="#" class="small text-danger fw-bold text-decoration-none" onclick="App.switchTab('menu')">Voir tout</a>
+        </div>
+        <div class="row g-2" id="homeBestSellersGrid">
+          <!-- Rempli par JS -->
+        </div>
+      </div>
+
+      <!-- Engagements Qualite -->
+      <div class="p-3 bg-light rounded-4 mb-2 border">
+        <h4 class="h6 fw-bold text-dark mb-2">Nos Engagements Qualite</h4>
+        <div class="row g-2 small text-muted">
+          <div class="col-6 d-flex align-items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#13672F" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Farine tipo 00 certifiee
+          </div>
+          <div class="col-6 d-flex align-items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#13672F" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Mozzarella Fior di Latte
+          </div>
+          <div class="col-6 d-flex align-items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#13672F" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Cuisson au four a bois
+          </div>
+          <div class="col-6 d-flex align-items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#13672F" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Livraison express Noisy
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- ONGLET 2 : LA CARTE (#tab-menu) -->
+    <!-- ========================================== -->
+    <main id="tab-menu" class="p-3" style="display: none;">
+      
+      <!-- Barre superieure de retour vers l'accueil -->
+      <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom">
+        <button type="button" class="btn btn-sm btn-outline-dark rounded-pill fw-bold d-flex align-items-center gap-1" onclick="App.switchTab('home')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Accueil
+        </button>
+        <h3 class="h6 fw-bold mb-0 text-dark">La Carte des Pizzas</h3>
+        <span class="badge bg-light text-dark border" id="menuCountLabel">25 produits</span>
+      </div>
+
+      <!-- Barre de recherche -->
+      <div class="search-input-group mb-2">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="menuSearchInput" placeholder="Rechercher une pizza, ingredient..." oninput="App.onSearchInput(this.value)">
+      </div>
+
+      <!-- Categories defilantes -->
+      <div class="category-scroll-container mb-3" id="categoryPillsContainer">
+        <!-- Pilules generees par JS -->
+      </div>
+
+      <!-- Grille des produits -->
+      <div class="row g-2" id="menuProductsGrid">
+        <!-- Produits generes par JS -->
+      </div>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- ONGLET 3 : LIVRAISON (#tab-geo) -->
+    <!-- ========================================== -->
+    <main id="tab-geo" class="p-3" style="display: none;">
+      
+      <!-- Bandeau Statut Atelier & Rayon -->
+      <div class="card border-0 rounded-4 shadow-sm p-3 mb-3 bg-white">
+        <div class="d-flex align-items-center justify-content-between mb-1">
+          <div class="d-flex align-items-center gap-2">
+            <span class="d-inline-block rounded-circle bg-success" style="width: 8px; height: 8px;"></span>
+            <span class="fw-bold small text-dark">Livraison Express Ouverte</span>
+          </div>
+          <span class="badge bg-success-subtle text-success border border-success fw-bold" style="font-size: 0.72rem;">Rayon direct 8 km</span>
+        </div>
+        <p class="small text-muted mb-0" style="font-size: 0.78rem;">
+          Pizzeria Opti'Noisy • 12 Avenue du Marechal Foch, 93160 Noisy-le-Grand. Livraison en scooter isotherme.
+        </p>
+      </div>
+
+      <!-- Selecteur de Secteur / Quartier avec Cards cliquables -->
+      <div class="card border-0 rounded-4 shadow-sm p-3 mb-3 bg-white">
+        <label class="form-label small fw-bold text-dark mb-2">Choisissez votre secteur a Noisy-le-Grand :</label>
+        
+        <div class="row g-2 mb-3">
+          <div class="col-6">
+            <div class="geo-sector-card selected p-2 rounded-3 border" id="geoCard-iut" onclick="App.selectDeliverySector(48.8415, 2.5855, 'Campus IUT Noisy-Champs, 2 Allee de l\'IUT', 'iut', 2.4)">
+              <div class="fw-bold small text-dark">Campus IUT</div>
+              <div class="text-danger fw-semibold" style="font-size: 0.7rem;">2.4 km • ~25 min</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="geo-sector-card p-2 rounded-3 border" id="geoCard-centre" onclick="App.selectDeliverySector(48.8488, 2.5525, 'Centre-Ville, 12 Avenue Foch', 'centre', 0.5)">
+              <div class="fw-bold small text-dark">Centre Noisy</div>
+              <div class="text-muted" style="font-size: 0.7rem;">0.5 km • ~15 min</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="geo-sector-card p-2 rounded-3 border" id="geoCard-gare" onclick="App.selectDeliverySector(48.8407, 2.5518, 'Gare Noisy Mont d\'Est', 'gare', 1.1)">
+              <div class="fw-bold small text-dark">Gare Mont d'Est</div>
+              <div class="text-muted" style="font-size: 0.7rem;">1.1 km • ~20 min</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="geo-sector-card p-2 rounded-3 border" id="geoCard-varenne" onclick="App.selectDeliverySector(48.8550, 2.5710, 'Quartier La Varenne', 'varenne', 1.8)">
+              <div class="fw-bold small text-dark">La Varenne</div>
+              <div class="text-muted" style="font-size: 0.7rem;">1.8 km • ~22 min</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-1">
+          <label class="form-label small text-muted mb-1" style="font-size: 0.75rem;">Ou saisissez votre adresse precise :</label>
+          <div class="input-group input-group-sm">
+            <input type="text" id="manualAddressInput" class="form-control" placeholder="Numero et nom de rue..." value="Campus IUT Noisy-Champs, 2 Allee de l'IUT" onchange="App.onAddressChange(this.value)">
+            <button class="btn btn-outline-danger fw-bold" type="button" onclick="App.locateMeGPS()">
+              GPS
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carte Interactive Leaflet -->
+      <div class="card border-0 rounded-4 shadow-sm p-2 mb-3 bg-white">
+        <div class="d-flex align-items-center justify-content-between px-2 pt-1 pb-2">
+          <span class="small fw-bold text-dark" style="font-size: 0.78rem;">Perimetre de livraison en direct</span>
+          <span class="small text-muted" style="font-size: 0.7rem;">Cliquez sur la carte pour deplacer</span>
+        </div>
+        <div id="leaflet-map" style="height: 250px; border-radius: 12px; overflow: hidden;"></div>
+      </div>
+
+      <!-- Synthese Conditions de Livraison (3 Compteurs Pro) -->
+      <div class="card border-0 rounded-4 shadow-sm p-3 mb-2 bg-white">
+        <div class="row g-2 text-center mb-3">
+          <div class="col-4">
+            <div class="p-2 bg-light rounded-3 border">
+              <div class="text-muted" style="font-size: 0.68rem; text-transform: uppercase; font-weight: 700;">Delai Estime</div>
+              <div class="fw-bold text-danger h6 mb-0" id="geoStatTime">~25 min</div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="p-2 bg-light rounded-3 border">
+              <div class="text-muted" style="font-size: 0.68rem; text-transform: uppercase; font-weight: 700;">Distance</div>
+              <div class="fw-bold text-dark h6 mb-0" id="geoStatDistance">2.4 km</div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="p-2 bg-light rounded-3 border">
+              <div class="text-muted" style="font-size: 0.68rem; text-transform: uppercase; font-weight: 700;">Livraison</div>
+              <div class="fw-bold text-success h6 mb-0" id="geoStatFee">Offerte > 25€</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-2 rounded-3 text-center border" id="geoZoneBanner" style="background: #F0FDF4; border-color: #BBF7D0 !important;">
+          <span class="fw-bold text-success small" id="geoZoneStatusText">Zone couverte : Livraison directe en scooter electrique</span>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- ONGLET 4 : PANIER (#tab-cart) -->
+    <!-- ========================================== -->
+    <main id="tab-cart" class="p-3" style="display: none;">
+      
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <h3 class="h5 fw-bold mb-0 text-dark">Mon Panier</h3>
+        <button type="button" class="btn btn-sm btn-link text-danger text-decoration-none p-0 fw-semibold" onclick="App.clearCartAction()" id="cartClearBtn">
+          Vider le panier
+        </button>
+      </div>
+
+      <!-- Mode de commande -->
+      <div class="card border-0 rounded-4 shadow-sm p-3 mb-3 bg-light">
+        <span class="small fw-bold text-dark d-block mb-2">Canal de commande :</span>
+        <div class="row g-2">
+          <div class="col-4">
+            <div class="partner-box border-danger bg-white py-2" id="channelBtnDirect" role="button" onclick="App.selectDeliveryChannel('direct')">
+              <span class="fw-bold small text-danger">Opti'Noisy</span>
+              <small class="text-success fw-bold" style="font-size: 0.65rem;">Direct (0€)</small>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="partner-box bg-white py-2" id="channelBtnUber" role="button" onclick="App.selectDeliveryChannel('ubereats')">
+              <img src="../assets/LOGO-UBER-EAT.png" alt="Uber Eats" style="height: 16px; max-width: 65px; object-fit: contain;">
+              <small class="text-muted" style="font-size: 0.65rem;">Passerelle</small>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="partner-box bg-white py-2" id="channelBtnDeliveroo" role="button" onclick="App.selectDeliveryChannel('deliveroo')">
+              <img src="../assets/logo-deliveroo.png" alt="Deliveroo" style="height: 16px; max-width: 65px; object-fit: contain;">
+              <small class="text-muted" style="font-size: 0.65rem;">Passerelle</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Jauge livraison offerte -->
+      <div id="cartFreeDeliveryNotice" class="card border-0 rounded-3 p-2 px-3 mb-3 small">
+        <!-- Rempli par JS -->
+      </div>
+
+      <!-- Liste articles -->
+      <div id="cartItemsList" class="mb-3">
+        <!-- Rempli par JS -->
+      </div>
+
+      <!-- Suggesions gourmandes (Cross-Selling Desserts / Boissons) -->
+      <div class="card border-0 rounded-4 p-3 mb-3 bg-light" id="crossSellingSection">
+        <span class="small fw-bold text-dark d-block mb-2">Envie d'une douceur artisanale ?</span>
+        <div class="row g-2">
+          <div class="col-6">
+            <div class="bg-white p-2 rounded-3 border d-flex align-items-center justify-content-between shadow-xs" style="cursor: pointer; transition: all 0.2s ease;" onclick="App.quickAddDessert('salade-fruits')" role="button">
+              <div class="text-truncate me-2">
+                <div class="fw-bold small text-dark text-truncate">Salade de Fruits</div>
+                <div class="text-danger fw-semibold" style="font-size: 0.72rem;">5.50 €</div>
+              </div>
+              <button type="button" class="btn btn-sm btn-danger py-0 px-2 rounded-pill fw-bold" onclick="event.stopPropagation(); App.quickAddDessert('salade-fruits')">+</button>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="bg-white p-2 rounded-3 border d-flex align-items-center justify-content-between shadow-xs" style="cursor: pointer; transition: all 0.2s ease;" onclick="App.quickAddDessert('salade-cesar')" role="button">
+              <div class="text-truncate me-2">
+                <div class="fw-bold small text-dark text-truncate">Salade Cesar</div>
+                <div class="text-danger fw-semibold" style="font-size: 0.72rem;">9.50 €</div>
+              </div>
+              <button type="button" class="btn btn-sm btn-danger py-0 px-2 rounded-pill fw-bold" onclick="event.stopPropagation(); App.quickAddDessert('salade-cesar')">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code Promo & Pourboire -->
+      <div class="card border-0 rounded-4 p-3 mb-3 bg-light">
+        <div class="mb-2">
+          <label class="form-label small fw-bold text-dark mb-1">Code promo :</label>
+          <div class="input-group input-group-sm">
+            <input type="text" id="cartPromoInput" class="form-control" placeholder="Entrez MMI2026 (-15%)">
+            <button class="btn btn-dark fw-bold" type="button" onclick="App.applyPromoAction()">Appliquer</button>
+          </div>
+          <div id="promoFeedback" class="small mt-1" style="font-size: 0.72rem;"></div>
+        </div>
+        <div>
+          <label class="form-label small fw-bold text-dark mb-1">Pourboire pour l'equipe (facultatif) :</label>
+          <div class="d-flex gap-1">
+            <button type="button" class="btn btn-sm btn-outline-secondary flex-fill tip-btn active" onclick="App.selectTip(0, this)">0 €</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary flex-fill tip-btn" onclick="App.selectTip(1, this)">+1 €</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary flex-fill tip-btn" onclick="App.selectTip(2, this)">+2 €</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary flex-fill tip-btn" onclick="App.selectTip(3, this)">+3 €</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total & Checkout -->
+      <div id="cartSummaryBox" class="card border-0 rounded-4 shadow-sm p-3 bg-light">
+        <div class="d-flex justify-content-between mb-1 small">
+          <span class="text-muted">Sous-total :</span>
+          <span class="fw-bold" id="cartSubtotalText">0.00 €</span>
+        </div>
+        <div class="d-flex justify-content-between mb-1 small text-success" id="cartDiscountLine" style="display: none !important;">
+          <span>Reduction code promo :</span>
+          <span class="fw-bold" id="cartDiscountText">-0.00 €</span>
+        </div>
+        <div class="d-flex justify-content-between mb-1 small text-muted" id="cartTipLine" style="display: none !important;">
+          <span>Pourboire pizzaiolo :</span>
+          <span class="fw-bold" id="cartTipText">+0.00 €</span>
+        </div>
+        <div class="d-flex justify-content-between mb-1 small">
+          <span class="text-muted">Frais de livraison :</span>
+          <span class="fw-bold" id="cartDeliveryFeeText">0.00 €</span>
+        </div>
+        <hr class="my-2">
+        <div class="d-flex justify-content-between mb-3">
+          <span class="h6 fw-bold mb-0">Total TTC :</span>
+          <span class="h5 fw-bold text-danger mb-0" id="cartTotalText">0.00 €</span>
+        </div>
+        <button type="button" class="btn btn-danger w-100 fw-bold py-2 rounded-3 shadow-sm" onclick="App.proceedToCheckout()">
+          Passer la commande
+        </button>
+      </div>
+
+      <!-- Etat panier vide -->
+      <div id="cartEmptyState" class="text-center py-5" style="display: none;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ADB5BD" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line></svg>
+        <h4 class="h6 fw-bold mt-2">Votre panier est vide</h4>
+        <p class="small text-muted mb-3">Decouvrez nos pizzas artisanales au feu de bois.</p>
+        <button type="button" class="btn btn-danger btn-sm px-4 rounded-pill fw-bold" onclick="App.switchTab('menu')">
+          Parcourir la carte
+        </button>
+      </div>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- ONGLET 5 : MON COMPTE (#tab-account) -->
+    <!-- ========================================== -->
+    <main id="tab-account" class="p-3" style="display: none;">
+      
+      <!-- Vue Invite -->
+      <div id="accountGuestView">
+        <div class="text-center mb-3">
+          <img src="../assets/logo-opti-noisy.svg" alt="Opti Noisy" style="height: 48px;" class="mb-2">
+          <h3 class="h5 fw-bold mb-1">Espace Client</h3>
+          <p class="small text-muted">Connectez-vous pour suivre vos commandes en direct.</p>
+        </div>
+
+        <!-- Section commande active invitee (visible des paiement valide) -->
+        <div id="guestActiveOrdersSection"></div>
+
+        <ul class="nav nav-pills nav-fill mb-3">
+          <li class="nav-item">
+            <button type="button" class="nav-link active fw-bold small" onclick="App.toggleAuthForm('login')" id="btnTabLogin">Se connecter</button>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="nav-link fw-bold small" onclick="App.toggleAuthForm('register')" id="btnTabRegister">Creer un compte</button>
+          </li>
+        </ul>
+
+        <!-- Formulaire Connexion -->
+        <form id="formLogin" onsubmit="App.handleLoginSubmit(event)" class="card border-0 rounded-4 shadow-sm p-3 mb-3">
+          <div class="mb-2">
+            <label class="form-label small fw-bold mb-1">Adresse Email</label>
+            <input type="email" id="loginEmail" class="form-control form-control-sm" required placeholder="nom@exemple.com">
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-bold mb-1">Mot de passe</label>
+            <input type="password" id="loginPassword" class="form-control form-control-sm" required placeholder="••••••••">
+          </div>
+          <button type="submit" class="btn btn-danger w-100 fw-bold btn-sm py-2 rounded-3 mb-2">
+            Se connecter
+          </button>
+          <button type="button" class="btn btn-outline-secondary w-100 btn-sm py-2 rounded-3" onclick="App.fillDemoAccount()">
+            Compte testeur MMI (demo@mmi.fr)
+          </button>
+        </form>
+
+        <!-- Formulaire Inscription -->
+        <form id="formRegister" onsubmit="App.handleRegisterSubmit(event)" class="card border-0 rounded-4 shadow-sm p-3 mb-3" style="display: none;">
+          <div class="row g-2 mb-2">
+            <div class="col-6">
+              <label class="form-label small fw-bold mb-1">Prenom</label>
+              <input type="text" id="regFirstName" class="form-control form-control-sm" required placeholder="Lucas">
+            </div>
+            <div class="col-6">
+              <label class="form-label small fw-bold mb-1">Nom</label>
+              <input type="text" id="regLastName" class="form-control form-control-sm" required placeholder="Moreau">
+            </div>
+          </div>
+          <div class="mb-2">
+            <label class="form-label small fw-bold mb-1">Email</label>
+            <input type="email" id="regEmail" class="form-control form-control-sm" required placeholder="lucas@mmi.fr">
+          </div>
+          <div class="mb-2">
+            <label class="form-label small fw-bold mb-1">Telephone</label>
+            <input type="tel" id="regPhone" class="form-control form-control-sm" required placeholder="06 12 34 56 78">
+          </div>
+          <div class="mb-2">
+            <label class="form-label small fw-bold mb-1">Adresse</label>
+            <input type="text" id="regAddress" class="form-control form-control-sm" required placeholder="12 Avenue Foch, Noisy-le-Grand">
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-bold mb-1">Mot de passe</label>
+            <input type="password" id="regPassword" class="form-control form-control-sm" required minlength="4" placeholder="••••••••">
+          </div>
+          <button type="submit" class="btn btn-danger w-100 fw-bold btn-sm py-2 rounded-3">
+            Creer mon compte
+          </button>
+        </form>
+      </div>
+
+      <!-- Vue Connecte -->
+      <div id="accountLoggedInView" style="display: none;">
+        <div class="card border-0 rounded-4 shadow-sm p-3 mb-3 bg-light">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <div class="d-flex align-items-center gap-2">
+              <div class="rounded-circle bg-danger text-white fw-bold d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;" id="userAvatarText">
+                U
+              </div>
+              <div>
+                <h4 class="h6 fw-bold mb-0 text-dark" id="userNameDisplay">Prenom Nom</h4>
+                <small class="text-muted" id="userEmailDisplay">email@exemple.com</small>
+              </div>
+            </div>
+            <button type="button" class="btn btn-outline-danger btn-sm py-1 px-2" onclick="App.logout()">
+              Deconnexion
+            </button>
+          </div>
+          <div class="small text-muted pt-2 border-top">
+            Adresse : <span id="userAddressDisplay">Adresse enregistree</span>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <h4 class="h6 fw-bold mb-0 text-dark">Suivi & Historique des Commandes</h4>
+          <span class="badge bg-light text-dark border" id="userOrderCountBadge">0 commande</span>
+        </div>
+        <div id="userOrdersList">
+          <!-- Injecte par JS -->
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Barre flottante Panier actif -->
+    <div class="floating-cart-bar" id="floatingCartBar" role="button" onclick="App.switchTab('cart')">
+      <div class="d-flex align-items-center gap-2">
+        <span class="badge bg-white text-danger fw-bold rounded-pill" id="floatingCartCount">0</span>
+        <span class="fw-bold small" id="floatingCartTotal">0.00 €</span>
+      </div>
+      <div class="d-flex align-items-center gap-1 small fw-bold">
+        <span>Voir le panier</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </div>
+    </div>
+
+  </div><!-- /mobile-app-wrapper -->
+
+  <!-- ========================================== -->
+  <!-- BOTTOM NAVIGATION BAR -->
+  <!-- ========================================== -->
+  <nav class="mobile-bottom-nav">
+    <button type="button" class="nav-tab-item active" id="navTabHome" onclick="App.switchTab('home')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>Accueil</span>
+    </button>
+    <button type="button" class="nav-tab-item" id="navTabMenu" onclick="App.switchTab('menu')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      <span>La Carte</span>
+    </button>
+    <button type="button" class="nav-tab-item position-relative" id="navTabCart" onclick="App.switchTab('cart')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      <span class="nav-tab-badge" id="bottomNavCartBadge" style="display: none;">0</span>
+      <span>Panier</span>
+    </button>
+    <button type="button" class="nav-tab-item" id="navTabGeo" onclick="App.switchTab('geo')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+      <span>Livraison</span>
+    </button>
+    <button type="button" class="nav-tab-item" id="navTabAccount" onclick="App.switchTab('account')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      <span>Compte</span>
+    </button>
+  </nav>
+
+  <!-- ========================================== -->
+  <!-- MODAL : FICHE PRODUIT -->
+  <!-- ========================================== -->
+  <!-- ========================================== -->
+  <!-- MODAL : FICHE PRODUIT (FOOTER STICKY GARANTI) -->
+  <!-- ========================================== -->
+  <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content rounded-4 border-0 shadow-lg overflow-hidden position-relative">
+        <button type="button" class="btn-close position-absolute top-0 end-0 m-3 z-3 bg-white p-2 rounded-circle shadow-sm" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        
+        <div class="modal-body p-3">
+          <div class="rounded-4 overflow-hidden mb-3 position-relative shadow-sm" style="height: 165px; background: #F8F9FA;">
+            <img src="" alt="" id="modalProductImage" class="w-100 h-100" style="object-fit: cover;">
+            <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1" id="modalProductBadge"></span>
+          </div>
+
+          <h3 class="h5 fw-bold mb-1 text-dark" id="modalProductName">Nom</h3>
+          <p class="small text-muted mb-3" id="modalProductDesc">Description</p>
+
+          <!-- Selecteur 3 Tailles -->
+          <div id="modalSizeSection">
+            <label class="form-label small fw-bold text-dark mb-1">Choisissez la taille :</label>
+            <div class="size-selector-grid">
+              <div class="size-option-card" id="sizeCard-junior" onclick="App.selectProductModalSize('junior')">
+                <img src="../assets/picto-pizza-junior-26.svg" alt="Junior" class="size-picto-img" style="height: 36px; max-height: 36px; width: auto; max-width: 36px; object-fit: contain; margin: 0 auto 4px; display: block;">
+                <div class="fw-bold" style="font-size: 0.82rem;">Junior</div>
+                <div class="text-muted" style="font-size: 0.68rem;">26 cm • 1 pers.</div>
+                <div class="fw-bold text-danger mt-1" id="sizePrice-junior" style="font-size: 0.88rem;">0.00 €</div>
+              </div>
+              <div class="size-option-card selected" id="sizeCard-moyenne" onclick="App.selectProductModalSize('moyenne')">
+                <img src="../assets/picto-pizza-moyenne-31.svg" alt="Moyenne" class="size-picto-img" style="height: 36px; max-height: 36px; width: auto; max-width: 36px; object-fit: contain; margin: 0 auto 4px; display: block;">
+                <div class="fw-bold" style="font-size: 0.82rem;">Moyenne</div>
+                <div class="text-muted" style="font-size: 0.68rem;">31 cm • 1-2 pers.</div>
+                <div class="fw-bold text-danger mt-1" id="sizePrice-moyenne" style="font-size: 0.88rem;">0.00 €</div>
+              </div>
+              <div class="size-option-card" id="sizeCard-familiale" onclick="App.selectProductModalSize('familiale')">
+                <img src="../assets/picto-pizza-familiale-40.svg" alt="Familiale" class="size-picto-img" style="height: 36px; max-height: 36px; width: auto; max-width: 36px; object-fit: contain; margin: 0 auto 4px; display: block;">
+                <div class="fw-bold" style="font-size: 0.82rem;">Familiale</div>
+                <div class="text-muted" style="font-size: 0.68rem;">40 cm • 3-4 pers.</div>
+                <div class="fw-bold text-danger mt-1" id="sizePrice-familiale" style="font-size: 0.88rem;">0.00 €</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extras -->
+          <div class="mb-3" id="modalExtrasSection">
+            <label class="form-label small fw-bold text-dark mb-1">Extras du chef :</label>
+            <div id="modalExtrasList">
+              <!-- Rempli par JS -->
+            </div>
+          </div>
+
+          <!-- Remarques -->
+          <div class="mb-2">
+            <label class="form-label small fw-bold text-dark mb-1">Instructions particulieres :</label>
+            <input type="text" id="modalInstructions" class="form-control form-control-sm" placeholder="Ex: Pâte bien cuite, sans origan...">
+          </div>
+        </div>
+
+        <!-- Pied de modal STICKY fixe en bas (nativement visible sans scroll) -->
+        <div class="modal-footer p-2 px-3 bg-white border-top shadow-sm d-flex align-items-center justify-content-between z-3 m-0" style="position: sticky; bottom: 0;">
+          <div class="d-flex align-items-center gap-2">
+            <button type="button" class="btn btn-outline-secondary btn-sm rounded-circle p-0" style="width: 32px; height: 32px;" onclick="App.changeModalQty(-1)">-</button>
+            <span class="fw-bold px-2" id="modalQtyDisplay" style="font-size: 1rem;">1</span>
+            <button type="button" class="btn btn-outline-secondary btn-sm rounded-circle p-0" style="width: 32px; height: 32px;" onclick="App.changeModalQty(1)">+</button>
+          </div>
+          <button type="button" class="btn btn-danger fw-bold px-3 py-2 rounded-3 shadow-sm flex-grow-1 ms-3" onclick="App.confirmAddToCart()">
+            Ajouter au panier • <span id="modalFinalPrice">0.00 €</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL : PASSERELLE PARTENAIRE ACTIVE -->
+  <!-- ========================================== -->
+  <div class="modal fade" id="partnerModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 border-0 shadow-lg text-center p-3">
+        <div class="modal-header border-0 pb-0 justify-content-end">
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body pt-0">
+          <img src="" alt="Partenaire" id="partnerModalLogo" style="height: 38px; max-width: 150px; object-fit: contain;" class="mb-3">
+          <h4 class="h5 fw-bold mb-2" id="partnerModalTitle">Passerelle Partenaire</h4>
+          <p class="small text-muted mb-3" id="partnerModalDesc">
+            Votre commande Opti'Noisy est prete a etre transmise au service de livraison partenaire.
+          </p>
+          <div class="p-3 bg-light rounded-3 mb-3 text-start small border">
+            <div class="d-flex justify-content-between mb-1">
+              <span>Articles a transmettre :</span>
+              <strong id="partnerModalCartCount">0 article</strong>
+            </div>
+            <div class="d-flex justify-content-between mb-1">
+              <span>Estimation delai :</span>
+              <strong class="text-success">25 - 35 min</strong>
+            </div>
+            <div class="d-flex justify-content-between">
+              <span>Suivi coursier :</span>
+              <strong class="text-primary">En direct sur la passerelle</strong>
+            </div>
+          </div>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-dark w-100 fw-bold py-2 rounded-3 shadow-sm mb-2" id="partnerModalActionBtn">
+            Ouvrir la passerelle officielle
+          </a>
+          <button type="button" class="btn btn-link text-muted btn-sm text-decoration-none" data-bs-dismiss="modal">
+            Revenir a la commande directe Opti'Noisy
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL : PAIEMENT SECURISE HAUTE FIDELITE -->
+  <!-- ========================================== -->
+  <div class="modal fade" id="checkoutModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content rounded-4 border-0 shadow-lg">
+        <div class="modal-header border-0 pb-0">
+          <h4 class="h6 fw-bold mb-0 text-dark">Paiement Securise en Ligne</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body px-3 pb-3">
+          
+          <!-- Carte Bancaire Visuelle Interactive -->
+          <div class="virtual-credit-card" id="virtualCardWidget">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="virtual-card-chip"></div>
+              <div class="fw-bold fst-italic" style="font-size: 1.1rem; letter-spacing: 1px;">VISA</div>
+            </div>
+            <div class="virtual-card-number" id="vCardNumber">4970 8210 9345 6789</div>
+            <div class="virtual-card-footer">
+              <div>
+                <div style="font-size: 0.6rem; opacity: 0.7;">TITULAIRE</div>
+                <div class="fw-bold" id="vCardHolder">LUCAS MOREAU</div>
+              </div>
+              <div>
+                <div style="font-size: 0.6rem; opacity: 0.7;">EXPIRE FIN</div>
+                <div class="fw-bold" id="vCardExp">10/28</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Moyens de paiement -->
+          <div class="d-flex gap-2 mb-3">
+            <button type="button" class="btn btn-sm btn-outline-danger flex-fill active fw-bold" id="payMethodCB" onclick="App.selectPaymentMethod('cb')">
+              Carte Bancaire
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary flex-fill fw-bold" id="payMethodApple" onclick="App.selectPaymentMethod('applepay')">
+              Apple Pay
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary flex-fill fw-bold" id="payMethodCash" onclick="App.selectPaymentMethod('especes')">
+              Especes
+            </button>
+          </div>
+
+          <!-- Formulaire Carte -->
+          <div id="cbPaymentForm">
+            <div class="mb-2">
+              <label class="form-label small fw-bold mb-1">Numero de carte</label>
+              <input type="text" id="cbCardNumber" class="form-control form-control-sm" placeholder="4970 8210 9345 6789" maxlength="19" value="4970 8210 9345 6789" oninput="App.onCardNumberInput(this.value)">
+            </div>
+            <div class="row g-2 mb-2">
+              <div class="col-6">
+                <label class="form-label small fw-bold mb-1">Expiration (MM/AA)</label>
+                <input type="text" id="cbCardExp" class="form-control form-control-sm" placeholder="10/28" maxlength="5" value="10/28" oninput="App.onCardExpInput(this.value)">
+              </div>
+              <div class="col-6">
+                <label class="form-label small fw-bold mb-1">CVV</label>
+                <input type="password" id="cbCardCvv" class="form-control form-control-sm" placeholder="842" maxlength="3" value="842">
+              </div>
+            </div>
+            <div class="mb-2">
+              <label class="form-label small fw-bold mb-1">Nom sur la carte</label>
+              <input type="text" id="cbCardName" class="form-control form-control-sm" placeholder="Lucas Moreau" value="Lucas Moreau" oninput="App.onCardNameInput(this.value)">
+            </div>
+          </div>
+
+          <!-- Section Apple Pay -->
+          <div id="applePaySection" style="display: none;" class="text-center py-3">
+            <button type="button" class="btn btn-dark w-100 py-2 rounded-3 fw-bold mb-2 shadow" onclick="App.executeOnlinePayment()" style="background: #000; border: none; font-size: 1rem;">
+              Payer avec Apple Pay
+            </button>
+            <small class="text-muted" style="font-size: 0.72rem;">Validation par Face ID ou Touch ID</small>
+          </div>
+
+          <!-- Section Especes -->
+          <div id="cashPaySection" style="display: none;" class="p-3 bg-light rounded-3 mb-2 small text-muted">
+            Reglement en especes directement aupres du livreur lors de la remise de votre commande. Prevoyez l'appoint si possible.
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-bold mb-1">Adresse de livraison confirmee</label>
+            <input type="text" id="checkoutDeliveryAddress" class="form-control form-control-sm" value="12 Avenue du Marechal Foch, 93160 Noisy-le-Grand">
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-3 p-2 bg-light rounded-3 border">
+            <span class="small text-muted">Total a debiter :</span>
+            <span class="h6 fw-bold text-danger mb-0" id="checkoutTotalAmount">0.00 €</span>
+          </div>
+
+          <button type="button" class="btn btn-danger w-100 fw-bold py-2 rounded-3 shadow-sm" id="btnConfirmPay" onclick="App.executeOnlinePayment()">
+            Valider et Regler la Commande
+          </button>
+
+          <div id="paymentProcessingLoader" class="text-center py-3" style="display: none;">
+            <div class="spinner-border text-danger mb-2" role="status"></div>
+            <div class="small fw-bold text-dark">Verification 3D-Secure en cours...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- Modal Ticket de Caisse / Facture Imprimable -->
+  <div class="modal fade" id="orderReceiptModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 440px; margin: 1.75rem auto;">
+      <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden" style="background: #FFFFFF !important; opacity: 1 !important;">
+        <div class="modal-header bg-dark text-white py-2 px-3">
+          <div class="d-flex align-items-center gap-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            <h6 class="modal-title small fw-bold mb-0">Ticket de Caisse Officiel</h6>
+          </div>
+          <button type="button" class="btn-close btn-close-white btn-sm" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-3" id="orderReceiptContent" style="background: #FFFFFF !important;">
+          <!-- Injecte dynamiquement par JS -->
+        </div>
+        <div class="modal-footer bg-light p-2 gap-2">
+          <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-outline-dark btn-sm flex-fill d-flex align-items-center justify-content-center gap-1" onclick="App.downloadReceiptSafely()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Telecharger PDF
+          </button>
+          <button type="button" class="btn btn-danger btn-sm flex-fill d-flex align-items-center justify-content-center gap-1" onclick="App.printReceiptSafely()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            Imprimer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast flottant in-app -->
+  <div class="position-fixed bottom-0 start-50 translate-middle-x p-3" style="z-index: 1090; margin-bottom: 70px;">
+    <div id="appToast" class="toast align-items-center text-white bg-dark border-0 rounded-4 shadow-lg" role="alert">
+      <div class="d-flex">
+        <div class="toast-body small fw-semibold" id="appToastMessage">
+          Article ajoute au panier
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="../shared/data.js"></script>
+  <script src="../shared/storage.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

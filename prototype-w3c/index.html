@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#BE1C1F">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Opti'Noisy Pizza - Prototype Pur W3C conforme HTML5/CSS3/Vanilla JS.">
+  <title>Opti'Noisy Pizza - Prototype W3C Pur (Mobile-First)</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../assets/logo-opti-noisy.svg">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+  <!-- Feuille de styles 100% W3C standard sans framework externe -->
+  <link rel="stylesheet" href="css/w3c-style.css">
+</head>
+<body>
+
+  <!-- Barre superieure discrete de controle PC -->
+  <div class="app-top-control-bar">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span style="background: #13672F; color: #FFF; font-weight: 800; font-size: 0.68rem; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">W3C Standard Pur</span>
+      <span style="opacity: 0.75; font-size: 0.72rem;">Opti'Noisy Pizza • Mobile-First</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <button type="button" id="w3cTogglePcBtn" title="Basculer largeur PC / Smartphone">
+        <span id="w3cTogglePcText">Vue PC Elargie</span>
+      </button>
+      <a href="../index.html" style="font-weight: 700; color: #F59E0B;">
+        Portail TP
+      </a>
+    </div>
+  </div>
+
+  <!-- Conteneur Mobile First -->
+  <div class="mobile-app-wrapper">
+
+    <!-- En-tete Sticky -->
+    <header class="app-header">
+      <div style="display: flex; align-items: center; gap: 8px; cursor: pointer;" role="button" tabindex="0" onclick="W3CApp.switchTab('home')">
+        <img src="../assets/logo-opti-noisy.svg" alt="Opti'Noisy Pizza" class="brand-logo-img">
+        <div>
+          <div style="font-weight: 800; font-size: 1.05rem; letter-spacing: -0.3px; color: #1A1C20; line-height: 1.1;">Opti'Noisy Pizza</div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <button type="button" class="header-icon-btn" onclick="W3CApp.switchTab('geo')" title="Zone de livraison" aria-label="Zone de livraison">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#BE1C1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        </button>
+        <button type="button" class="header-icon-btn" onclick="W3CApp.switchTab('cart')" title="Panier" aria-label="Panier">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1C20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <span class="nav-tab-badge" id="w3cHeaderBadge" style="display: none; top: -4px; right: -4px;">0</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- ONGLET 1 : ACCUEIL (#w3c-tab-home) -->
+    <!-- ========================================== -->
+    <section id="w3c-tab-home" style="display: block;">
+      
+      <!-- Hero Banner -->
+      <article class="hero-card">
+        <img src="../assets/OPTINOISY-Mob-visuel-intro3.jpg" alt="Pizzas Artisanales au Feu de Bois Opti'Noisy">
+        <div class="hero-overlay">
+          <span style="background: var(--primary); color: #FFF; font-size: 0.65rem; font-weight: 800; padding: 2px 8px; border-radius: 50px; text-transform: uppercase; display: inline-block; margin-bottom: 4px;">Fait Maison • Pate Maturation 48h</span>
+          <h2 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 2px;">L'artisanat italien a Noisy</h2>
+          <p style="font-size: 0.78rem; opacity: 0.9; margin-bottom: 10px;">Cuites au feu de bois avec des ingredients AOP importes d'Italie.</p>
+          <div style="display: flex; gap: 8px;">
+            <button type="button" class="btn-ui btn-ui-primary" onclick="W3CApp.switchTab('menu')">
+              Commander en ligne
+            </button>
+            <button type="button" class="btn-ui btn-ui-outline" onclick="W3CApp.switchTab('geo')">
+              Zone de livraison
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Passerelles Partenaires Uber Eats & Deliveroo -->
+      <article class="partners-container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+          <h3 style="font-size: 0.82rem; font-weight: 800; color: #1A1C20;">Passerelles de commande partenaires</h3>
+        </div>
+        <div class="partners-grid">
+          <div class="partner-box" role="button" tabindex="0" onclick="W3CApp.openPartnerGatewayModal('ubereats')">
+            <img src="../assets/LOGO-UBER-EAT.png" alt="Uber Eats" style="height: 22px; max-width: 100px; object-fit: contain;">
+            <small style="color: #64748B; font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Commander via Uber</small>
+          </div>
+          <div class="partner-box" role="button" tabindex="0" onclick="W3CApp.openPartnerGatewayModal('deliveroo')">
+            <img src="../assets/logo-deliveroo.png" alt="Deliveroo" style="height: 22px; max-width: 100px; object-fit: contain;">
+            <small style="color: #64748B; font-size: 0.7rem; font-weight: 600; margin-top: 4px;">Commander via Deliveroo</small>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 Tailles au choix -->
+      <article class="sizes-intro-container">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="font-size: 0.88rem; font-weight: 800; color: #1A1C20;">3 Tailles au choix pour chaque pizza</h3>
+          <span style="font-size: 0.72rem; color: #64748B;">Artisanales</span>
+        </div>
+        <div class="sizes-grid">
+          <div class="size-preview-card" id="w3cHomeSizeCard-junior" role="button" tabindex="0" onclick="W3CApp.selectHomeSize('junior')">
+            <img src="../assets/picto-pizza-junior-26.svg" alt="Junior">
+            <div style="font-size: 0.82rem; font-weight: 700; color: #1A1C20;" id="w3cHomeSizeLabel-junior">Junior</div>
+            <div style="font-size: 0.68rem; color: #64748B;">26 cm • 1 pers.</div>
+          </div>
+          <div class="size-preview-card selected" id="w3cHomeSizeCard-moyenne" role="button" tabindex="0" onclick="W3CApp.selectHomeSize('moyenne')">
+            <img src="../assets/picto-pizza-moyenne-31.svg" alt="Moyenne">
+            <div style="font-size: 0.82rem; font-weight: 700; color: var(--primary);" id="w3cHomeSizeLabel-moyenne">Moyenne</div>
+            <div style="font-size: 0.68rem; color: #64748B;">31 cm • 1-2 pers.</div>
+          </div>
+          <div class="size-preview-card" id="w3cHomeSizeCard-familiale" role="button" tabindex="0" onclick="W3CApp.selectHomeSize('familiale')">
+            <img src="../assets/picto-pizza-familiale-40.svg" alt="Familiale">
+            <div style="font-size: 0.82rem; font-weight: 700; color: #1A1C20;" id="w3cHomeSizeLabel-familiale">Familiale</div>
+            <div style="font-size: 0.68rem; color: #64748B;">40 cm • 3-4 pers.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Best-sellers -->
+      <section class="section-wrap">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <h3 style="font-size: 0.92rem; font-weight: 800; color: #1A1C20;">Les Incontournables de la semaine</h3>
+          <a href="#" style="color: var(--primary); font-size: 0.78rem; font-weight: 700; text-decoration: none;" onclick="W3CApp.switchTab('menu')">Voir tout</a>
+        </div>
+        <div class="products-grid-2cols" id="w3cHomeGrid">
+          <!-- Injecte par JS -->
+        </div>
+      </section>
+
+      <!-- Engagements Qualite -->
+      <aside style="margin: 14px 16px; padding: 14px; background: #F8F9FA; border-radius: var(--radius-lg); border: 1px solid #ECEFF1;">
+        <h4 style="font-size: 0.85rem; font-weight: 800; margin-bottom: 8px; color: #1A1C20;">Nos Engagements Qualite</h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.75rem; color: #64748B;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#13672F" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Farine tipo 00 certifiee
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#13672F" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Mozzarella Fior di Latte
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#13672F" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Cuisson au four a bois
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#13672F" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Livraison express Noisy
+          </div>
+        </div>
+      </aside>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- ONGLET 2 : LA CARTE (#w3c-tab-menu) -->
+    <!-- ========================================== -->
+    <section id="w3c-tab-menu" style="display: none;">
+      
+      <!-- Barre superieure de retour vers l'accueil -->
+      <div style="display: flex; align-items: center; justify-content: space-between; margin: 12px 16px 10px; padding-bottom: 8px; border-bottom: 1px solid #ECEFF1;">
+        <button type="button" class="btn-ui btn-ui-outline" style="border-radius: 50px; font-weight: 700; font-size: 0.78rem; padding: 4px 12px; display: inline-flex; align-items: center; gap: 4px; color: #1A1C20; border-color: #CBD5E1; background: #F8F9FA;" onclick="W3CApp.switchTab('home')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Accueil
+        </button>
+        <h3 style="font-size: 0.95rem; font-weight: 800; margin: 0; color: #1A1C20;">La Carte des Pizzas</h3>
+        <span style="font-size: 0.72rem; background: #F1F3F5; border: 1px solid #E2E8F0; padding: 2px 8px; border-radius: 4px; font-weight: 700;" id="w3cMenuTopCount">25 produits</span>
+      </div>
+
+      <div class="search-input-group">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="w3cSearchInput" placeholder="Rechercher une pizza, ingredient..." oninput="W3CApp.onSearch(this.value)">
+      </div>
+
+      <div class="category-scroll-container" id="w3cCatScroll">
+        <!-- Rempli par JS -->
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 16px 8px;">
+        <span style="font-size: 0.78rem; color: #64748B; font-weight: 600;" id="w3cMenuCount">25 produits</span>
+        <span style="font-size: 0.72rem; background: #F1F3F5; border: 1px solid #E2E8F0; padding: 2px 8px; border-radius: 4px; font-weight: 700;" id="w3cCatLabel">Toute la carte</span>
+      </div>
+
+      <div class="products-grid-2cols" id="w3cProductsGrid" style="padding: 0 16px 20px;">
+        <!-- Rempli par JS -->
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- ONGLET 3 : LIVRAISON (#w3c-tab-geo) -->
+    <!-- ========================================== -->
+    <section id="w3c-tab-geo" style="display: none; padding: 14px 16px;">
+      
+      <!-- Bandeau Statut Atelier & Rayon -->
+      <div style="background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 14px; box-shadow: var(--shadow-sm); margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #13672F;"></span>
+            <strong style="font-size: 0.85rem; color: #1A1C20;">Livraison Express Ouverte</strong>
+          </div>
+          <span style="font-size: 0.72rem; background: #E8F5E9; color: #13672F; font-weight: 800; padding: 2px 8px; border-radius: 4px; border: 1px solid #C8E6C9;">Rayon direct 8 km</span>
+        </div>
+        <p style="font-size: 0.78rem; color: #64748B; margin: 0;">
+          Pizzeria Opti'Noisy • 12 Avenue du Marechal Foch, 93160 Noisy-le-Grand. Livraison en scooter isotherme.
+        </p>
+      </div>
+
+      <!-- Selecteur de Secteur avec Cards cliquables -->
+      <div style="background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 14px; box-shadow: var(--shadow-sm); margin-bottom: 12px;">
+        <label style="font-size: 0.78rem; font-weight: 800; display: block; margin-bottom: 8px; color: #1A1C20;">Choisissez votre secteur a Noisy-le-Grand :</label>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+          <div class="geo-sector-card selected" id="w3cGeoCard-iut" style="background: #FFF5F5; border: 1px solid var(--primary); border-radius: 8px; padding: 8px 10px; cursor: pointer;" onclick="W3CApp.selectDeliverySector(48.8415, 2.5855, 'Campus IUT Noisy-Champs, 2 Allee de l\'IUT', 'iut', 2.4)">
+            <div style="font-weight: 800; font-size: 0.82rem; color: var(--primary);">Campus IUT</div>
+            <div style="font-size: 0.7rem; color: var(--primary); font-weight: 700;">2.4 km • ~25 min</div>
+          </div>
+          <div class="geo-sector-card" id="w3cGeoCard-centre" style="background: #FFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 8px 10px; cursor: pointer;" onclick="W3CApp.selectDeliverySector(48.8488, 2.5525, 'Centre-Ville, 12 Avenue Foch', 'centre', 0.5)">
+            <div style="font-weight: 800; font-size: 0.82rem; color: #1A1C20;">Centre Noisy</div>
+            <div style="font-size: 0.7rem; color: #64748B;">0.5 km • ~15 min</div>
+          </div>
+          <div class="geo-sector-card" id="w3cGeoCard-gare" style="background: #FFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 8px 10px; cursor: pointer;" onclick="W3CApp.selectDeliverySector(48.8407, 2.5518, 'Gare Noisy Mont d\'Est', 'gare', 1.1)">
+            <div style="font-weight: 800; font-size: 0.82rem; color: #1A1C20;">Gare Mont d'Est</div>
+            <div style="font-size: 0.7rem; color: #64748B;">1.1 km • ~20 min</div>
+          </div>
+          <div class="geo-sector-card" id="w3cGeoCard-varenne" style="background: #FFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 8px 10px; cursor: pointer;" onclick="W3CApp.selectDeliverySector(48.8550, 2.5710, 'Quartier La Varenne', 'varenne', 1.8)">
+            <div style="font-weight: 800; font-size: 0.82rem; color: #1A1C20;">La Varenne</div>
+            <div style="font-size: 0.7rem; color: #64748B;">1.8 km • ~22 min</div>
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size: 0.75rem; color: #64748B; display: block; margin-bottom: 4px;">Ou saisissez votre adresse precise :</label>
+          <div style="display: flex; gap: 6px;">
+            <input type="text" id="w3cManualAddressInput" style="flex: 1; padding: 7px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.82rem;" placeholder="Numero et nom de rue..." value="Campus IUT Noisy-Champs, 2 Allee de l'IUT" onchange="W3CApp.onAddressChange(this.value)">
+            <button type="button" class="btn-ui btn-ui-outline" style="color: var(--primary); border-color: var(--primary); padding: 6px 12px; font-size: 0.78rem; font-weight: 800;" onclick="W3CApp.locateMeGPS()">
+              GPS
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carte Interactive Leaflet -->
+      <div style="background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 10px; box-shadow: var(--shadow-sm); margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 4px 6px 8px;">
+          <span style="font-size: 0.78rem; font-weight: 800; color: #1A1C20;">Perimetre de livraison en direct</span>
+          <span style="font-size: 0.7rem; color: #64748B;">Cliquez sur la carte pour deplacer</span>
+        </div>
+        <div id="w3c-leaflet-map" style="height: 250px; border-radius: 10px; overflow: hidden; border: 1px solid #CBD5E1;"></div>
+      </div>
+
+      <!-- Synthese Conditions de Livraison (3 Compteurs Pro) -->
+      <div style="background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 14px; box-shadow: var(--shadow-sm);">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; margin-bottom: 12px;">
+          <div style="background: #F8F9FA; padding: 8px; border-radius: 8px; border: 1px solid #ECEFF1;">
+            <div style="font-size: 0.68rem; color: #64748B; text-transform: uppercase; font-weight: 700;">Delai Estime</div>
+            <div style="font-weight: 800; color: var(--primary); font-size: 0.92rem;" id="w3cGeoStatTime">~25 min</div>
+          </div>
+          <div style="background: #F8F9FA; padding: 8px; border-radius: 8px; border: 1px solid #ECEFF1;">
+            <div style="font-size: 0.68rem; color: #64748B; text-transform: uppercase; font-weight: 700;">Distance</div>
+            <div style="font-weight: 800; color: #1A1C20; font-size: 0.92rem;" id="w3cGeoStatDistance">2.4 km</div>
+          </div>
+          <div style="background: #F8F9FA; padding: 8px; border-radius: 8px; border: 1px solid #ECEFF1;">
+            <div style="font-size: 0.68rem; color: #64748B; text-transform: uppercase; font-weight: 700;">Livraison</div>
+            <div style="font-weight: 800; color: #13672F; font-size: 0.88rem;" id="w3cGeoStatFee">Offerte > 25€</div>
+          </div>
+        </div>
+
+        <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 8px; padding: 10px; text-align: center;" id="w3cGeoZoneBanner">
+          <span style="font-weight: 700; color: #13672F; font-size: 0.8rem;" id="w3cGeoZoneStatusText">Zone couverte : Livraison directe en scooter electrique</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- ONGLET 4 : PANIER (#w3c-tab-cart) -->
+    <!-- ========================================== -->
+    <section id="w3c-tab-cart" style="display: none; padding: 14px 16px;">
+      
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h3 style="font-size: 1.05rem; font-weight: 800; color: #1A1C20;">Mon Panier</h3>
+        <button type="button" style="background: none; border: none; color: var(--primary); font-size: 0.78rem; font-weight: 700; cursor: pointer;" onclick="W3CApp.clearCartAction()" id="w3cClearCartBtn">
+          Vider le panier
+        </button>
+      </div>
+
+      <!-- Choix canal -->
+      <div style="background: #F8F9FA; padding: 12px; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; margin-bottom: 12px;">
+        <span style="font-size: 0.75rem; font-weight: 800; display: block; margin-bottom: 6px;">Canal de commande :</span>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
+          <div class="partner-box" id="w3cChanDirect" style="border: 2px solid var(--primary); padding: 8px 4px;" role="button" onclick="W3CApp.setDeliveryChannel('direct')">
+            <span style="font-size: 0.78rem; font-weight: 800; color: var(--primary);">Opti'Noisy</span>
+            <small style="color: #13672F; font-size: 0.65rem; font-weight: 800;">Direct (0€)</small>
+          </div>
+          <div class="partner-box" id="w3cChanUber" style="padding: 8px 4px;" role="button" onclick="W3CApp.setDeliveryChannel('ubereats')">
+            <img src="../assets/LOGO-UBER-EAT.png" alt="Uber Eats" style="height: 16px; max-width: 65px; object-fit: contain;">
+            <small style="color: #64748B; font-size: 0.65rem;">Passerelle</small>
+          </div>
+          <div class="partner-box" id="w3cChanDeliveroo" style="padding: 8px 4px;" role="button" onclick="W3CApp.setDeliveryChannel('deliveroo')">
+            <img src="../assets/logo-deliveroo.png" alt="Deliveroo" style="height: 16px; max-width: 65px; object-fit: contain;">
+            <small style="color: #64748B; font-size: 0.65rem;">Passerelle</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notice livraison offerte -->
+      <div id="w3cFreeDeliveryNotice" style="background: #E8F5E9; color: #13672F; padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.78rem; margin-bottom: 12px;">
+        <!-- Rempli par JS -->
+      </div>
+
+      <div id="w3cCartItemsList" style="margin-bottom: 12px;">
+        <!-- Rempli par JS -->
+      </div>
+
+      <!-- Suggestions gourmandes (Cross-Selling Desserts / Boissons) -->
+      <div style="background: #F8F9FA; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 12px; margin-bottom: 12px;" id="w3cCrossSellingSection">
+        <span style="font-size: 0.75rem; font-weight: 800; display: block; margin-bottom: 8px;">Envie d'une douceur artisanale ?</span>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+          <div style="background: #FFF; padding: 8px 10px; border-radius: var(--radius-sm); border: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: all 0.2s ease;" onclick="W3CApp.quickAddDessert('salade-fruits')" role="button">
+            <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 6px;">
+              <div style="font-weight: 700; font-size: 0.78rem; overflow: hidden; text-overflow: ellipsis;">Salade de Fruits</div>
+              <div style="color: var(--primary); font-weight: 700; font-size: 0.72rem;">5.50 €</div>
+            </div>
+            <button type="button" class="btn-ui btn-ui-primary" style="padding: 2px 8px; font-size: 0.75rem; border-radius: 50px; font-weight: 800;" onclick="event.stopPropagation(); W3CApp.quickAddDessert('salade-fruits')">+</button>
+          </div>
+          <div style="background: #FFF; padding: 8px 10px; border-radius: var(--radius-sm); border: 1px solid #E2E8F0; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: all 0.2s ease;" onclick="W3CApp.quickAddDessert('salade-cesar')" role="button">
+            <div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 6px;">
+              <div style="font-weight: 700; font-size: 0.78rem; overflow: hidden; text-overflow: ellipsis;">Salade Cesar</div>
+              <div style="color: var(--primary); font-weight: 700; font-size: 0.72rem;">9.50 €</div>
+            </div>
+            <button type="button" class="btn-ui btn-ui-primary" style="padding: 2px 8px; font-size: 0.75rem; border-radius: 50px; font-weight: 800;" onclick="event.stopPropagation(); W3CApp.quickAddDessert('salade-cesar')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Code Promo & Pourboire -->
+      <div style="background: #F8F9FA; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 12px; margin-bottom: 12px;">
+        <div style="margin-bottom: 10px;">
+          <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Code promo :</label>
+          <div style="display: flex; gap: 6px;">
+            <input type="text" id="w3cCartPromoInput" placeholder="Entrez MMI2026 (-15%)" style="flex: 1; padding: 6px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.82rem;">
+            <button type="button" class="btn-ui btn-ui-primary" style="background: #1A1C20; border-radius: 6px; padding: 6px 12px; font-size: 0.78rem;" onclick="W3CApp.applyPromoAction()">Appliquer</button>
+          </div>
+          <div id="w3cPromoFeedback" style="font-size: 0.72rem; margin-top: 4px;"></div>
+        </div>
+        <div>
+          <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Pourboire pour l'equipe (facultatif) :</label>
+          <div style="display: flex; gap: 6px;">
+            <button type="button" class="tip-btn active" onclick="W3CApp.selectTip(0, this)">0 €</button>
+            <button type="button" class="tip-btn" onclick="W3CApp.selectTip(1, this)">+1 €</button>
+            <button type="button" class="tip-btn" onclick="W3CApp.selectTip(2, this)">+2 €</button>
+            <button type="button" class="tip-btn" onclick="W3CApp.selectTip(3, this)">+3 €</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total & Checkout -->
+      <div id="w3cCartSummary" style="background: #F8F9FA; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 14px;">
+        <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 4px; color: #64748B;">
+          <span>Sous-total :</span>
+          <strong id="w3cSubtotalText" style="color: #1A1C20;">0.00 €</strong>
+        </div>
+        <div style="display: none; justify-content: space-between; font-size: 0.82rem; margin-bottom: 4px; color: #13672F;" id="w3cDiscountLine">
+          <span>Reduction code promo :</span>
+          <strong id="w3cDiscountText">-0.00 €</strong>
+        </div>
+        <div style="display: none; justify-content: space-between; font-size: 0.82rem; margin-bottom: 4px; color: #64748B;" id="w3cTipLine">
+          <span>Pourboire pizzaiolo :</span>
+          <strong id="w3cTipText">+0.00 €</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 6px; color: #64748B;">
+          <span>Frais de livraison :</span>
+          <strong id="w3cDeliveryFeeText" style="color: #1A1C20;">0.00 €</strong>
+        </div>
+        <hr style="border: 0; border-top: 1px dashed #CBD5E1; margin: 8px 0;">
+        <div style="display: flex; justify-content: space-between; font-size: 1.05rem; font-weight: 800; margin-bottom: 12px;">
+          <span>Total TTC :</span>
+          <span style="color: var(--primary);" id="w3cTotalText">0.00 €</span>
+        </div>
+        <button type="button" class="btn-ui btn-ui-primary btn-ui-block" onclick="W3CApp.openCheckoutModal()">
+          Passer la commande
+        </button>
+      </div>
+
+      <div id="w3cCartEmpty" style="text-align: center; padding: 40px 16px; display: none;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ADB5BD" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line></svg>
+        <h4 style="font-size: 0.95rem; font-weight: 800; margin-top: 8px;">Votre panier est vide</h4>
+        <p style="font-size: 0.78rem; color: #64748B; margin-bottom: 12px;">Decouvrez nos pizzas artisanales au feu de bois.</p>
+        <button type="button" class="btn-ui btn-ui-primary" onclick="W3CApp.switchTab('menu')">
+          Parcourir la carte
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- ONGLET 5 : COMPTE (#w3c-tab-account) -->
+    <!-- ========================================== -->
+    <section id="w3c-tab-account" style="display: none; padding: 14px 16px;">
+      
+      <div id="w3cAccountGuest">
+        <div style="text-align: center; margin-bottom: 16px;">
+          <img src="../assets/logo-opti-noisy.svg" alt="Opti'Noisy" style="height: 48px; margin-bottom: 6px;">
+          <h3 style="font-size: 1.05rem; font-weight: 800;">Espace Client</h3>
+          <p style="font-size: 0.78rem; color: #64748B;">Connectez-vous pour suivre vos commandes en temps reel.</p>
+        </div>
+
+        <!-- Section commande active invitee W3C (visible des paiement valide) -->
+        <div id="w3cGuestActiveOrdersSection"></div>
+
+        <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+          <button type="button" class="btn-ui btn-ui-primary" id="w3cTabBtnLogin" style="flex: 1; border-radius: 8px;" onclick="W3CApp.toggleAuthMode('login')">
+            Se connecter
+          </button>
+          <button type="button" class="btn-ui btn-ui-outline" id="w3cTabBtnReg" style="flex: 1; color: #475569; border-color: #CBD5E1; border-radius: 8px;" onclick="W3CApp.toggleAuthMode('register')">
+            Creer un compte
+          </button>
+        </div>
+
+        <form id="w3cFormLogin" onsubmit="W3CApp.handleLogin(event)" style="background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 16px; box-shadow: var(--shadow-sm);">
+          <div style="margin-bottom: 10px;">
+            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Adresse Email</label>
+            <input type="email" id="w3cLoginEmail" required placeholder="nom@exemple.com" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
+          </div>
+          <div style="margin-bottom: 12px;">
+            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Mot de passe</label>
+            <input type="password" id="w3cLoginPwd" required placeholder="••••••••" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
+          </div>
+          <button type="submit" class="btn-ui btn-ui-primary btn-ui-block" style="margin-bottom: 8px;">
+            Se connecter
+          </button>
+          <button type="button" class="btn-ui btn-ui-outline btn-ui-block" style="color: #475569; border-color: #CBD5E1;" onclick="W3CApp.fillDemoLogin()">
+            Compte testeur MMI (demo@mmi.fr)
+          </button>
+        </form>
+
+        <form id="w3cFormReg" onsubmit="W3CApp.handleRegister(event)" style="display: none; background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 16px; box-shadow: var(--shadow-sm);">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+            <div>
+              <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Prenom</label>
+              <input type="text" id="w3cRegFirst" required placeholder="Lucas" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
+            </div>
+            <div>
+              <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Nom</label>
+              <input type="text" id="w3cRegLast" required placeholder="Moreau" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
+            </div>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Email</label>
+            <input type="email" id="w3cRegEmail" required placeholder="lucas@mmi.fr" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
+          </div>
+          <div style="margin-bottom: 10px;">
+            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Telephone</label>
+            <input type="tel" id="w3cRegPhone" required placeholder="06 12 34 56 78" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
+          </div>
+          <div style="margin-bottom: 10px;">
+            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Adresse</label>
+            <input type="text" id="w3cRegAddr" required placeholder="12 Avenue Foch, Noisy-le-Grand" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
+          </div>
+          <div style="margin-bottom: 12px;">
+            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Mot de passe</label>
+            <input type="password" id="w3cRegPwd" required minlength="4" placeholder="••••••••" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
+          </div>
+          <button type="submit" class="btn-ui btn-ui-primary btn-ui-block">
+            Creer mon compte
+          </button>
+        </form>
+      </div>
+
+      <div id="w3cAccountUser" style="display: none;">
+        <div style="background: #F8F9FA; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 14px; margin-bottom: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary); color: #FFF; font-weight: 800; display: flex; align-items: center; justify-content: center;" id="w3cUserAvatar">
+                U
+              </div>
+              <div>
+                <h4 style="font-size: 0.95rem; font-weight: 800; margin: 0;" id="w3cUserName">Prenom Nom</h4>
+                <p style="font-size: 0.72rem; color: #64748B; margin: 0;" id="w3cUserEmail">email@exemple.com</p>
+              </div>
+            </div>
+            <button type="button" class="btn-ui btn-ui-outline" style="color: var(--primary); border-color: #FECACA; padding: 4px 8px; font-size: 0.72rem;" onclick="W3CApp.logout()">
+              Deconnexion
+            </button>
+          </div>
+          <div style="font-size: 0.75rem; color: #64748B; border-top: 1px solid #E2E8F0; padding-top: 6px;">
+            Adresse : <span id="w3cUserAddress">Adresse enregistree</span>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <h4 style="font-size: 0.9rem; font-weight: 800; color: #1A1C20; margin: 0;">Suivi & Historique des Commandes</h4>
+          <span style="font-size: 0.72rem; background: #F1F3F5; padding: 2px 8px; border-radius: 4px; font-weight: 700;" id="w3cOrderCountBadge">0 commande</span>
+        </div>
+        <div id="w3cUserOrders">
+          <!-- Rempli par JS -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Barre flottante Panier actif -->
+    <div class="floating-cart-bar" id="w3cFloatingCartBar" role="button" onclick="W3CApp.switchTab('cart')">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="background: #FFF; color: var(--primary); font-weight: 800; border-radius: 50px; padding: 2px 8px; font-size: 0.75rem;" id="w3cFloatingCartCount">0</span>
+        <span style="font-weight: 800; font-size: 0.85rem;" id="w3cFloatingCartTotal">0.00 €</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 4px; font-size: 0.8rem; font-weight: 800;">
+        <span>Voir le panier</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </div>
+    </div>
+
+  </div><!-- /mobile-app-wrapper -->
+
+  <!-- ========================================== -->
+  <!-- BOTTOM NAVIGATION BAR -->
+  <!-- ========================================== -->
+  <nav class="mobile-bottom-nav">
+    <button type="button" class="nav-tab-item active" id="w3cNavHome" onclick="W3CApp.switchTab('home')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>Accueil</span>
+    </button>
+    <button type="button" class="nav-tab-item" id="w3cNavMenu" onclick="W3CApp.switchTab('menu')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      <span>La Carte</span>
+    </button>
+    <button type="button" class="nav-tab-item position-relative" id="w3cNavCart" onclick="W3CApp.switchTab('cart')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      <span class="nav-tab-badge" id="w3cBottomBadge" style="display: none;">0</span>
+      <span>Panier</span>
+    </button>
+    <button type="button" class="nav-tab-item" id="w3cNavGeo" onclick="W3CApp.switchTab('geo')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+      <span>Livraison</span>
+    </button>
+    <button type="button" class="nav-tab-item" id="w3cNavAccount" onclick="W3CApp.switchTab('account')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      <span>Compte</span>
+    </button>
+  </nav>
+
+  <!-- ========================================== -->
+  <!-- MODAL : FICHE PRODUIT W3C -->
+  <!-- ========================================== -->
+  <div class="w3c-modal-overlay" id="w3cProductModalOverlay" onclick="if(event.target === this) W3CApp.closeModal('product')">
+    <div class="w3c-modal-card" style="max-height: 85vh; display: flex; flex-direction: column; padding: 0; overflow: hidden; position: relative;">
+      <button type="button" class="w3c-modal-close" style="z-index: 10; background: #FFF; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15);" onclick="W3CApp.closeModal('product')">&times;</button>
+
+      <!-- Corps de modal defilable -->
+      <div style="overflow-y: auto; flex: 1; padding: 16px;">
+        <div style="height: 165px; border-radius: var(--radius-md); overflow: hidden; margin-bottom: 12px; background: #EEE; position: relative;">
+          <img src="" alt="" id="w3cModalImg" style="width: 100%; height: 100%; object-fit: cover;">
+          <span id="w3cModalBadge" style="position: absolute; top: 10px; left: 10px; background: var(--primary); color: #FFF; font-size: 0.68rem; font-weight: 800; padding: 2px 8px; border-radius: 50px;"></span>
+        </div>
+
+        <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 2px; color: #1A1C20;" id="w3cModalTitle">Nom</h3>
+        <p style="font-size: 0.78rem; color: #64748B; margin-bottom: 12px;" id="w3cModalDesc">Description</p>
+
+        <!-- Tailles 3 Options -->
+        <div id="w3cModalSizeWrap">
+          <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 6px;">Choisissez la taille :</label>
+          <div class="size-selector-grid">
+            <div class="size-option-card" id="w3cSize-junior" onclick="W3CApp.selectModalSize('junior')">
+              <img src="../assets/picto-pizza-junior-26.svg" alt="Junior" class="size-picto-img" style="height: 36px; max-height: 36px; width: auto; max-width: 36px; object-fit: contain; margin: 0 auto 4px; display: block;">
+              <div style="font-size: 0.82rem; font-weight: 700;">Junior</div>
+              <div style="font-size: 0.68rem; color: #64748B;">26 cm • 1 pers.</div>
+              <div style="font-size: 0.88rem; font-weight: 800; color: var(--primary); margin-top: 2px;" id="w3cSizePrice-junior">0.00 €</div>
+            </div>
+            <div class="size-option-card selected" id="w3cSize-moyenne" onclick="W3CApp.selectModalSize('moyenne')">
+              <img src="../assets/picto-pizza-moyenne-31.svg" alt="Moyenne" class="size-picto-img" style="height: 36px; max-height: 36px; width: auto; max-width: 36px; object-fit: contain; margin: 0 auto 4px; display: block;">
+              <div style="font-size: 0.82rem; font-weight: 700;">Moyenne</div>
+              <div style="font-size: 0.68rem; color: #64748B;">31 cm • 1-2 pers.</div>
+              <div style="font-size: 0.88rem; font-weight: 800; color: var(--primary); margin-top: 2px;" id="w3cSizePrice-moyenne">0.00 €</div>
+            </div>
+            <div class="size-option-card" id="w3cSize-familiale" onclick="W3CApp.selectModalSize('familiale')">
+              <img src="../assets/picto-pizza-familiale-40.svg" alt="Familiale" class="size-picto-img" style="height: 36px; max-height: 36px; width: auto; max-width: 36px; object-fit: contain; margin: 0 auto 4px; display: block;">
+              <div style="font-size: 0.82rem; font-weight: 700;">Familiale</div>
+              <div style="font-size: 0.68rem; color: #64748B;">40 cm • 3-4 pers.</div>
+              <div style="font-size: 0.88rem; font-weight: 800; color: var(--primary); margin-top: 2px;" id="w3cSizePrice-familiale">0.00 €</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Extras -->
+        <div style="margin-bottom: 12px;">
+          <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 6px;">Extras du chef :</label>
+          <div id="w3cModalExtras">
+            <!-- Rempli par JS -->
+          </div>
+        </div>
+
+        <!-- Remarques -->
+        <div style="margin-bottom: 4px;">
+          <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Instructions :</label>
+          <input type="text" id="w3cModalNotes" placeholder="Ex: Pâte bien cuite, sans origan..." style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
+        </div>
+      </div>
+
+      <!-- Pied de modal STICKY fixe en bas (nativement visible sans scroll) -->
+      <div style="position: sticky; bottom: 0; background: #FFFFFF; border-top: 1px solid #ECEFF1; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; z-index: 20; box-shadow: 0 -4px 12px rgba(0,0,0,0.06);">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button type="button" class="btn-ui btn-ui-outline" style="width: 32px; height: 32px; padding: 0; color: #333; border-color: #CBD5E1;" onclick="W3CApp.changeModalQty(-1)">-</button>
+          <strong id="w3cModalQtyText" style="min-width: 22px; text-align: center; font-size: 1rem;">1</strong>
+          <button type="button" class="btn-ui btn-ui-outline" style="width: 32px; height: 32px; padding: 0; color: #333; border-color: #CBD5E1;" onclick="W3CApp.changeModalQty(1)">+</button>
+        </div>
+        <button type="button" class="btn-ui btn-ui-primary" style="flex: 1; margin-left: 12px; padding: 10px 16px;" onclick="W3CApp.confirmAddToCart()">
+          Ajouter au panier • <span id="w3cModalPriceBtn">0.00 €</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL : PASSERELLE PARTENAIRE W3C ACTIVE -->
+  <!-- ========================================== -->
+  <div class="w3c-modal-overlay" id="w3cPartnerModalOverlay" onclick="if(event.target === this) W3CApp.closeModal('partner')">
+    <div class="w3c-modal-card" style="text-align: center;">
+      <button type="button" class="w3c-modal-close" onclick="W3CApp.closeModal('partner')">&times;</button>
+      <img src="" alt="" id="w3cPartnerLogo" style="height: 38px; max-width: 140px; object-fit: contain; margin-bottom: 10px;">
+      <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 6px;" id="w3cPartnerTitle">Passerelle Partenaire</h3>
+      <p style="font-size: 0.78rem; color: #64748B; margin-bottom: 14px;" id="w3cPartnerDesc">
+        Votre commande Opti'Noisy est prete a etre transmise au service de livraison partenaire.
+      </p>
+      <div style="background: #F8F9FA; padding: 12px; border-radius: var(--radius-sm); border: 1px solid #ECEFF1; margin-bottom: 14px; text-align: left; font-size: 0.78rem;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+          <span style="color: #64748B;">Articles a transmettre :</span>
+          <strong id="w3cPartnerModalCartCount">0 article</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+          <span style="color: #64748B;">Estimation delai :</span>
+          <strong style="color: #13672F;">25 - 35 min</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: #64748B;">Suivi coursier :</span>
+          <strong style="color: #0284C7;">En direct sur la passerelle</strong>
+        </div>
+      </div>
+      <a href="#" target="_blank" rel="noopener noreferrer" class="btn-ui btn-ui-primary btn-ui-block" style="background: #111; margin-bottom: 8px; text-decoration: none;" id="w3cPartnerModalActionBtn">
+        Ouvrir la passerelle officielle
+      </a>
+      <button type="button" class="btn-ui btn-ui-outline btn-ui-block" style="color: #64748B; border-color: #CBD5E1;" onclick="W3CApp.closeModal('partner')">
+        Revenir a la commande directe Opti'Noisy
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL : PAIEMENT SECURISE W3C HAUTE FIDELITE -->
+  <!-- ========================================== -->
+  <div class="w3c-modal-overlay" id="w3cCheckoutModalOverlay" onclick="if(event.target === this) W3CApp.closeModal('checkout')">
+    <div class="w3c-modal-card">
+      <button type="button" class="w3c-modal-close" onclick="W3CApp.closeModal('checkout')">&times;</button>
+      <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 12px;">Paiement Securise en Ligne</h3>
+
+      <!-- Carte Bancaire Visuelle Interactive -->
+      <div class="virtual-credit-card" id="w3cVirtualCardWidget">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div class="virtual-card-chip"></div>
+          <div style="font-weight: 800; font-style: italic; font-size: 1.1rem; letter-spacing: 1px;">VISA</div>
+        </div>
+        <div class="virtual-card-number" id="w3cVCardNumber">4970 8210 9345 6789</div>
+        <div class="virtual-card-footer">
+          <div>
+            <div style="font-size: 0.6rem; opacity: 0.7;">TITULAIRE</div>
+            <div style="font-weight: 800;" id="w3cVCardHolder">LUCAS MOREAU</div>
+          </div>
+          <div>
+            <div style="font-size: 0.6rem; opacity: 0.7;">EXPIRE FIN</div>
+            <div style="font-weight: 800;" id="w3cVCardExp">10/28</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Moyens de paiement -->
+      <div style="display: flex; gap: 6px; margin-bottom: 14px;">
+        <button type="button" class="btn-ui btn-ui-primary" id="w3cPayCB" style="flex: 1; font-size: 0.78rem; border-radius: 6px;" onclick="W3CApp.setPaymentMethod('cb')">Carte Bancaire</button>
+        <button type="button" class="btn-ui btn-ui-outline" id="w3cPayApple" style="flex: 1; font-size: 0.78rem; color: #333; border-color: #CBD5E1; border-radius: 6px;" onclick="W3CApp.setPaymentMethod('applepay')">Apple Pay</button>
+        <button type="button" class="btn-ui btn-ui-outline" id="w3cPayCash" style="flex: 1; font-size: 0.78rem; color: #333; border-color: #CBD5E1; border-radius: 6px;" onclick="W3CApp.setPaymentMethod('especes')">Especes</button>
+      </div>
+
+      <!-- Formulaire Carte Bancaire -->
+      <div id="w3cCBFormWrap">
+        <div style="margin-bottom: 10px;">
+          <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 2px;">Numero de carte</label>
+          <input type="text" id="w3cCardNumber" value="4970 8210 9345 6789" maxlength="19" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;" oninput="W3CApp.onCardNumberInput(this.value)">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+          <div>
+            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 2px;">Expiration (MM/AA)</label>
+            <input type="text" id="w3cCardExp" value="10/28" maxlength="5" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;" oninput="W3CApp.onCardExpInput(this.value)">
+          </div>
+          <div>
+            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 2px;">CVV</label>
+            <input type="password" id="w3cCardCvv" value="842" maxlength="3" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
+          </div>
+        </div>
+        <div style="margin-bottom: 10px;">
+          <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 2px;">Nom sur la carte</label>
+          <input type="text" id="w3cCardName" value="Lucas Moreau" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;" oninput="W3CApp.onCardNameInput(this.value)">
+        </div>
+      </div>
+
+      <!-- Section Apple Pay -->
+      <div id="w3cApplePaySection" style="display: none; text-align: center; padding: 14px 0;">
+        <button type="button" class="btn-ui btn-ui-block" onclick="W3CApp.executePayment()" style="background: #000; color: #FFF; font-size: 0.95rem; font-weight: 800; padding: 10px; margin-bottom: 6px;">
+          Payer avec Apple Pay
+        </button>
+        <small style="color: #64748B; font-size: 0.72rem;">Validation par Face ID ou Touch ID</small>
+      </div>
+
+      <!-- Section Especes -->
+      <div id="w3cCashPaySection" style="display: none; background: #F8F9FA; padding: 12px; border-radius: var(--radius-sm); font-size: 0.78rem; color: #64748B; margin-bottom: 12px; border: 1px solid #ECEFF1;">
+        Reglement en especes directement aupres du livreur lors de la remise de votre commande. Prevoyez l'appoint si possible.
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 2px;">Adresse de livraison validee</label>
+        <input type="text" id="w3cCheckoutAddr" value="12 Avenue du Marechal Foch, 93160 Noisy-le-Grand" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
+      </div>
+
+      <div style="background: #F8F9FA; padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid #ECEFF1; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <span style="font-size: 0.8rem; color: #64748B;">Total a debiter :</span>
+        <strong style="font-size: 1.05rem; color: var(--primary);" id="w3cCheckoutTotal">0.00 €</strong>
+      </div>
+
+      <button type="button" class="btn-ui btn-ui-primary btn-ui-block" id="w3cPayExecuteBtn" onclick="W3CApp.executePayment()">
+        Valider et Regler la Commande
+      </button>
+
+      <div id="w3cPayLoader" style="display: none; text-align: center; padding: 14px 0;">
+        <div style="font-size: 0.82rem; font-weight: 800; color: var(--primary);">Verification 3D-Secure en cours...</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modal Ticket de Caisse W3C -->
+  <div class="w3c-modal-overlay" id="w3cReceiptModal" onclick="if(event.target===this) W3CApp.closeModal('receipt')">
+    <div class="w3c-modal-sheet" style="max-height: 88vh; display: flex; flex-direction: column; background: #FFFFFF !important; opacity: 1 !important; border-radius: 16px; box-shadow: 0 20px 45px rgba(0,0,0,0.3); border: 1px solid #E2E8F0; width: 100%; max-width: 440px; margin: auto; padding: 20px; z-index: 2100;">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid #ECEFF1; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          <h4 style="font-size: 0.95rem; font-weight: 800; margin: 0; color: #1A1C20;">Ticket de Caisse Officiel</h4>
+        </div>
+        <button type="button" class="btn-close-modal" onclick="W3CApp.closeModal('receipt')">&times;</button>
+      </div>
+
+      <div id="w3cReceiptContent" style="overflow-y: auto; flex: 1; padding-right: 4px; background: #FFFFFF;">
+        <!-- Injecte dynamiquement par JS -->
+      </div>
+
+      <div style="display: flex; gap: 8px; margin-top: 14px; padding-top: 10px; border-top: 1px solid #ECEFF1;">
+        <button type="button" class="btn-ui" style="background: #E2E8F0; color: #1A1C20; padding: 7px 12px;" onclick="W3CApp.closeModal('receipt')">Fermer</button>
+        <button type="button" class="btn-ui btn-ui-outline" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; border-color: #1A1C20; color: #1A1C20;" onclick="W3CApp.downloadReceiptSafely()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Telecharger PDF
+        </button>
+        <button type="button" class="btn-ui btn-ui-primary" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;" onclick="W3CApp.printReceiptSafely()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          Imprimer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast W3C flottant in-app -->
+  <div class="w3c-toast" id="w3cToast">
+    <span id="w3cToastText">Article ajoute au panier</span>
+  </div>
+
+  <!-- Leaflet JS & html2pdf -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="../shared/data.js"></script>
+  <script src="../shared/storage.js"></script>
+  <script src="js/w3c-app.js"></script>
+</body>
+</html>

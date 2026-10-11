@@ -1,0 +1,19 @@
+{
+  "name": "Opti'Noisy Pizza (Pur W3C)",
+  "short_name": "Opti'Noisy W3C",
+  "description": "Application web mobile de commandes de pizzas artisanales - 100% Standard W3C",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0E1013",
+  "theme_color": "#BE1C1F",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "../assets/logo-opti-noisy.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

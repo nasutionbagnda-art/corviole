@@ -1,0 +1,25 @@
+{
+  "name": "optinoisy-pizza-mmi3",
+  "version": "1.0.0",
+  "description": "TP Web Mobile & Capacitor - Pizzeria Artisanale Opti'Noisy - MMI3 Vélizy Octobre 2026",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "cap:sync": "npx cap sync",
+    "cap:add:android": "npx cap add android",
+    "cap:add:ios": "npx cap add ios",
+    "cap:open:android": "npx cap open android",
+    "cap:open:ios": "npx cap open ios"
+  },
+  "keywords": [
+    "mmi3",
+    "web-mobile",
+    "capacitor",
+    "pwa",
+    "bootstrap5",
+    "w3c",
+    "pizza-delivery"
+  ],
+  "author": "Étudiant MMI3 - IUT de Vélizy / UVSQ / Université Paris-Saclay",
+  "license": "ISC"
+}

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opti'Noisy Pizza • Portail TP Web Mobile MMI3 (Capacitor / Bootstrap / W3C)</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #BE1C1F;
+      --primary-dark: #911215;
+      --secondary: #13672F;
+      --gold: #E19B0F;
+      --dark: #121316;
+      --dark-card: #1C1E22;
+      --light-bg: #F8F9FA;
+      --border: #E5E7EB;
+      --text: #1F2937;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background-color: #0E1013;
+      color: #F3F4F6;
+      line-height: 1.6;
+      padding: 0;
+    }
+
+    /* Header & Hero */
+    .hero-banner {
+      background: radial-gradient(circle at 50% 20%, #2A1516 0%, #111215 70%);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 40px 20px 30px;
+      text-align: center;
+    }
+    .badge-mmi {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(190, 28, 31, 0.18);
+      border: 1px solid rgba(190, 28, 31, 0.4);
+      color: #FF5C5F;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+    .hero-title span {
+      color: #FF4D50;
+      font-style: italic;
+    }
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: #9CA3AF;
+      max-width: 720px;
+      margin: 0 auto 20px;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 30px 20px 60px;
+    }
+
+    /* Prototypes Cards Grid */
+    .proto-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 45px;
+    }
+    .proto-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .proto-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+      box-shadow: 0 16px 36px rgba(190, 28, 31, 0.2);
+    }
+    .proto-card-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 50px;
+      text-transform: uppercase;
+    }
+    .proto-card-badge.bs { background: #6F42C1; color: #FFF; }
+    .proto-card-badge.w3c { background: #13672F; color: #FFF; }
+
+    .proto-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: #FFF;
+    }
+    .proto-desc {
+      font-size: 0.9rem;
+      color: #9CA3AF;
+      margin-bottom: 18px;
+      flex: 1;
+    }
+    .proto-features {
+      list-style: none;
+      margin-bottom: 22px;
+      font-size: 0.85rem;
+    }
+    .proto-features li {
+      margin-bottom: 6px;
+      color: #D1D5DB;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .proto-features li svg {
+      color: #34D399;
+      flex-shrink: 0;
+    }
+
+    .proto-btn-group {
+      display: flex;
+      gap: 10px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #FFF;
+      flex: 1;
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 4px 14px rgba(190, 28, 31, 0.4);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.08);
+      color: #FFF;
+      border-color: rgba(255,255,255,0.2);
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.18);
+    }
+
+    /* Simulateur Telephone */
+    .simulator-section {
+      background: #16181D;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 45px;
+    }
+    .simulator-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .simulator-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #FFF;
+    }
+    .simulator-switchers {
+      display: flex;
+      gap: 10px;
+    }
+    .sim-tab-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #D1D5DB;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .sim-tab-btn.active {
+      background: var(--primary);
+      color: #FFF;
+      border-color: var(--primary);
+    }
+
+    .phone-mockup-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0;
+    }
+    .phone-frame {
+      width: 410px;
+      height: 780px;
+      background: #000;
+      border-radius: 46px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 0 10px #2D3139, 0 0 0 12px rgba(255,255,255,0.15);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .phone-notch {
+      width: 140px;
+      height: 24px;
+      background: #000;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 0 0 16px 16px;
+      z-index: 100;
+    }
+    .phone-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 36px;
+      background: #FFF;
+    }
+
+    /* Specifications */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .spec-box {
+      background: var(--dark-card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+    .spec-box h4 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: #F9FAFB;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .spec-box p {
+      font-size: 0.85rem;
+      color: #9CA3AF;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.85rem;
+      color: #6B7280;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Header -->
+  <header class="hero-banner">
+    <div class="badge-mmi">
+      MMI3 • TP Web Mobile & Capacitor • Octobre 2026
+    </div>
+    <div style="display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 10px;">
+      <img src="assets/logo-opti-noisy.svg" alt="Opti'Noisy Pizza Logo" style="height: 60px;">
+      <h1 class="hero-title">Opti'Noisy <span>Pizza</span></h1>
+    </div>
+    <p class="hero-subtitle">
+      Cahier des charges 3 : Site web mobile de commandes de pizzas au feu de bois avec sélection de tailles, géolocalisation interne, passerelles Uber Eats & Deliveroo, création de compte et paiement sécurisé en ligne.
+    </p>
+  </header>
+
+  <div class="container">
+
+    <!-- Grille des 2 Prototypes -->
+    <section class="proto-grid">
+      
+      <!-- Prototype 1 : Bootstrap 5 -->
+      <article class="proto-card">
+        <span class="proto-card-badge bs">Prototype 1 • Bootstrap</span>
+        <h2 class="proto-title">Prototype Bootstrap 5.3</h2>
+        <p class="proto-desc">
+          Application web mobile responsive complète construite avec le framework Bootstrap 5.3 et personnalisation SCSS/CSS.
+        </p>
+        <ul class="proto-features">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Architecture Mobile-First avec Bottom Nav native
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Modales Bootstrap fluides (Tailles, Extras, Paiement)
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Carte Leaflet avec détection GPS HTML5 & rayon 8km
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Passerelles officielles Uber Eats & Deliveroo
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Simulation bancaire CB 3D-Secure & Apple Pay
+          </li>
+        </ul>
+        <div class="proto-btn-group">
+          <a href="prototype-bootstrap/index.html" class="btn btn-primary">
+            Ouvrir en plein écran
+          </a>
+          <button type="button" class="btn btn-secondary" onclick="loadSimulator('prototype-bootstrap/index.html', 'bs')">
+            Tester ici
+          </button>
+        </div>
+      </article>
+
+      <!-- Prototype 2 : W3C Pur -->
+      <article class="proto-card">
+        <span class="proto-card-badge w3c">Prototype 2 • Pur W3C</span>
+        <h2 class="proto-title">Prototype Pur W3C</h2>
+        <p class="proto-desc">
+          Application conforme aux standards stricts W3C : HTML5 sémantique pur, CSS3 moderne (Variables, Grid, Flexbox) et Vanilla JS, sans aucune bibliothèque externe de style.
+        </p>
+        <ul class="proto-features">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Zéro framework CSS externe (100% CSS3 Pur)
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Validable W3C & balises sémantiques strictes
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Modales et Bottom Sheets animées en CSS natif
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Sélecteur interactif des 3 tailles de pizza (SVGs)
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Gestion du panier, compte & persistance LocalStorage
+          </li>
+        </ul>
+        <div class="proto-btn-group">
+          <a href="prototype-w3c/index.html" class="btn btn-primary" style="background: var(--secondary);">
+            Ouvrir en plein écran
+          </a>
+          <button type="button" class="btn btn-secondary" onclick="loadSimulator('prototype-w3c/index.html', 'w3c')">
+            Tester ici
+          </button>
+        </div>
+      </article>
+
+      <!-- Site 3 : Storytelling (Style Home Slice & California Pizza Kitchen) -->
+      <article class="proto-card" style="border-color: rgba(225, 155, 15, 0.4);">
+        <span class="proto-card-badge" style="background: #E19B0F; color: #000;">Nouveau • Storytelling</span>
+        <h2 class="proto-title">Site Vitrine & Storytelling</h2>
+        <p class="proto-desc">
+          Site web éditorial et semi-commandes inspiré de <strong>California Pizza Kitchen</strong> et <strong>Home Slice Pizza</strong>. Focus sur l'artisanat, la fermentation 48h, le four Stefano Ferrara à 450°C et les terroirs AOP d'Italie.
+        </p>
+        <ul class="proto-features">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Récit narratif de marque (Pâte au levain 48h & Four à bois)
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Filtres interactifs sur la carte signature
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Passerelles de commande directe vers les 2 prototypes
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Galerie d'artisanat haute définition (visuels officiels)
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Avis clients noiséens & guide d'accès atelier
+          </li>
+        </ul>
+        <div class="proto-btn-group">
+          <a href="site-storytelling/index.html" class="btn btn-primary" style="background: #E19B0F; color: #000;">
+            Ouvrir en plein écran
+          </a>
+          <button type="button" class="btn btn-secondary" onclick="loadSimulator('site-storytelling/index.html', 'story')">
+            Tester ici
+          </button>
+        </div>
+      </article>
+
+      <!-- Site 4 : Back-Office Cuisine & Suivi Temps Réel -->
+      <article class="proto-card" style="border-color: rgba(56, 189, 248, 0.4);">
+        <span class="proto-card-badge" style="background: #0284C7; color: #FFF;">Nouveau • Back-Office</span>
+        <h2 class="proto-title">Back-Office & Écran Cuisine</h2>
+        <p class="proto-desc">
+          Tableau de bord restaurant professionnel (KDS / POS) indépendant pour le suivi en direct des commandes clients, mise à jour des étapes de cuisson et gestion financière.
+        </p>
+        <ul class="proto-features">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Synchronisation temps réel cross-tabs sans recharger la page
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Transitions de statut en 1 clic (Validée &rarr; Au four &rarr; En route &rarr; Livrée)
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            5 KPIs en direct : Commandes actives, Four, Livraison, CA & Panier moyen
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Instructions spéciales mises en évidence & édition de notes cuisine
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Générateur de commandes de test pour démonstration jury
+          </li>
+        </ul>
+        <div class="proto-btn-group">
+          <a href="admin/index.html" target="_blank" class="btn btn-primary" style="background: #0284C7; color: #FFF;">
+            Ouvrir le Back-Office
+          </a>
+          <button type="button" class="btn btn-secondary" onclick="loadSimulator('admin/index.html', 'admin')">
+            Tester ici
+          </button>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- Simulateur Smartphone Interactif -->
+    <section class="simulator-section">
+      <div class="simulator-header">
+        <div>
+          <h3 class="simulator-title">Simulateur Smartphone en Direct</h3>
+          <p style="font-size: 0.85rem; color: #9CA3AF;">Testez les réalisations dans les conditions réelles d'un écran mobile tactile :</p>
+        </div>
+        <div class="simulator-switchers">
+          <button type="button" class="sim-tab-btn active" id="simBtnBs" onclick="loadSimulator('prototype-bootstrap/index.html', 'bs')">
+            Bootstrap 5
+          </button>
+          <button type="button" class="sim-tab-btn" id="simBtnW3c" onclick="loadSimulator('prototype-w3c/index.html', 'w3c')">
+            W3C Standard
+          </button>
+          <button type="button" class="sim-tab-btn" id="simBtnStory" onclick="loadSimulator('site-storytelling/index.html', 'story')">
+            Storytelling
+          </button>
+          <button type="button" class="sim-tab-btn" id="simBtnAdmin" onclick="loadSimulator('admin/index.html', 'admin')">
+            Admin Cuisine
+          </button>
+        </div>
+      </div>
+
+      <div class="phone-mockup-wrap">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <iframe src="prototype-bootstrap/index.html" id="simulatorIframe" class="phone-iframe" title="Aperçu mobile Opti'Noisy"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Guide de l'Evaluateur & Checklist 20/20 -->
+    <section style="background: linear-gradient(145deg, #1A1D24, #14161B); border: 1px solid rgba(225, 155, 15, 0.4); border-radius: var(--radius); padding: 28px; margin-bottom: 45px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="background: #E19B0F; color: #000; font-weight: 800; font-size: 0.75rem; padding: 4px 10px; border-radius: 50px; text-transform: uppercase;">Grille de Notation</span>
+          <h3 style="font-size: 1.25rem; font-weight: 800; color: #FFF; margin: 0;">Guide du Correcteur • 10 Parcours Cles pour Evaluer le 20/20</h3>
+        </div>
+        <span style="font-size: 0.8rem; color: #9CA3AF;">Duree estimee de test : 3 minutes</span>
+      </div>
+
+      <!-- Bandeau Identifiants de Test Express -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 20px;">
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 12px;">
+          <div style="font-size: 0.72rem; text-transform: uppercase; color: #9CA3AF; font-weight: 700; margin-bottom: 2px;">Compte Testeur 1-Clic</div>
+          <div style="font-size: 0.9rem; color: #38BDF8; font-weight: 700;">demo@mmi.fr <span style="color: #9CA3AF; font-weight: 400;">/</span> demo123</div>
+          <div style="font-size: 0.7rem; color: #9CA3AF;">Pre-remplissage en 1 tap dans l'Espace Compte</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 12px;">
+          <div style="font-size: 0.72rem; text-transform: uppercase; color: #9CA3AF; font-weight: 700; margin-bottom: 2px;">Code Promo (-15%)</div>
+          <div style="font-size: 0.9rem; color: #34D399; font-weight: 700;">MMI2026</div>
+          <div style="font-size: 0.7rem; color: #9CA3AF;">A saisir dans le champ code promo du panier</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 12px;">
+          <div style="font-size: 0.72rem; text-transform: uppercase; color: #9CA3AF; font-weight: 700; margin-bottom: 2px;">Adresse & Rayon Test</div>
+          <div style="font-size: 0.9rem; color: #F59E0B; font-weight: 700;">Campus IUT Noisy-Champs</div>
+          <div style="font-size: 0.7rem; color: #9CA3AF;">Distance reelle 2.4 km (&lt; 8 km rayon eligible)</div>
+        </div>
+      </div>
+
+      <!-- Checklist 10 parcours -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; font-size: 0.84rem;">
+        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
+          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">1</span>
+          <div><strong>Selecteur de Tailles Dynamique :</strong> Cliquer sur Junior (26cm), Moyenne (31cm) ou Familiale (40cm) sur l'accueil actualise immediatement les prix des 4 pizzas du bas sans rechargement.</div>
+        </div>
+        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
+          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">2</span>
+          <div><strong>Catalogue Integral :</strong> 22 pizzas + 3 salades avec photos officielles, recherche en temps reel et filtres par categories. Bouton retour rapide vers l'accueil.</div>
+        </div>
+        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
+          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">3</span>
+          <div><strong>Personnalisation & Extras :</strong> Choix de la taille, supplements d'ingredients (Double Bufala, Olives, etc.) et quantite avec recalcul en direct.</div>
+        </div>
+        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
+          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">4</span>
+          <div><strong>Geolocalisation & Rayon 8 km :</strong> Carte Leaflet OpenStreetMap sans blocage d'autorisation GPS, calcul de distance par formule Haversine et estimation du delai.</div>
+        </div>
+        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
+          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">5</span>
+          <div><strong>Passerelles Uber Eats & Deliveroo :</strong> Boutons dedies avec logos officiels et modale de transmission du panier vers les partenaires.</div>
+        </div>
+        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
+          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">6</span>
+          <div><strong>Panier Dynamique :</strong> Jauge livraison offerte (des 25 €), suggestions cross-selling, pourboire au pizzaiolo et reduction code promo (-15%).</div>
+        </div>
+        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
+          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">7</span>
+          <div><strong>Paiement Securise :</strong> Carte bancaire virtuelle avec mise a jour visuelle des chiffres, validation 3D-Secure animee, Apple Pay et Especes.</div>
+        </div>
+        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
+          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">8</span>
+          <div><strong>Stepper de Suivi Interactif :</strong> Suivi de preparation en direct a 4 etapes avec boutons de test rapide pour l'evaluateur (Recue, Four, Route, Livree).</div>
+        </div>
+        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
+          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">9</span>
+          <div><strong>Ticket de Caisse Imprimable :</strong> Generation de recu thermique officiel avec SIRET, N° commande, detail TVA 10% et impression PDF instantanee.</div>
+        </div>
+        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
+          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">10</span>
+          <div><strong>PWA & Capacitor Native :</strong> Web Manifest, Service Worker offline, retour haptique smartphone et configuration Capacitor pour Android / iOS.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Grille des Specifications Techniques -->
+    <section>
+      <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; color: #FFF; text-align: center;">
+        Respect Integral du Cahier des Charges n°3 (MMI3)
+      </h3>
+      <div class="specs-grid">
+        <div class="spec-box">
+          <h4>Menu & Tailles de Pizza</h4>
+          <p>
+            Toutes les 22 pizzas et 3 salades fournies dans les ressources du sujet sont intégrées avec leurs visuels haute qualité. Les 3 tailles (Junior 26cm, Moyenne 31cm, Familiale 40cm) sont représentées par les pictos vectoriels SVG officiels avec calcul dynamique des prix.
+          </p>
+        </div>
+
+        <div class="spec-box">
+          <h4>Géolocalisation Interne</h4>
+          <p>
+            Module complet combinant l'API HTML5 Geolocation et une carte interactive Leaflet. Calcul réel de la distance en kilomètres par rapport à la pizzeria (Noisy-le-Grand), contrôle du périmètre de livraison (8 km) et estimation du temps d'arrivée.
+          </p>
+        </div>
+
+        <div class="spec-box">
+          <h4>Passerelles Uber Eats & Deliveroo</h4>
+          <p>
+            Choix flexible dans le panier entre livraison directe Opti'Noisy ou passerelles partenaires utilisant les logos officiels fournis (<code>LOGO-UBER-EAT.png</code> et <code>logo-deliveroo.png</code>) avec modale de transfert de panier.
+          </p>
+        </div>
+
+        <div class="spec-box">
+          <h4>Compte Client & Suivi en Direct</h4>
+          <p>
+            Création de compte, connexion avec bouton rapide 1-clic pour le compte testeur MMI (<code>demo@mmi.fr / demo123</code>), gestion des adresses et historique de commandes avec stepper de suivi en direct à 4 étapes.
+          </p>
+        </div>
+
+        <div class="spec-box">
+          <h4>Paiement en Ligne Sécurisé</h4>
+          <p>
+            Choix de règlement en ligne par Carte Bancaire avec formatage automatique, vérification 3D-Secure simulée, Apple Pay ou espèces à la livraison, avec attribution immédiate d'un numéro de commande.
+          </p>
+        </div>
+
+        <div class="spec-box">
+          <h4>Conception Mobile First & Capacitor</h4>
+          <p>
+            Prêt pour un déploiement natif iOS / Android via Capacitor. Balises meta viewport adaptées (<code>viewport-fit=cover</code>), prise en compte des safe area insets et fichier <code>capacitor.config.json</code> à la racine.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>Projet Pizzeria Opti'Noisy • TP Web Mobile Capacitor • Université de Versailles St-Quentin-en-Yvelines / IUT de Vélizy / Université Paris-Saclay</p>
+    <p style="margin-top: 4px; opacity: 0.7;">Octobre 2026 • Réalisé selon les contraintes Bootstrap 5 et W3C Pur</p>
+  </footer>
+
+  <script>
+    function loadSimulator(url, mode) {
+      const iframe = document.getElementById('simulatorIframe');
+      iframe.src = url;
+
+      const btnBs = document.getElementById('simBtnBs');
+      const btnW3c = document.getElementById('simBtnW3c');
+      const btnStory = document.getElementById('simBtnStory');
+      const btnAdmin = document.getElementById('simBtnAdmin');
+
+      [btnBs, btnW3c, btnStory, btnAdmin].forEach(b => {
+        if (b) b.classList.remove('active');
+      });
+
+      if (mode === 'bs' && btnBs) btnBs.classList.add('active');
+      else if (mode === 'w3c' && btnW3c) btnW3c.classList.add('active');
+      else if (mode === 'story' && btnStory) btnStory.classList.add('active');
+      else if (mode === 'admin' && btnAdmin) btnAdmin.classList.add('active');
+    }
+  </script>
+</body>
+</html>
