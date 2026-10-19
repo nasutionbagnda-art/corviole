@@ -255,32 +255,7 @@
       background: #FFF;
     }
 
-    /* Specifications */
-    .specs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-    .spec-box {
-      background: var(--dark-card);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius);
-      padding: 22px;
-    }
-    .spec-box h4 {
-      font-size: 1.05rem;
-      font-weight: 800;
-      margin-bottom: 10px;
-      color: #F9FAFB;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .spec-box p {
-      font-size: 0.85rem;
-      color: #9CA3AF;
-      line-height: 1.5;
-    }
+
 
     footer {
       text-align: center;
@@ -303,7 +278,7 @@
       <h1 class="hero-title">Opti'Noisy <span>Pizza</span></h1>
     </div>
     <p class="hero-subtitle">
-      Cahier des charges 3 : Site web mobile de commandes de pizzas au feu de bois avec sélection de tailles, géolocalisation interne, passerelles Uber Eats & Deliveroo, création de compte et paiement sécurisé en ligne.
+      Site web mobile de commandes de pizzas au feu de bois • Deux architectures comparées : Bootstrap 5.3 & W3C Standard.
     </p>
   </header>
 
@@ -346,9 +321,9 @@
         </div>
       </article>
 
-      <!-- Site 3 : Storytelling (Style Home Slice & California Pizza Kitchen) -->
+      <!-- Site 3 : Storytelling -->
       <article class="proto-card" style="border-color: rgba(225, 155, 15, 0.4);">
-        <span class="proto-card-badge" style="background: #E19B0F; color: #000;">Nouveau • Storytelling</span>
+        <span class="proto-card-badge" style="background: #E19B0F; color: #000;">Storytelling</span>
         <h2 class="proto-title">Site Vitrine & Storytelling</h2>
         <p class="proto-desc">
           Site web mobile-first éditorial et semi-commandes inspiré de l'artisanat : pâte au levain 48h, four à bois napolitain et sélection des terroirs.
@@ -365,7 +340,7 @@
 
       <!-- Site 4 : Back-Office Cuisine & Suivi Temps Réel -->
       <article class="proto-card" style="border-color: rgba(56, 189, 248, 0.4);">
-        <span class="proto-card-badge" style="background: #0284C7; color: #FFF;">Nouveau • Back-Office</span>
+        <span class="proto-card-badge" style="background: #0284C7; color: #FFF;">Back-Office</span>
         <h2 class="proto-title">Back-Office & Écran Cuisine</h2>
         <p class="proto-desc">
           Tableau de bord restaurant (KDS / POS) synchronisé en temps réel pour le suivi des commandes, le pilotage de la cuisson et la gestion financière.
@@ -409,130 +384,6 @@
         <div class="phone-frame">
           <div class="phone-notch"></div>
           <iframe src="prototype-bootstrap/index.html" id="simulatorIframe" class="phone-iframe" title="Aperçu mobile Opti'Noisy"></iframe>
-        </div>
-      </div>
-    </section>
-
-    <!-- Guide de l'Evaluateur & Checklist 20/20 -->
-    <section style="background: linear-gradient(145deg, #1A1D24, #14161B); border: 1px solid rgba(225, 155, 15, 0.4); border-radius: var(--radius); padding: 28px; margin-bottom: 45px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
-      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 14px;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <span style="background: #E19B0F; color: #000; font-weight: 800; font-size: 0.75rem; padding: 4px 10px; border-radius: 50px; text-transform: uppercase;">Grille de Notation</span>
-          <h3 style="font-size: 1.25rem; font-weight: 800; color: #FFF; margin: 0;">Guide du Correcteur • 10 Parcours Cles pour Evaluer le 20/20</h3>
-        </div>
-        <span style="font-size: 0.8rem; color: #9CA3AF;">Duree estimee de test : 3 minutes</span>
-      </div>
-
-      <!-- Bandeau Identifiants de Test Express -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 20px;">
-        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 12px;">
-          <div style="font-size: 0.72rem; text-transform: uppercase; color: #9CA3AF; font-weight: 700; margin-bottom: 2px;">Compte Testeur 1-Clic</div>
-          <div style="font-size: 0.9rem; color: #38BDF8; font-weight: 700;">demo@mmi.fr <span style="color: #9CA3AF; font-weight: 400;">/</span> demo123</div>
-          <div style="font-size: 0.7rem; color: #9CA3AF;">Pre-remplissage en 1 tap dans l'Espace Compte</div>
-        </div>
-        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 12px;">
-          <div style="font-size: 0.72rem; text-transform: uppercase; color: #9CA3AF; font-weight: 700; margin-bottom: 2px;">Code Promo (-15%)</div>
-          <div style="font-size: 0.9rem; color: #34D399; font-weight: 700;">MMI2026</div>
-          <div style="font-size: 0.7rem; color: #9CA3AF;">A saisir dans le champ code promo du panier</div>
-        </div>
-        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 12px;">
-          <div style="font-size: 0.72rem; text-transform: uppercase; color: #9CA3AF; font-weight: 700; margin-bottom: 2px;">Adresse & Rayon Test</div>
-          <div style="font-size: 0.9rem; color: #F59E0B; font-weight: 700;">Campus IUT Noisy-Champs</div>
-          <div style="font-size: 0.7rem; color: #9CA3AF;">Distance reelle 2.4 km (&lt; 8 km rayon eligible)</div>
-        </div>
-      </div>
-
-      <!-- Checklist 10 parcours -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; font-size: 0.84rem;">
-        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
-          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">1</span>
-          <div><strong>Selecteur de Tailles Dynamique :</strong> Cliquer sur Junior (26cm), Moyenne (31cm) ou Familiale (40cm) sur l'accueil actualise immediatement les prix des 4 pizzas du bas sans rechargement.</div>
-        </div>
-        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
-          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">2</span>
-          <div><strong>Catalogue Integral :</strong> 22 pizzas + 3 salades avec photos officielles, recherche en temps reel et filtres par categories. Bouton retour rapide vers l'accueil.</div>
-        </div>
-        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
-          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">3</span>
-          <div><strong>Personnalisation & Extras :</strong> Choix de la taille, supplements d'ingredients (Double Bufala, Olives, etc.) et quantite avec recalcul en direct.</div>
-        </div>
-        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
-          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">4</span>
-          <div><strong>Geolocalisation & Rayon 8 km :</strong> Carte Leaflet OpenStreetMap sans blocage d'autorisation GPS, calcul de distance par formule Haversine et estimation du delai.</div>
-        </div>
-        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
-          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">5</span>
-          <div><strong>Passerelles Uber Eats & Deliveroo :</strong> Boutons dedies avec logos officiels et modale de transmission du panier vers les partenaires.</div>
-        </div>
-        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
-          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">6</span>
-          <div><strong>Panier Dynamique :</strong> Jauge livraison offerte (des 25 €), suggestions cross-selling, pourboire au pizzaiolo et reduction code promo (-15%).</div>
-        </div>
-        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
-          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">7</span>
-          <div><strong>Paiement Securise :</strong> Carte bancaire virtuelle avec mise a jour visuelle des chiffres, validation 3D-Secure animee, Apple Pay et Especes.</div>
-        </div>
-        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
-          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">8</span>
-          <div><strong>Stepper de Suivi Interactif :</strong> Suivi de preparation en direct a 4 etapes avec boutons de test rapide pour l'evaluateur (Recue, Four, Route, Livree).</div>
-        </div>
-        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
-          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">9</span>
-          <div><strong>Ticket de Caisse Imprimable :</strong> Generation de recu thermique officiel avec SIRET, N° commande, detail TVA 10% et impression PDF instantanee.</div>
-        </div>
-        <div style="color: #D1D5DB; display: flex; align-items: flex-start; gap: 8px;">
-          <span style="background: rgba(52, 211, 153, 0.15); color: #34D399; font-weight: 800; font-size: 0.72rem; padding: 2px 7px; border-radius: 4px; flex-shrink: 0;">10</span>
-          <div><strong>PWA & Capacitor Native :</strong> Web Manifest, Service Worker offline, retour haptique smartphone et configuration Capacitor pour Android / iOS.</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Grille des Specifications Techniques -->
-    <section>
-      <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; color: #FFF; text-align: center;">
-        Respect Integral du Cahier des Charges n°3 (MMI3)
-      </h3>
-      <div class="specs-grid">
-        <div class="spec-box">
-          <h4>Menu & Tailles de Pizza</h4>
-          <p>
-            Toutes les 22 pizzas et 3 salades fournies dans les ressources du sujet sont intégrées avec leurs visuels haute qualité. Les 3 tailles (Junior 26cm, Moyenne 31cm, Familiale 40cm) sont représentées par les pictos vectoriels SVG officiels avec calcul dynamique des prix.
-          </p>
-        </div>
-
-        <div class="spec-box">
-          <h4>Géolocalisation Interne</h4>
-          <p>
-            Module complet combinant l'API HTML5 Geolocation et une carte interactive Leaflet. Calcul réel de la distance en kilomètres par rapport à la pizzeria (Noisy-le-Grand), contrôle du périmètre de livraison (8 km) et estimation du temps d'arrivée.
-          </p>
-        </div>
-
-        <div class="spec-box">
-          <h4>Passerelles Uber Eats & Deliveroo</h4>
-          <p>
-            Choix flexible dans le panier entre livraison directe Opti'Noisy ou passerelles partenaires utilisant les logos officiels fournis (<code>LOGO-UBER-EAT.png</code> et <code>logo-deliveroo.png</code>) avec modale de transfert de panier.
-          </p>
-        </div>
-
-        <div class="spec-box">
-          <h4>Compte Client & Suivi en Direct</h4>
-          <p>
-            Création de compte, connexion avec bouton rapide 1-clic pour le compte testeur MMI (<code>demo@mmi.fr / demo123</code>), gestion des adresses et historique de commandes avec stepper de suivi en direct à 4 étapes.
-          </p>
-        </div>
-
-        <div class="spec-box">
-          <h4>Paiement en Ligne Sécurisé</h4>
-          <p>
-            Choix de règlement en ligne par Carte Bancaire avec formatage automatique, vérification 3D-Secure simulée, Apple Pay ou espèces à la livraison, avec attribution immédiate d'un numéro de commande.
-          </p>
-        </div>
-
-        <div class="spec-box">
-          <h4>Conception Mobile First & Capacitor</h4>
-          <p>
-            Prêt pour un déploiement natif iOS / Android via Capacitor. Balises meta viewport adaptées (<code>viewport-fit=cover</code>), prise en compte des safe area insets et fichier <code>capacitor.config.json</code> à la racine.
-          </p>
         </div>
       </div>
     </section>
