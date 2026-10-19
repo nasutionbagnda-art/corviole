@@ -28,9 +28,14 @@ const W3CApp = {
   },
 
   init() {
+    if (window.self !== window.top) {
+      document.body.classList.add('in-iframe');
+    }
+    const savedCart = PizzaStorage.getCart();
     this.renderCategoryPills();
     this.renderHomeGrid();
     this.renderProducts();
+    this.applyOrderModeUI(savedCart.deliveryMode || 'direct');
     this.updateCartUI();
     this.updateAccountUI();
     this.initEventListeners();
@@ -64,24 +69,15 @@ const W3CApp = {
       this.updateAccountUI();
     });
 
+    window.addEventListener('optinoisy:loyalty-updated', () => {
+      this.renderLoyaltyUI();
+    });
+
     window.addEventListener('storage', (e) => {
-      if (!e.key || e.key === 'optinoisy_orders' || e.key === 'optinoisy_active_user') {
+      if (!e.key || e.key === 'optinoisy_orders' || e.key === 'optinoisy_active_user' || e.key === 'optinoisy_loyalty_data') {
         this.updateAccountUI();
       }
     });
-
-    const toggleBtn = document.getElementById('w3cTogglePcBtn');
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('desktop-expanded');
-        const isExp = document.body.classList.contains('desktop-expanded');
-        const txt = document.getElementById('w3cTogglePcText');
-        if (txt) txt.textContent = isExp ? 'Vue Smartphone' : 'Vue PC Elargie';
-        if (this.leafletMap) {
-          setTimeout(() => this.leafletMap.invalidateSize(), 300);
-        }
-      });
-    }
 
     const cardInput = document.getElementById('w3cCardNumber');
     if (cardInput) {
@@ -565,7 +561,7 @@ const W3CApp = {
         freeNotice.style.display = 'block';
         freeNotice.style.background = '#FEE2E2';
         freeNotice.style.color = 'var(--primary)';
-        freeNotice.innerHTML = `🏪 <strong>Retrait à l'Atelier sélectionné</strong> • 12 Avenue Foch (Frais : 0 €)`;
+        freeNotice.innerHTML = `<strong>Retrait à l'Atelier sélectionné</strong> • 12 Avenue Foch (Frais : 0,00 €)`;
       } else if (totals.subtotal === 0) {
         freeNotice.style.display = 'none';
       } else if (totals.isFreeDelivery) {
@@ -679,10 +675,8 @@ const W3CApp = {
     if (btn) btn.classList.add('active');
   },
 
-  setOrderMode(mode) {
+  applyOrderModeUI(mode) {
     const isPickup = mode === 'pickup';
-    PizzaStorage.setDeliveryMode(isPickup ? 'pickup' : 'direct');
-
     const btnDel = document.getElementById('w3cBtnGeoModeDelivery');
     const btnPick = document.getElementById('w3cBtnGeoModePickup');
     const cardPick = document.getElementById('w3cPickupInfoCard');
@@ -693,14 +687,120 @@ const W3CApp = {
     if (cardPick) cardPick.style.display = isPickup ? 'block' : 'none';
     if (flowDel) flowDel.style.display = isPickup ? 'none' : 'block';
 
+    const bCartDel = document.getElementById('w3cCartModeDeliveryBtn');
+    const bCartPick = document.getElementById('w3cCartModePickupBtn');
+    if (bCartDel) bCartDel.classList.toggle('active', !isPickup);
+    if (bCartPick) bCartPick.classList.toggle('active', isPickup);
+
+    const btnAction = document.getElementById('w3cBtnConfirmPickupAction');
+    const cart = PizzaStorage.getCart();
+    if (btnAction) {
+      btnAction.textContent = cart.items.length === 0 ? "Commander à emporter (0 € de frais)" : "Valider le retrait & Voir le panier";
+    }
+  },
+
+  setOrderMode(mode) {
+    const isPickup = mode === 'pickup';
+    PizzaStorage.setDeliveryMode(isPickup ? 'pickup' : 'direct');
+    this.applyOrderModeUI(isPickup ? 'pickup' : 'direct');
     this.updateCartUI();
-    this.showToast(isPickup ? "Mode Retrait à l'Atelier sélectionné (Frais : 0 €)" : "Mode Livraison à Domicile sélectionné");
+    this.showToast(isPickup ? "Mode Retrait en Magasin activé (Frais : 0,00 €)" : "Mode Livraison à Domicile activé");
   },
 
   confirmPickupMode() {
     this.setOrderMode('pickup');
-    this.showToast("Retrait en magasin confirmé (12 Avenue Foch) !");
-    this.switchTab('cart');
+    const cart = PizzaStorage.getCart();
+    if (cart.items.length === 0) {
+      this.showToast("Mode Retrait sélectionné (0 € de frais). Choisissez vos pizzas !");
+      this.switchTab('menu');
+    } else {
+      this.showToast("Retrait en magasin confirmé (12 Avenue Foch) !");
+      this.switchTab('cart');
+    }
+  },
+
+  // --- PROGRAMME FIDÉLITÉ W3C (BURGER KING STYLE) ---
+  renderLoyaltyUI() {
+    const user = PizzaStorage.getCurrentUser();
+    if (!user) return;
+
+    const data = PizzaStorage.getLoyaltyData(user.email);
+    const tierBadge = document.getElementById('w3cLoyaltyTierBadge');
+    const ptsDisplay = document.getElementById('w3cLoyaltyPointsDisplay');
+    const progressLabel = document.getElementById('w3cLoyaltyProgressLabel');
+    const progressBar = document.getElementById('w3cLoyaltyProgressBar');
+    const nextRewardTitle = document.getElementById('w3cLoyaltyNextRewardTitle');
+    const rewardsList = document.getElementById('w3cLoyaltyRewardsList');
+    const histBox = document.getElementById('w3cLoyaltyHistoryBox');
+
+    if (tierBadge) tierBadge.textContent = data.tierName || 'NIVEAU BRONZE';
+    if (ptsDisplay) ptsDisplay.textContent = data.points;
+
+    // Récompenses Burger King style
+    const rewards = [
+      { id: 'boisson', name: 'Canette 33cl au choix', cost: 80, desc: 'Coca-Cola, San Pellegrino ou Fuze Tea' },
+      { id: 'dessert', name: 'Tiramisu Artisanal Maison', cost: 180, desc: 'Recette traditionnelle au café italien' },
+      { id: 'pizza', name: 'Pizza Margherita Junior', cost: 400, desc: 'Sauce tomate San Marzano & Mozzarella fior di latte' },
+      { id: 'reine', name: 'Grande Pizza Reine au choix', cost: 600, desc: 'Taille familiale 40 cm pour 3-4 pers.' }
+    ];
+
+    // Prochain objectif
+    const nextReward = rewards.find(r => r.cost > data.points) || rewards[rewards.length - 1];
+    if (nextRewardTitle) nextRewardTitle.textContent = nextReward.name;
+    if (progressLabel) progressLabel.textContent = `${data.points} / ${nextReward.cost} pts`;
+    if (progressBar) {
+      const pct = Math.min(100, Math.round((data.points / nextReward.cost) * 100));
+      progressBar.style.width = `${pct}%`;
+    }
+
+    if (rewardsList) {
+      rewardsList.innerHTML = rewards.map(r => {
+        const canRedeem = data.points >= r.cost;
+        return `
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-radius: 6px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);">
+            <div style="margin-right: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+              <div style="font-weight: 700; font-size: 0.82rem; color: #FFF;">${r.name}</div>
+              <div style="color: #F59E0B; font-weight: 700; font-size: 0.72rem;">${r.cost} Opti'Points • <span style="color: #CBD5E1; font-weight: 400;">${r.desc}</span></div>
+            </div>
+            <button type="button" class="btn-ui ${canRedeem ? 'btn-ui-primary' : 'btn-ui-outline'}" style="padding: 4px 10px; font-size: 0.72rem; white-space: nowrap; ${canRedeem ? 'background: #F59E0B; color: #000; border-color: #F59E0B; font-weight: 800;' : 'color: #94A3B8; border-color: #475569; opacity: 0.6;'}" ${canRedeem ? `onclick="W3CApp.redeemReward('${r.id}', ${r.cost}, '${r.name.replace(/'/g, "\\'")}')"` : 'disabled'}>
+              ${canRedeem ? 'Débloquer' : `Manque ${r.cost - data.points} pts`}
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    if (histBox) {
+      if (!data.history || data.history.length === 0) {
+        histBox.innerHTML = '<div style="color: #94A3B8;">Aucun historique pour le moment.</div>';
+      } else {
+        histBox.innerHTML = data.history.map(h => `
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 4px 0;">
+            <span style="color: #E2E8F0;">${h.label} <small style="opacity: 0.6;">(${h.date})</small></span>
+            <strong style="color: ${h.points > 0 ? '#4ADE80' : '#F59E0B'};">${h.points > 0 ? '+' : ''}${h.points} pts</strong>
+          </div>
+        `).join('');
+      }
+    }
+  },
+
+  redeemReward(rewardId, cost, name) {
+    const res = PizzaStorage.redeemLoyaltyReward(rewardId, cost, name);
+    if (res.success) {
+      this.showToast(`Récompense débloquée ! ${name} a été ajouté à 0 € à votre panier.`);
+      this.renderLoyaltyUI();
+      this.updateCartUI();
+    } else {
+      this.showToast(res.message);
+    }
+  },
+
+  toggleLoyaltyHistory() {
+    const histBox = document.getElementById('w3cLoyaltyHistoryBox');
+    if (histBox) {
+      const isHidden = histBox.style.display === 'none';
+      histBox.style.display = isHidden ? 'block' : 'none';
+    }
   },
 
   setDeliveryChannel(channel) {
@@ -1093,6 +1193,7 @@ const W3CApp = {
     const addr = user.addresses?.[0];
     if (addrEl) addrEl.textContent = addr ? `${addr.street}, ${addr.postalCode} ${addr.city}` : 'Aucune adresse enregistree';
 
+    this.renderLoyaltyUI();
     this.renderUserOrders();
   },
 

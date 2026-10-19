@@ -70,6 +70,14 @@ body.desktop-expanded .mobile-app-wrapper {
   align-items: center;
   justify-content: space-between;
 }
+@media (max-width: 600px) {
+  .app-top-control-bar {
+    display: none !important;
+  }
+}
+body.in-iframe .app-top-control-bar {
+  display: none !important;
+}
 .app-top-control-bar a, .app-top-control-bar button {
   color: #D1D5DB;
   font-size: 0.72rem;

@@ -34,10 +34,15 @@ const App = {
   },
 
   init() {
+    if (window.self !== window.top) {
+      document.body.classList.add('in-iframe');
+    }
+    const savedCart = PizzaStorage.getCart();
     this.initBootstrapComponents();
     this.renderCategoryPills();
     this.renderHomeBestSellers();
     this.renderMenuProducts();
+    this.applyOrderModeUI(savedCart.deliveryMode || 'direct');
     this.updateCartUI();
     this.updateAccountUI();
     this.initEventListeners();
@@ -87,24 +92,15 @@ const App = {
       this.updateAccountUI();
     });
 
+    window.addEventListener('optinoisy:loyalty-updated', () => {
+      this.renderLoyaltyUI();
+    });
+
     window.addEventListener('storage', (e) => {
-      if (!e.key || e.key === 'optinoisy_orders' || e.key === 'optinoisy_active_user') {
+      if (!e.key || e.key === 'optinoisy_orders' || e.key === 'optinoisy_active_user' || e.key === 'optinoisy_loyalty_data') {
         this.updateAccountUI();
       }
     });
-
-    const toggleBtn = document.getElementById('toggleDesktopModeBtn');
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('desktop-expanded');
-        const isExp = document.body.classList.contains('desktop-expanded');
-        const lbl = document.getElementById('desktopModeBtnText');
-        if (lbl) lbl.textContent = isExp ? 'Vue Smartphone' : 'Vue PC Elargie';
-        if (this.leafletMap) {
-          setTimeout(() => this.leafletMap.invalidateSize(), 300);
-        }
-      });
-    }
   },
 
   switchTab(tabId) {
@@ -575,7 +571,7 @@ const App = {
       if (totals.isPickup) {
         freeNoticeEl.style.display = 'block';
         freeNoticeEl.className = 'card border-0 rounded-3 p-2 px-3 mb-3 bg-danger-subtle text-danger small';
-        freeNoticeEl.innerHTML = `🏪 <strong>Retrait à l'Atelier sélectionné</strong> • 12 Avenue Foch (Frais : 0 €)`;
+        freeNoticeEl.innerHTML = `<strong>Retrait à l'Atelier sélectionné</strong> • 12 Avenue Foch (Frais : 0,00 €)`;
       } else if (totals.subtotal === 0) {
         freeNoticeEl.style.display = 'none';
       } else if (totals.isFreeDelivery) {
@@ -1035,6 +1031,7 @@ const App = {
     const addr = user.addresses?.[0];
     if (addrEl) addrEl.textContent = addr ? `${addr.street}, ${addr.postalCode} ${addr.city}` : 'Aucune adresse enregistree';
 
+    this.renderLoyaltyUI();
     this.renderUserOrders();
   },
 
@@ -1106,10 +1103,8 @@ const App = {
     `;
   },
 
-  setOrderMode(mode) {
+  applyOrderModeUI(mode) {
     const isPickup = mode === 'pickup';
-    PizzaStorage.setDeliveryMode(isPickup ? 'pickup' : 'direct');
-
     const btnDel = document.getElementById('btnGeoModeDelivery');
     const btnPick = document.getElementById('btnGeoModePickup');
     const cardPick = document.getElementById('pickupInfoCard');
@@ -1120,14 +1115,120 @@ const App = {
     if (cardPick) cardPick.style.display = isPickup ? 'block' : 'none';
     if (flowDel) flowDel.style.display = isPickup ? 'none' : 'block';
 
+    const bCartDel = document.getElementById('cartModeDeliveryBtn');
+    const bCartPick = document.getElementById('cartModePickupBtn');
+    if (bCartDel) bCartDel.classList.toggle('active', !isPickup);
+    if (bCartPick) bCartPick.classList.toggle('active', isPickup);
+
+    const btnAction = document.getElementById('btnConfirmPickupAction');
+    const cart = PizzaStorage.getCart();
+    if (btnAction) {
+      btnAction.textContent = cart.items.length === 0 ? "Commander à emporter (0 € de frais)" : "Valider le retrait & Voir le panier";
+    }
+  },
+
+  setOrderMode(mode) {
+    const isPickup = mode === 'pickup';
+    PizzaStorage.setDeliveryMode(isPickup ? 'pickup' : 'direct');
+    this.applyOrderModeUI(isPickup ? 'pickup' : 'direct');
     this.updateCartUI();
-    this.showToast(isPickup ? "Mode Retrait à l'Atelier sélectionné (Frais : 0 €)" : "Mode Livraison à Domicile sélectionné");
+    this.showToast(isPickup ? "Mode Retrait en Magasin activé (Frais : 0,00 €)" : "Mode Livraison à Domicile activé");
   },
 
   confirmPickupMode() {
     this.setOrderMode('pickup');
-    this.showToast("Retrait en magasin confirmé (12 Avenue Foch) !");
-    this.switchTab('cart');
+    const cart = PizzaStorage.getCart();
+    if (cart.items.length === 0) {
+      this.showToast("Mode Retrait sélectionné (0 € de frais). Choisissez vos pizzas !");
+      this.switchTab('menu');
+    } else {
+      this.showToast("Retrait en magasin confirmé (12 Avenue Foch) !");
+      this.switchTab('cart');
+    }
+  },
+
+  // --- PROGRAMME FIDÉLITÉ (BURGER KING STYLE) ---
+  renderLoyaltyUI() {
+    const user = PizzaStorage.getCurrentUser();
+    if (!user) return;
+
+    const data = PizzaStorage.getLoyaltyData(user.email);
+    const tierBadge = document.getElementById('loyaltyTierBadge');
+    const ptsDisplay = document.getElementById('loyaltyPointsDisplay');
+    const progressLabel = document.getElementById('loyaltyProgressLabel');
+    const progressBar = document.getElementById('loyaltyProgressBar');
+    const nextRewardTitle = document.getElementById('loyaltyNextRewardTitle');
+    const rewardsList = document.getElementById('loyaltyRewardsList');
+    const histBox = document.getElementById('loyaltyHistoryBox');
+
+    if (tierBadge) tierBadge.textContent = data.tierName || 'NIVEAU BRONZE';
+    if (ptsDisplay) ptsDisplay.textContent = data.points;
+
+    // Récompenses Burger King style
+    const rewards = [
+      { id: 'boisson', name: 'Canette 33cl au choix', cost: 80, desc: 'Coca-Cola, San Pellegrino ou Fuze Tea' },
+      { id: 'dessert', name: 'Tiramisu Artisanal Maison', cost: 180, desc: 'Recette traditionnelle au café italien' },
+      { id: 'pizza', name: 'Pizza Margherita Junior', cost: 400, desc: 'Sauce tomate San Marzano & Mozzarella fior di latte' },
+      { id: 'reine', name: 'Grande Pizza Reine au choix', cost: 600, desc: 'Taille familiale 40 cm pour 3-4 pers.' }
+    ];
+
+    // Prochain objectif
+    const nextReward = rewards.find(r => r.cost > data.points) || rewards[rewards.length - 1];
+    if (nextRewardTitle) nextRewardTitle.textContent = nextReward.name;
+    if (progressLabel) progressLabel.textContent = `${data.points} / ${nextReward.cost} pts`;
+    if (progressBar) {
+      const pct = Math.min(100, Math.round((data.points / nextReward.cost) * 100));
+      progressBar.style.width = `${pct}%`;
+    }
+
+    if (rewardsList) {
+      rewardsList.innerHTML = rewards.map(r => {
+        const canRedeem = data.points >= r.cost;
+        return `
+          <div class="d-flex align-items-center justify-content-between p-2 rounded-3" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);">
+            <div class="me-2 text-truncate">
+              <div class="fw-bold small text-white text-truncate">${r.name}</div>
+              <div class="text-warning fw-bold" style="font-size: 0.72rem;">${r.cost} Opti'Points • <span class="text-light opacity-75">${r.desc}</span></div>
+            </div>
+            <button type="button" class="btn btn-sm ${canRedeem ? 'btn-warning fw-bold text-dark' : 'btn-outline-secondary text-muted disabled'} py-1 px-2 rounded-2" style="font-size: 0.72rem; white-space: nowrap;" ${canRedeem ? `onclick="App.redeemReward('${r.id}', ${r.cost}, '${r.name.replace(/'/g, "\\'")}')"` : 'disabled'}>
+              ${canRedeem ? 'Débloquer' : `Manque ${r.cost - data.points} pts`}
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    if (histBox) {
+      if (!data.history || data.history.length === 0) {
+        histBox.innerHTML = '<div class="text-muted">Aucun historique pour le moment.</div>';
+      } else {
+        histBox.innerHTML = data.history.map(h => `
+          <div class="d-flex justify-content-between border-bottom border-secondary border-opacity-25 py-1">
+            <span class="text-light">${h.label} <small class="opacity-50">(${h.date})</small></span>
+            <strong class="${h.points > 0 ? 'text-success' : 'text-warning'}">${h.points > 0 ? '+' : ''}${h.points} pts</strong>
+          </div>
+        `).join('');
+      }
+    }
+  },
+
+  redeemReward(rewardId, cost, name) {
+    const res = PizzaStorage.redeemLoyaltyReward(rewardId, cost, name);
+    if (res.success) {
+      this.showToast(`Récompense débloquée ! ${name} a été ajouté à 0 € à votre panier.`);
+      this.renderLoyaltyUI();
+      this.updateCartUI();
+    } else {
+      this.showToast(res.message);
+    }
+  },
+
+  toggleLoyaltyHistory() {
+    const histBox = document.getElementById('loyaltyHistoryBox');
+    if (histBox) {
+      const isHidden = histBox.style.display === 'none';
+      histBox.style.display = isHidden ? 'block' : 'none';
+    }
   },
 
   toggleAuthForm(type) {

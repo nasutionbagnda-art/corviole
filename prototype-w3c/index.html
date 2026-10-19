@@ -27,17 +27,14 @@
 <body>
 
   <!-- Barre superieure discrete de controle PC -->
-  <div class="app-top-control-bar">
+  <div class="app-top-control-bar" id="w3cTopControlBar">
     <div style="display: flex; align-items: center; gap: 8px;">
       <span style="background: #13672F; color: #FFF; font-weight: 800; font-size: 0.68rem; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">W3C Standard Pur</span>
       <span style="opacity: 0.75; font-size: 0.72rem;">Opti'Noisy Pizza • Mobile-First</span>
     </div>
     <div style="display: flex; align-items: center; gap: 8px;">
-      <button type="button" id="w3cTogglePcBtn" title="Basculer largeur PC / Smartphone">
-        <span id="w3cTogglePcText">Vue PC Elargie</span>
-      </button>
-      <a href="../index.html" style="font-weight: 700; color: #F59E0B;">
-        Portail TP
+      <a href="../index.html" style="font-weight: 700; color: #F59E0B; text-decoration: none; font-size: 0.75rem;">
+        ← Retour au Hub
       </a>
     </div>
   </div>
@@ -209,10 +206,10 @@
       <!-- Sélecteur Livraison vs Retrait Magasin -->
       <div class="auth-segment-control" style="margin-bottom: 12px;">
         <button type="button" class="auth-seg-btn active" id="w3cBtnGeoModeDelivery" onclick="W3CApp.setOrderMode('delivery')">
-          🛵 Livraison à Domicile
+          Livraison à Domicile
         </button>
         <button type="button" class="auth-seg-btn" id="w3cBtnGeoModePickup" onclick="W3CApp.setOrderMode('pickup')">
-          🏪 Retrait à l'Atelier (0 €)
+          Retrait en Magasin (0 €)
         </button>
       </div>
 
@@ -228,7 +225,7 @@
           <strong>Horaires retrait :</strong> 11h30 - 14h30 • 18h30 - 23h00<br>
           <span style="color: #64748B;">Venez récupérer vos pizzas fumantes directement au comptoir sans file d'attente.</span>
         </div>
-        <button type="button" class="btn-ui btn-ui-primary btn-ui-block" onclick="W3CApp.confirmPickupMode()">
+        <button type="button" class="btn-ui btn-ui-primary btn-ui-block" id="w3cBtnConfirmPickupAction" onclick="W3CApp.confirmPickupMode()">
           Commander à emporter (0 € de frais)
         </button>
       </div>
@@ -336,14 +333,14 @@
         </div>
         <div class="auth-segment-control" style="margin-bottom: 8px;">
           <button type="button" class="auth-seg-btn active" id="w3cCartModeDeliveryBtn" onclick="W3CApp.setOrderMode('delivery')">
-            🛵 Livraison
+            Livraison
           </button>
           <button type="button" class="auth-seg-btn" id="w3cCartModePickupBtn" onclick="W3CApp.setOrderMode('pickup')">
-            🏪 Retrait Magasin (0 €)
+            Retrait Magasin (0 €)
           </button>
         </div>
         <div id="w3cCartPickupNotice" style="display: none; background: #ECFDF5; border: 1px solid #A7F3D0; color: #065F46; padding: 8px 10px; border-radius: 8px; font-size: 0.75rem; margin-bottom: 4px;">
-          <strong>Point de retrait :</strong> 12 Avenue Foch, Noisy-le-Grand • Vos pizzas au four à bois seront prêtes en 15-20 min.
+          Retrait au comptoir : <strong>12 Avenue Foch, Noisy-le-Grand</strong> • Vos pizzas au four à bois seront prêtes en 15-20 min.
         </div>
         <div id="w3cCartDeliveryChannelsBox">
           <span style="font-size: 0.75rem; font-weight: 800; display: block; margin: 8px 0 6px;">Canal de commande :</span>
@@ -469,7 +466,7 @@
         <!-- Bouton Connexion 1 Clic Testeur MMI -->
         <button type="button" onclick="W3CApp.quickDemoLogin()" style="width: 100%; background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); border: 1px solid #F59E0B; border-radius: 8px; padding: 10px; font-weight: 800; font-size: 0.82rem; color: #1A1C20; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-          <span>⚡ Connexion Immédiate Testeur (1 Clic)</span>
+          <span>Connexion Immédiate Testeur (1 Clic)</span>
         </button>
 
         <!-- Section commande active invitee W3C (visible des paiement valide) -->
@@ -555,6 +552,55 @@
           </div>
           <div style="font-size: 0.75rem; color: #64748B; border-top: 1px solid #E2E8F0; padding-top: 6px;">
             Adresse : <span id="w3cUserAddress">Adresse enregistree</span>
+          </div>
+        </div>
+
+        <!-- Carte Fidélité Opti'Points (Style Burger King Kingdom) -->
+        <div style="background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.1); padding: 14px; margin-bottom: 14px; color: #FFFFFF;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="background: #F59E0B; color: #000; font-weight: 800; font-size: 0.68rem; padding: 2px 8px; border-radius: 50px;" id="w3cLoyaltyTierBadge">
+                NIVEAU ARGENT
+              </span>
+              <span style="font-size: 0.72rem; color: #CBD5E1;">Club Opti'Fidélité</span>
+            </div>
+            <span style="font-size: 0.72rem; color: #F59E0B; font-weight: 700;">1 € = 10 pts</span>
+          </div>
+
+          <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px;">
+            <span style="font-size: 2rem; font-weight: 800; color: #F59E0B; line-height: 1;" id="w3cLoyaltyPointsDisplay">320</span>
+            <span style="font-size: 0.92rem; font-weight: 700; color: #F1F5F9;">Opti'Points</span>
+          </div>
+
+          <!-- Jauge Burger King vers la prochaine récompense -->
+          <div style="margin-bottom: 12px;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: #E2E8F0; margin-bottom: 4px;">
+              <span>Objectif : <strong style="color: #F59E0B;" id="w3cLoyaltyNextRewardTitle">Pizza Junior Offerte</strong></span>
+              <span id="w3cLoyaltyProgressLabel">320 / 400 pts</span>
+            </div>
+            <div style="height: 8px; background: rgba(255,255,255,0.2); border-radius: 50px; overflow: hidden;">
+              <div style="height: 100%; width: 80%; background: #F59E0B; border-radius: 50px; transition: width 0.3s ease;" id="w3cLoyaltyProgressBar"></div>
+            </div>
+          </div>
+
+          <!-- Catalogue Récompenses Burger King Style -->
+          <div style="background: rgba(255,255,255,0.08); border-radius: 8px; padding: 10px; margin-bottom: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 0.75rem; font-weight: 800; color: #F59E0B;">Récompenses déblocables :</span>
+              <span style="font-size: 0.68rem; color: #94A3B8;">Ajout direct au panier (0 €)</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 8px;" id="w3cLoyaltyRewardsList">
+              <!-- Injecte par JS -->
+            </div>
+          </div>
+
+          <!-- Historique des gains de points -->
+          <button type="button" style="background: none; border: none; color: #F59E0B; font-size: 0.72rem; font-weight: 700; cursor: pointer; padding: 0; text-align: left;" onclick="W3CApp.toggleLoyaltyHistory()">
+            Historique de mes gains de points
+          </button>
+          <div id="w3cLoyaltyHistoryBox" style="display: none; background: rgba(0,0,0,0.3); border-radius: 6px; padding: 8px; margin-top: 8px; font-size: 0.72rem; max-height: 120px; overflow-y: auto;">
+            <!-- Injecte par JS -->
           </div>
         </div>
 

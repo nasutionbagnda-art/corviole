@@ -363,6 +363,11 @@ const PizzaStorage = {
 
     orders.unshift(newOrder);
     localStorage.setItem(STORAGE_KEYS.ORDERS, JSON.stringify(orders));
+
+    // Attribution automatique de 10 points fidélité par euro dépensé
+    const earnedPoints = Math.max(10, Math.round(totals.total * 10));
+    this.addLoyaltyPoints(earnedPoints, `Commande #${orderNumber}`);
+
     this.clearCart();
     window.dispatchEvent(new CustomEvent("optinoisy:orders-updated", { detail: newOrder }));
     window.dispatchEvent(new Event("storage"));
@@ -426,5 +431,117 @@ const PizzaStorage = {
     localStorage.setItem(STORAGE_KEYS.FAVORITES, JSON.stringify(favs));
     window.dispatchEvent(new CustomEvent("optinoisy:favorites-updated", { detail: favs }));
     return favs.includes(itemId);
+  },
+
+  // --- PROGRAMME FIDÉLITÉ (STYLE BURGER KING KINGDOM) ---
+  getLoyaltyData(userEmail) {
+    const user = this.getCurrentUser();
+    const email = userEmail || user?.email || "demo@mmi.fr";
+    try {
+      const allLoyalty = JSON.parse(localStorage.getItem("optinoisy_loyalty_data") || "{}");
+      if (!allLoyalty[email]) {
+        allLoyalty[email] = {
+          points: email === "demo@mmi.fr" ? 320 : 50,
+          tier: email === "demo@mmi.fr" ? "argent" : "bronze",
+          tierName: email === "demo@mmi.fr" ? "NIVEAU ARGENT" : "NIVEAU BRONZE",
+          history: email === "demo@mmi.fr" ? [
+            { id: "loy_1", label: "Bonus de bienvenue Club MMI", points: 50, date: "10/10/2026", type: "earn" },
+            { id: "loy_2", label: "Commande #OPT-194021", points: 270, date: "14/10/2026", type: "earn" }
+          ] : [
+            { id: "loy_init", label: "Bonus d'inscription Club", points: 50, date: new Date().toLocaleDateString('fr-FR'), type: "earn" }
+          ]
+        };
+        localStorage.setItem("optinoisy_loyalty_data", JSON.stringify(allLoyalty));
+      }
+      return allLoyalty[email];
+    } catch (e) {
+      return { points: 50, tier: "bronze", tierName: "NIVEAU BRONZE", history: [] };
+    }
+  },
+
+  addLoyaltyPoints(amount, label, userEmail) {
+    const user = this.getCurrentUser();
+    const email = userEmail || user?.email || "demo@mmi.fr";
+    const allLoyalty = JSON.parse(localStorage.getItem("optinoisy_loyalty_data") || "{}");
+    const userLoy = this.getLoyaltyData(email);
+    userLoy.points += amount;
+
+    if (userLoy.points >= 500) {
+      userLoy.tier = "or";
+      userLoy.tierName = "PIZZAIOLO D'OR";
+    } else if (userLoy.points >= 200) {
+      userLoy.tier = "argent";
+      userLoy.tierName = "NIVEAU ARGENT";
+    } else {
+      userLoy.tier = "bronze";
+      userLoy.tierName = "NIVEAU BRONZE";
+    }
+
+    userLoy.history.unshift({
+      id: "loy_" + Date.now(),
+      label: label || "Points commande",
+      points: amount,
+      date: new Date().toLocaleDateString('fr-FR'),
+      type: "earn"
+    });
+    allLoyalty[email] = userLoy;
+    localStorage.setItem("optinoisy_loyalty_data", JSON.stringify(allLoyalty));
+    window.dispatchEvent(new CustomEvent("optinoisy:loyalty-updated", { detail: userLoy }));
+    return userLoy;
+  },
+
+  redeemLoyaltyReward(rewardId, costPoints, rewardName) {
+    const user = this.getCurrentUser();
+    const email = user?.email || "demo@mmi.fr";
+    const userLoy = this.getLoyaltyData(email);
+
+    if (userLoy.points < costPoints) {
+      return { success: false, message: `Points insuffisants (${userLoy.points}/${costPoints} pts requis).` };
+    }
+
+    userLoy.points -= costPoints;
+    userLoy.history.unshift({
+      id: "loy_" + Date.now(),
+      label: `Récompense débloquée : ${rewardName}`,
+      points: -costPoints,
+      date: new Date().toLocaleDateString('fr-FR'),
+      type: "redeem"
+    });
+
+    const allLoyalty = JSON.parse(localStorage.getItem("optinoisy_loyalty_data") || "{}");
+    allLoyalty[email] = userLoy;
+    localStorage.setItem("optinoisy_loyalty_data", JSON.stringify(allLoyalty));
+
+    // Ajout direct de l'article offert au panier à 0,00 €
+    this.addRewardToCart(rewardId, rewardName);
+
+    window.dispatchEvent(new CustomEvent("optinoisy:loyalty-updated", { detail: userLoy }));
+    return {
+      success: true,
+      message: `Félicitations ! ${rewardName} a été ajouté(e) gratuitement à votre panier.`,
+      remainingPoints: userLoy.points
+    };
+  },
+
+  addRewardToCart(rewardId, rewardName) {
+    const cart = this.getCart();
+    let img = "coca-33cl.jpg";
+    if (rewardId === "dessert" || rewardId === "tiramisu") img = "tiramisu.jpg";
+    if (rewardId === "pizza" || rewardId === "margherita") img = "pizza-margherita.jpg";
+    if (rewardId === "reine") img = "pizza-reine.jpg";
+
+    const rewardItem = {
+      productId: "loyalty_" + rewardId + "_" + Date.now(),
+      name: `[Fidélité] ${rewardName}`,
+      price: 0,
+      size: "normale",
+      sizeName: "Offert",
+      quantity: 1,
+      image: img,
+      extrasDetails: [{ name: "Récompense Club Opti'Points", price: 0 }],
+      lineTotal: 0
+    };
+    cart.items.unshift(rewardItem);
+    this.saveCart(cart);
   }
 };
