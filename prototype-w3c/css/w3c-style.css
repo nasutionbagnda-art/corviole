@@ -424,25 +424,33 @@ body.desktop-expanded .mobile-app-wrapper {
   overflow-x: auto;
   padding: 8px 16px 12px;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 .category-scroll-container::-webkit-scrollbar {
   display: none;
 }
+.category-scroll-container::after {
+  content: '';
+  flex: 0 0 16px;
+}
 .category-pill {
   white-space: nowrap;
   background: #F1F3F5;
-  border: 1px solid transparent;
+  border: 1px solid #E2E8F0;
   color: #495057;
-  padding: 7px 14px;
+  padding: 7px 16px;
   border-radius: 50px;
   font-size: 0.82rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 .category-pill.active {
   background: var(--primary);
+  border-color: var(--primary);
   color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(190, 28, 31, 0.3);
 }
 
 /* Recherche */
@@ -879,4 +887,31 @@ body.desktop-expanded .floating-cart-bar {
     border: none !important;
     max-width: 100% !important;
   }
+}
+
+/* Auth Segment Control (DA Pizzeria) */
+.auth-segment-control {
+  display: flex;
+  background: #EAE6DF;
+  padding: 4px;
+  border-radius: 50px;
+  gap: 4px;
+}
+.auth-seg-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 8px 14px;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+.auth-seg-btn.active {
+  background: var(--primary);
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(190, 28, 31, 0.3);
 }

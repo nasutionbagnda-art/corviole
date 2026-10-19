@@ -517,8 +517,35 @@ const App = {
     const totalEl = document.getElementById('cartTotalText');
 
     if (subtotalEl) subtotalEl.textContent = `${totals.subtotal.toFixed(2)} €`;
-    if (feeEl) feeEl.textContent = totals.deliveryFee > 0 ? `${totals.deliveryFee.toFixed(2)} €` : 'OFFERTE';
+    if (feeEl) {
+      if (totals.isPickup) {
+        feeEl.innerHTML = '<span class="text-success fw-bold">0,00 € (Retrait)</span>';
+      } else {
+        feeEl.textContent = totals.deliveryFee > 0 ? `${totals.deliveryFee.toFixed(2)} €` : 'OFFERTE';
+      }
+    }
     if (totalEl) totalEl.textContent = `${totals.total.toFixed(2)} €`;
+
+    // Synchronisation mode boutons dans le panier
+    const modeBadge = document.getElementById('cartModeIndicatorBadge');
+    const bDel = document.getElementById('cartModeDeliveryBtn');
+    const bPick = document.getElementById('cartModePickupBtn');
+    const pickNotice = document.getElementById('cartPickupNotice');
+    const chanBox = document.getElementById('cartDeliveryChannelsBox');
+
+    if (totals.isPickup) {
+      if (modeBadge) { modeBadge.textContent = 'Retrait Magasin (0 €)'; modeBadge.className = 'badge bg-danger text-white fw-bold'; }
+      if (bDel) bDel.classList.remove('active');
+      if (bPick) bPick.classList.add('active');
+      if (pickNotice) pickNotice.style.display = 'block';
+      if (chanBox) chanBox.style.display = 'none';
+    } else {
+      if (modeBadge) { modeBadge.textContent = 'Livraison à domicile'; modeBadge.className = 'badge bg-danger-subtle text-danger fw-bold'; }
+      if (bDel) bDel.classList.add('active');
+      if (bPick) bPick.classList.remove('active');
+      if (pickNotice) pickNotice.style.display = 'none';
+      if (chanBox) chanBox.style.display = 'block';
+    }
 
     // Lignes promo et pourboire
     const discountLine = document.getElementById('cartDiscountLine');
@@ -545,7 +572,11 @@ const App = {
 
     const freeNoticeEl = document.getElementById('cartFreeDeliveryNotice');
     if (freeNoticeEl) {
-      if (totals.subtotal === 0) {
+      if (totals.isPickup) {
+        freeNoticeEl.style.display = 'block';
+        freeNoticeEl.className = 'card border-0 rounded-3 p-2 px-3 mb-3 bg-danger-subtle text-danger small';
+        freeNoticeEl.innerHTML = `🏪 <strong>Retrait à l'Atelier sélectionné</strong> • 12 Avenue Foch (Frais : 0 €)`;
+      } else if (totals.subtotal === 0) {
         freeNoticeEl.style.display = 'none';
       } else if (totals.isFreeDelivery) {
         freeNoticeEl.style.display = 'block';
@@ -698,11 +729,21 @@ const App = {
     const user = PizzaStorage.getCurrentUser();
     const loc = PizzaStorage.getSavedLocation();
     const addrInput = document.getElementById('checkoutDeliveryAddress');
+    const addrLabel = document.getElementById('checkoutAddressLabel');
+
     if (addrInput) {
-      if (user && user.addresses?.[0]) {
-        addrInput.value = `${user.addresses[0].street}, ${user.addresses[0].postalCode} ${user.addresses[0].city}`;
-      } else if (loc && loc.address) {
-        addrInput.value = loc.address;
+      if (totals.isPickup) {
+        if (addrLabel) addrLabel.textContent = "Point de retrait au comptoir :";
+        addrInput.value = "Pizzeria Opti'Noisy • 12 Avenue Foch, 93160 Noisy-le-Grand";
+        addrInput.readOnly = true;
+      } else {
+        if (addrLabel) addrLabel.textContent = "Adresse de livraison confirmée :";
+        addrInput.readOnly = false;
+        if (user && user.addresses?.[0]) {
+          addrInput.value = `${user.addresses[0].street}, ${user.addresses[0].postalCode} ${user.addresses[0].city}`;
+        } else if (loc && loc.address) {
+          addrInput.value = loc.address;
+        }
       }
     }
 
@@ -1065,58 +1106,109 @@ const App = {
     `;
   },
 
+  setOrderMode(mode) {
+    const isPickup = mode === 'pickup';
+    PizzaStorage.setDeliveryMode(isPickup ? 'pickup' : 'direct');
+
+    const btnDel = document.getElementById('btnGeoModeDelivery');
+    const btnPick = document.getElementById('btnGeoModePickup');
+    const cardPick = document.getElementById('pickupInfoCard');
+    const flowDel = document.getElementById('deliveryFlowSection');
+
+    if (btnDel) btnDel.classList.toggle('active', !isPickup);
+    if (btnPick) btnPick.classList.toggle('active', isPickup);
+    if (cardPick) cardPick.style.display = isPickup ? 'block' : 'none';
+    if (flowDel) flowDel.style.display = isPickup ? 'none' : 'block';
+
+    this.updateCartUI();
+    this.showToast(isPickup ? "Mode Retrait à l'Atelier sélectionné (Frais : 0 €)" : "Mode Livraison à Domicile sélectionné");
+  },
+
+  confirmPickupMode() {
+    this.setOrderMode('pickup');
+    this.showToast("Retrait en magasin confirmé (12 Avenue Foch) !");
+    this.switchTab('cart');
+  },
+
   toggleAuthForm(type) {
     const fLogin = document.getElementById('formLogin');
     const fReg = document.getElementById('formRegister');
     const bLogin = document.getElementById('btnTabLogin');
     const bReg = document.getElementById('btnTabRegister');
+    const alertBox = document.getElementById('authAlertBanner');
+
+    if (alertBox) alertBox.style.display = 'none';
 
     if (type === 'login') {
-      fLogin.style.display = 'block';
-      fReg.style.display = 'none';
-      bLogin.classList.add('active');
-      bReg.classList.remove('active');
+      if (fLogin) fLogin.style.display = 'block';
+      if (fReg) fReg.style.display = 'none';
+      if (bLogin) bLogin.classList.add('active');
+      if (bReg) bReg.classList.remove('active');
     } else {
-      fLogin.style.display = 'none';
-      fReg.style.display = 'block';
-      bLogin.classList.remove('active');
-      bReg.classList.add('active');
+      if (fLogin) fLogin.style.display = 'none';
+      if (fReg) fReg.style.display = 'block';
+      if (bLogin) bLogin.classList.remove('active');
+      if (bReg) bReg.classList.add('active');
+    }
+  },
+
+  quickDemoLogin() {
+    const res = PizzaStorage.loginUser('demo@mmi.fr', 'demo123');
+    if (res.success) {
+      this.showToast(`Bienvenue, ${res.user.firstName} ! (Compte Démo Connecté)`);
+      this.updateAccountUI();
     }
   },
 
   fillDemoAccount() {
-    document.getElementById('loginEmail').value = 'demo@mmi.fr';
-    document.getElementById('loginPassword').value = 'demo123';
-    this.showToast("Identifiants pre-remplis");
+    this.quickDemoLogin();
   },
 
   handleLoginSubmit(e) {
     e.preventDefault();
-    const email = document.getElementById('loginEmail').value;
-    const pwd = document.getElementById('loginPassword').value;
+    const alertBox = document.getElementById('authAlertBanner');
+    const email = document.getElementById('loginEmail')?.value.trim();
+    const pwd = document.getElementById('loginPassword')?.value;
 
     const res = PizzaStorage.loginUser(email, pwd);
     if (res.success) {
-      this.showToast(`Bienvenue, ${res.user.firstName}`);
+      if (alertBox) alertBox.style.display = 'none';
+      this.showToast(`Bienvenue, ${res.user.firstName} !`);
+      this.updateAccountUI();
     } else {
+      if (alertBox) {
+        alertBox.className = 'alert alert-danger py-2 small mb-3 rounded-3';
+        alertBox.textContent = res.message || 'Identifiants incorrects. Utilisez le compte testeur ci-dessus.';
+        alertBox.style.display = 'block';
+      }
       this.showToast(res.message);
     }
   },
 
   handleRegisterSubmit(e) {
     e.preventDefault();
+    const alertBox = document.getElementById('authAlertBanner');
+    const firstName = document.getElementById('regFirstName')?.value.trim();
+    const lastName = document.getElementById('regLastName')?.value.trim();
+    const email = document.getElementById('regEmail')?.value.trim();
+    const phone = document.getElementById('regPhone')?.value.trim();
+    const address = document.getElementById('regAddress')?.value.trim();
+    const password = document.getElementById('regPassword')?.value;
+
     const res = PizzaStorage.registerUser({
-      firstName: document.getElementById('regFirstName').value,
-      lastName: document.getElementById('regLastName').value,
-      email: document.getElementById('regEmail').value,
-      phone: document.getElementById('regPhone').value,
-      address: document.getElementById('regAddress').value,
-      password: document.getElementById('regPassword').value
+      firstName, lastName, email, phone, address, password
     });
 
     if (res.success) {
-      this.showToast("Compte cree avec succes");
+      if (alertBox) alertBox.style.display = 'none';
+      this.showToast(`Compte créé avec succès ! Bienvenue, ${res.user.firstName}.`);
+      this.updateAccountUI();
     } else {
+      if (alertBox) {
+        alertBox.className = 'alert alert-danger py-2 small mb-3 rounded-3';
+        alertBox.textContent = res.message;
+        alertBox.style.display = 'block';
+      }
       this.showToast(res.message);
     }
   },

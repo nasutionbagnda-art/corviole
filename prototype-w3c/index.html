@@ -183,7 +183,7 @@
 
       <div class="search-input-group">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <input type="text" id="w3cSearchInput" placeholder="Rechercher une pizza, ingredient..." oninput="W3CApp.onSearch(this.value)">
+        <input type="text" id="w3cSearchInput" placeholder="Rechercher une pizza..." oninput="W3CApp.onSearch(this.value)">
       </div>
 
       <div class="category-scroll-container" id="w3cCatScroll">
@@ -206,84 +206,113 @@
     <!-- ========================================== -->
     <section id="w3c-tab-geo" style="display: none; padding: 14px 16px;">
       
-      <!-- Bandeau Statut Atelier & Rayon -->
-      <div style="background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 14px; box-shadow: var(--shadow-sm); margin-bottom: 12px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #13672F;"></span>
-            <strong style="font-size: 0.85rem; color: #1A1C20;">Livraison Express Ouverte</strong>
-          </div>
-          <span style="font-size: 0.72rem; background: #E8F5E9; color: #13672F; font-weight: 800; padding: 2px 8px; border-radius: 4px; border: 1px solid #C8E6C9;">Rayon direct 8 km</span>
-        </div>
-        <p style="font-size: 0.78rem; color: #64748B; margin: 0;">
-          Pizzeria Opti'Noisy • 12 Avenue du Marechal Foch, 93160 Noisy-le-Grand. Livraison en scooter isotherme.
-        </p>
+      <!-- Sélecteur Livraison vs Retrait Magasin -->
+      <div class="auth-segment-control" style="margin-bottom: 12px;">
+        <button type="button" class="auth-seg-btn active" id="w3cBtnGeoModeDelivery" onclick="W3CApp.setOrderMode('delivery')">
+          🛵 Livraison à Domicile
+        </button>
+        <button type="button" class="auth-seg-btn" id="w3cBtnGeoModePickup" onclick="W3CApp.setOrderMode('pickup')">
+          🏪 Retrait à l'Atelier (0 €)
+        </button>
       </div>
 
-      <!-- Selecteur de Secteur avec Cards cliquables -->
-      <div style="background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 14px; box-shadow: var(--shadow-sm); margin-bottom: 12px;">
-        <label style="font-size: 0.78rem; font-weight: 800; display: block; margin-bottom: 8px; color: #1A1C20;">Choisissez votre secteur a Noisy-le-Grand :</label>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
-          <div class="geo-sector-card selected" id="w3cGeoCard-iut" style="background: #FFF5F5; border: 1px solid var(--primary); border-radius: 8px; padding: 8px 10px; cursor: pointer;" onclick="W3CApp.selectDeliverySector(48.8415, 2.5855, 'Campus IUT Noisy-Champs, 2 Allee de l\'IUT', 'iut', 2.4)">
-            <div style="font-weight: 800; font-size: 0.82rem; color: var(--primary);">Campus IUT</div>
-            <div style="font-size: 0.7rem; color: var(--primary); font-weight: 700;">2.4 km • ~25 min</div>
-          </div>
-          <div class="geo-sector-card" id="w3cGeoCard-centre" style="background: #FFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 8px 10px; cursor: pointer;" onclick="W3CApp.selectDeliverySector(48.8488, 2.5525, 'Centre-Ville, 12 Avenue Foch', 'centre', 0.5)">
-            <div style="font-weight: 800; font-size: 0.82rem; color: #1A1C20;">Centre Noisy</div>
-            <div style="font-size: 0.7rem; color: #64748B;">0.5 km • ~15 min</div>
-          </div>
-          <div class="geo-sector-card" id="w3cGeoCard-gare" style="background: #FFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 8px 10px; cursor: pointer;" onclick="W3CApp.selectDeliverySector(48.8407, 2.5518, 'Gare Noisy Mont d\'Est', 'gare', 1.1)">
-            <div style="font-weight: 800; font-size: 0.82rem; color: #1A1C20;">Gare Mont d'Est</div>
-            <div style="font-size: 0.7rem; color: #64748B;">1.1 km • ~20 min</div>
-          </div>
-          <div class="geo-sector-card" id="w3cGeoCard-varenne" style="background: #FFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 8px 10px; cursor: pointer;" onclick="W3CApp.selectDeliverySector(48.8550, 2.5710, 'Quartier La Varenne', 'varenne', 1.8)">
-            <div style="font-weight: 800; font-size: 0.82rem; color: #1A1C20;">La Varenne</div>
-            <div style="font-size: 0.7rem; color: #64748B;">1.8 km • ~22 min</div>
-          </div>
+      <!-- Carte d'info Retrait Magasin (affichée si pickup actif) -->
+      <div id="w3cPickupInfoCard" style="display: none; background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; border-left: 4px solid var(--primary); padding: 14px; box-shadow: var(--shadow-sm); margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="font-size: 0.72rem; background: var(--primary); color: #FFF; font-weight: 800; padding: 2px 8px; border-radius: 4px;">Click & Collect Gratuit</span>
+          <span style="font-size: 0.75rem; color: #13672F; font-weight: 800;">Prêt en 15 - 20 min</span>
         </div>
-
-        <div>
-          <label style="font-size: 0.75rem; color: #64748B; display: block; margin-bottom: 4px;">Ou saisissez votre adresse precise :</label>
-          <div style="display: flex; gap: 6px;">
-            <input type="text" id="w3cManualAddressInput" style="flex: 1; padding: 7px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.82rem;" placeholder="Numero et nom de rue..." value="Campus IUT Noisy-Champs, 2 Allee de l'IUT" onchange="W3CApp.onAddressChange(this.value)">
-            <button type="button" class="btn-ui btn-ui-outline" style="color: var(--primary); border-color: var(--primary); padding: 6px 12px; font-size: 0.78rem; font-weight: 800;" onclick="W3CApp.locateMeGPS()">
-              GPS
-            </button>
-          </div>
+        <h4 style="font-size: 0.95rem; font-weight: 800; color: #1A1C20; margin: 0 0 4px 0;">Atelier Opti'Noisy</h4>
+        <p style="font-size: 0.78rem; color: #64748B; margin: 0 0 10px 0;">12 Avenue du Maréchal Foch, 93160 Noisy-le-Grand</p>
+        <div style="background: #F8F9FA; padding: 10px; border-radius: 8px; font-size: 0.75rem; color: #334155; margin-bottom: 12px;">
+          <strong>Horaires retrait :</strong> 11h30 - 14h30 • 18h30 - 23h00<br>
+          <span style="color: #64748B;">Venez récupérer vos pizzas fumantes directement au comptoir sans file d'attente.</span>
         </div>
+        <button type="button" class="btn-ui btn-ui-primary btn-ui-block" onclick="W3CApp.confirmPickupMode()">
+          Commander à emporter (0 € de frais)
+        </button>
       </div>
 
-      <!-- Carte Interactive Leaflet -->
-      <div style="background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 10px; box-shadow: var(--shadow-sm); margin-bottom: 12px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 4px 6px 8px;">
-          <span style="font-size: 0.78rem; font-weight: 800; color: #1A1C20;">Perimetre de livraison en direct</span>
-          <span style="font-size: 0.7rem; color: #64748B;">Cliquez sur la carte pour deplacer</span>
-        </div>
-        <div id="w3c-leaflet-map" style="height: 250px; border-radius: 10px; overflow: hidden; border: 1px solid #CBD5E1;"></div>
-      </div>
-
-      <!-- Synthese Conditions de Livraison (3 Compteurs Pro) -->
-      <div style="background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 14px; box-shadow: var(--shadow-sm);">
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; margin-bottom: 12px;">
-          <div style="background: #F8F9FA; padding: 8px; border-radius: 8px; border: 1px solid #ECEFF1;">
-            <div style="font-size: 0.68rem; color: #64748B; text-transform: uppercase; font-weight: 700;">Delai Estime</div>
-            <div style="font-weight: 800; color: var(--primary); font-size: 0.92rem;" id="w3cGeoStatTime">~25 min</div>
+      <div id="w3cDeliveryFlowSection">
+        <!-- Bandeau Statut Atelier & Rayon -->
+        <div style="background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 14px; box-shadow: var(--shadow-sm); margin-bottom: 12px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #13672F;"></span>
+              <strong style="font-size: 0.85rem; color: #1A1C20;">Livraison Express Ouverte</strong>
+            </div>
+            <span style="font-size: 0.72rem; background: #E8F5E9; color: #13672F; font-weight: 800; padding: 2px 8px; border-radius: 4px; border: 1px solid #C8E6C9;">Rayon direct 8 km</span>
           </div>
-          <div style="background: #F8F9FA; padding: 8px; border-radius: 8px; border: 1px solid #ECEFF1;">
-            <div style="font-size: 0.68rem; color: #64748B; text-transform: uppercase; font-weight: 700;">Distance</div>
-            <div style="font-weight: 800; color: #1A1C20; font-size: 0.92rem;" id="w3cGeoStatDistance">2.4 km</div>
-          </div>
-          <div style="background: #F8F9FA; padding: 8px; border-radius: 8px; border: 1px solid #ECEFF1;">
-            <div style="font-size: 0.68rem; color: #64748B; text-transform: uppercase; font-weight: 700;">Livraison</div>
-            <div style="font-weight: 800; color: #13672F; font-size: 0.88rem;" id="w3cGeoStatFee">Offerte > 25€</div>
-          </div>
+          <p style="font-size: 0.78rem; color: #64748B; margin: 0;">
+            Pizzeria Opti'Noisy • 12 Avenue du Marechal Foch, 93160 Noisy-le-Grand. Livraison en scooter isotherme.
+          </p>
         </div>
 
-        <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 8px; padding: 10px; text-align: center;" id="w3cGeoZoneBanner">
-          <span style="font-weight: 700; color: #13672F; font-size: 0.8rem;" id="w3cGeoZoneStatusText">Zone couverte : Livraison directe en scooter electrique</span>
+        <!-- Selecteur de Secteur avec Cards cliquables -->
+        <div style="background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 14px; box-shadow: var(--shadow-sm); margin-bottom: 12px;">
+          <label style="font-size: 0.78rem; font-weight: 800; display: block; margin-bottom: 8px; color: #1A1C20;">Choisissez votre secteur a Noisy-le-Grand :</label>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+            <div class="geo-sector-card selected" id="w3cGeoCard-iut" style="background: #FFF5F5; border: 1px solid var(--primary); border-radius: 8px; padding: 8px 10px; cursor: pointer;" onclick="W3CApp.selectDeliverySector(48.8415, 2.5855, 'Campus IUT Noisy-Champs, 2 Allee de l\'IUT', 'iut', 2.4)">
+              <div style="font-weight: 800; font-size: 0.82rem; color: var(--primary);">Campus IUT</div>
+              <div style="font-size: 0.7rem; color: var(--primary); font-weight: 700;">2.4 km • ~25 min</div>
+            </div>
+            <div class="geo-sector-card" id="w3cGeoCard-centre" style="background: #FFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 8px 10px; cursor: pointer;" onclick="W3CApp.selectDeliverySector(48.8488, 2.5525, 'Centre-Ville, 12 Avenue Foch', 'centre', 0.5)">
+              <div style="font-weight: 800; font-size: 0.82rem; color: #1A1C20;">Centre Noisy</div>
+              <div style="font-size: 0.7rem; color: #64748B;">0.5 km • ~15 min</div>
+            </div>
+            <div class="geo-sector-card" id="w3cGeoCard-gare" style="background: #FFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 8px 10px; cursor: pointer;" onclick="W3CApp.selectDeliverySector(48.8407, 2.5518, 'Gare Noisy Mont d\'Est', 'gare', 1.1)">
+              <div style="font-weight: 800; font-size: 0.82rem; color: #1A1C20;">Gare Mont d'Est</div>
+              <div style="font-size: 0.7rem; color: #64748B;">1.1 km • ~20 min</div>
+            </div>
+            <div class="geo-sector-card" id="w3cGeoCard-varenne" style="background: #FFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 8px 10px; cursor: pointer;" onclick="W3CApp.selectDeliverySector(48.8550, 2.5710, 'Quartier La Varenne', 'varenne', 1.8)">
+              <div style="font-weight: 800; font-size: 0.82rem; color: #1A1C20;">La Varenne</div>
+              <div style="font-size: 0.7rem; color: #64748B;">1.8 km • ~22 min</div>
+            </div>
+          </div>
+
+          <div>
+            <label style="font-size: 0.75rem; color: #64748B; display: block; margin-bottom: 4px;">Ou saisissez votre adresse precise :</label>
+            <div style="display: flex; gap: 6px;">
+              <input type="text" id="w3cManualAddressInput" style="flex: 1; padding: 7px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.82rem;" placeholder="Numero et nom de rue..." value="Campus IUT Noisy-Champs, 2 Allee de l'IUT" onchange="W3CApp.onAddressChange(this.value)">
+              <button type="button" class="btn-ui btn-ui-outline" style="color: var(--primary); border-color: var(--primary); padding: 6px 12px; font-size: 0.78rem; font-weight: 800;" onclick="W3CApp.locateMeGPS()">
+                GPS
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+
+        <!-- Carte Interactive Leaflet -->
+        <div style="background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 10px; box-shadow: var(--shadow-sm); margin-bottom: 12px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 4px 6px 8px;">
+            <span style="font-size: 0.78rem; font-weight: 800; color: #1A1C20;">Perimetre de livraison en direct</span>
+            <span style="font-size: 0.7rem; color: #64748B;">Cliquez sur la carte pour deplacer</span>
+          </div>
+          <div id="w3c-leaflet-map" style="height: 250px; border-radius: 10px; overflow: hidden; border: 1px solid #CBD5E1;"></div>
+        </div>
+
+        <!-- Synthese Conditions de Livraison (3 Compteurs Pro) -->
+        <div style="background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 14px; box-shadow: var(--shadow-sm);">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; margin-bottom: 12px;">
+            <div style="background: #F8F9FA; padding: 8px; border-radius: 8px; border: 1px solid #ECEFF1;">
+              <div style="font-size: 0.68rem; color: #64748B; text-transform: uppercase; font-weight: 700;">Delai Estime</div>
+              <div style="font-weight: 800; color: var(--primary); font-size: 0.92rem;" id="w3cGeoStatTime">~25 min</div>
+            </div>
+            <div style="background: #F8F9FA; padding: 8px; border-radius: 8px; border: 1px solid #ECEFF1;">
+              <div style="font-size: 0.68rem; color: #64748B; text-transform: uppercase; font-weight: 700;">Distance</div>
+              <div style="font-weight: 800; color: #1A1C20; font-size: 0.92rem;" id="w3cGeoStatDistance">2.4 km</div>
+            </div>
+            <div style="background: #F8F9FA; padding: 8px; border-radius: 8px; border: 1px solid #ECEFF1;">
+              <div style="font-size: 0.68rem; color: #64748B; text-transform: uppercase; font-weight: 700;">Livraison</div>
+              <div style="font-weight: 800; color: #13672F; font-size: 0.88rem;" id="w3cGeoStatFee">Offerte > 25€</div>
+            </div>
+          </div>
+
+          <div style="background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 8px; padding: 10px; text-align: center;" id="w3cGeoZoneBanner">
+            <span style="font-weight: 700; color: #13672F; font-size: 0.8rem;" id="w3cGeoZoneStatusText">Zone couverte : Livraison directe en scooter electrique</span>
+          </div>
+        </div>
+      </div> <!-- fin w3cDeliveryFlowSection -->
 
     </section>
 
@@ -299,21 +328,38 @@
         </button>
       </div>
 
-      <!-- Choix canal -->
+      <!-- Réception : Livraison vs Retrait Magasin -->
       <div style="background: #F8F9FA; padding: 12px; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; margin-bottom: 12px;">
-        <span style="font-size: 0.75rem; font-weight: 800; display: block; margin-bottom: 6px;">Canal de commande :</span>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
-          <div class="partner-box" id="w3cChanDirect" style="border: 2px solid var(--primary); padding: 8px 4px;" role="button" onclick="W3CApp.setDeliveryChannel('direct')">
-            <span style="font-size: 0.78rem; font-weight: 800; color: var(--primary);">Opti'Noisy</span>
-            <small style="color: #13672F; font-size: 0.65rem; font-weight: 800;">Direct (0€)</small>
-          </div>
-          <div class="partner-box" id="w3cChanUber" style="padding: 8px 4px;" role="button" onclick="W3CApp.setDeliveryChannel('ubereats')">
-            <img src="../assets/LOGO-UBER-EAT.png" alt="Uber Eats" style="height: 16px; max-width: 65px; object-fit: contain;">
-            <small style="color: #64748B; font-size: 0.65rem;">Passerelle</small>
-          </div>
-          <div class="partner-box" id="w3cChanDeliveroo" style="padding: 8px 4px;" role="button" onclick="W3CApp.setDeliveryChannel('deliveroo')">
-            <img src="../assets/logo-deliveroo.png" alt="Deliveroo" style="height: 16px; max-width: 65px; object-fit: contain;">
-            <small style="color: #64748B; font-size: 0.65rem;">Passerelle</small>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="font-size: 0.75rem; font-weight: 800; color: #1A1C20;">Mode de réception :</span>
+          <span style="font-size: 0.72rem; background: #FEE2E2; color: var(--primary); font-weight: 800; padding: 2px 8px; border-radius: 4px;" id="w3cCartModeIndicatorBadge">Livraison à domicile</span>
+        </div>
+        <div class="auth-segment-control" style="margin-bottom: 8px;">
+          <button type="button" class="auth-seg-btn active" id="w3cCartModeDeliveryBtn" onclick="W3CApp.setOrderMode('delivery')">
+            🛵 Livraison
+          </button>
+          <button type="button" class="auth-seg-btn" id="w3cCartModePickupBtn" onclick="W3CApp.setOrderMode('pickup')">
+            🏪 Retrait Magasin (0 €)
+          </button>
+        </div>
+        <div id="w3cCartPickupNotice" style="display: none; background: #ECFDF5; border: 1px solid #A7F3D0; color: #065F46; padding: 8px 10px; border-radius: 8px; font-size: 0.75rem; margin-bottom: 4px;">
+          <strong>Point de retrait :</strong> 12 Avenue Foch, Noisy-le-Grand • Vos pizzas au four à bois seront prêtes en 15-20 min.
+        </div>
+        <div id="w3cCartDeliveryChannelsBox">
+          <span style="font-size: 0.75rem; font-weight: 800; display: block; margin: 8px 0 6px;">Canal de commande :</span>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
+            <div class="partner-box" id="w3cChanDirect" style="border: 2px solid var(--primary); padding: 8px 4px;" role="button" onclick="W3CApp.setDeliveryChannel('direct')">
+              <span style="font-size: 0.78rem; font-weight: 800; color: var(--primary);">Opti'Noisy</span>
+              <small style="color: #13672F; font-size: 0.65rem; font-weight: 800;">Direct (0€)</small>
+            </div>
+            <div class="partner-box" id="w3cChanUber" style="padding: 8px 4px;" role="button" onclick="W3CApp.setDeliveryChannel('ubereats')">
+              <img src="../assets/LOGO-UBER-EAT.png" alt="Uber Eats" style="height: 16px; max-width: 65px; object-fit: contain;">
+              <small style="color: #64748B; font-size: 0.65rem;">Passerelle</small>
+            </div>
+            <div class="partner-box" id="w3cChanDeliveroo" style="padding: 8px 4px;" role="button" onclick="W3CApp.setDeliveryChannel('deliveroo')">
+              <img src="../assets/logo-deliveroo.png" alt="Deliveroo" style="height: 16px; max-width: 65px; object-fit: contain;">
+              <small style="color: #64748B; font-size: 0.65rem;">Passerelle</small>
+            </div>
           </div>
         </div>
       </div>
@@ -414,70 +460,79 @@
     <section id="w3c-tab-account" style="display: none; padding: 14px 16px;">
       
       <div id="w3cAccountGuest">
-        <div style="text-align: center; margin-bottom: 16px;">
-          <img src="../assets/logo-opti-noisy.svg" alt="Opti'Noisy" style="height: 48px; margin-bottom: 6px;">
-          <h3 style="font-size: 1.05rem; font-weight: 800;">Espace Client</h3>
-          <p style="font-size: 0.78rem; color: #64748B;">Connectez-vous pour suivre vos commandes en temps reel.</p>
+        <div style="text-align: center; margin-bottom: 14px;">
+          <img src="../assets/logo-opti-noisy.svg" alt="Opti'Noisy" style="height: 52px; margin-bottom: 8px;">
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #1A1C20; margin-bottom: 4px;">Espace Client & Fidélité</h3>
+          <p style="font-size: 0.78rem; color: #64748B; margin: 0;">Suivez vos commandes au four à bois et profitez de vos avantages.</p>
         </div>
+
+        <!-- Bouton Connexion 1 Clic Testeur MMI -->
+        <button type="button" onclick="W3CApp.quickDemoLogin()" style="width: 100%; background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%); border: 1px solid #F59E0B; border-radius: 8px; padding: 10px; font-weight: 800; font-size: 0.82rem; color: #1A1C20; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B45309" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <span>⚡ Connexion Immédiate Testeur (1 Clic)</span>
+        </button>
 
         <!-- Section commande active invitee W3C (visible des paiement valide) -->
         <div id="w3cGuestActiveOrdersSection"></div>
 
-        <div style="display: flex; gap: 8px; margin-bottom: 12px;">
-          <button type="button" class="btn-ui btn-ui-primary" id="w3cTabBtnLogin" style="flex: 1; border-radius: 8px;" onclick="W3CApp.toggleAuthMode('login')">
+        <!-- Selecteur d'Onglets dans la DA -->
+        <div class="auth-segment-control" style="margin-bottom: 12px;">
+          <button type="button" class="auth-seg-btn active" id="w3cTabBtnLogin" onclick="W3CApp.toggleAuthMode('login')">
             Se connecter
           </button>
-          <button type="button" class="btn-ui btn-ui-outline" id="w3cTabBtnReg" style="flex: 1; color: #475569; border-color: #CBD5E1; border-radius: 8px;" onclick="W3CApp.toggleAuthMode('register')">
-            Creer un compte
+          <button type="button" class="auth-seg-btn" id="w3cTabBtnReg" onclick="W3CApp.toggleAuthMode('register')">
+            Créer un compte
           </button>
         </div>
 
-        <form id="w3cFormLogin" onsubmit="W3CApp.handleLogin(event)" style="background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 16px; box-shadow: var(--shadow-sm);">
+        <!-- Banniere d'alerte auth dynamique -->
+        <div id="w3cAuthAlertBanner" style="display: none; background: #FEE2E2; border: 1px solid #FCA5A5; color: #991B1B; padding: 8px 12px; border-radius: 8px; font-size: 0.78rem; margin-bottom: 12px;"></div>
+
+        <!-- Formulaire Connexion -->
+        <form id="w3cFormLogin" onsubmit="W3CApp.handleLogin(event)" style="background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 16px; box-shadow: var(--shadow-sm); margin-bottom: 12px;">
           <div style="margin-bottom: 10px;">
-            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Adresse Email</label>
-            <input type="email" id="w3cLoginEmail" required placeholder="nom@exemple.com" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
+            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px; color: #1A1C20;">Adresse Email :</label>
+            <input type="email" id="w3cLoginEmail" required placeholder="demo@mmi.fr" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
           </div>
           <div style="margin-bottom: 12px;">
-            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Mot de passe</label>
-            <input type="password" id="w3cLoginPwd" required placeholder="••••••••" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
+            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px; color: #1A1C20;">Mot de passe :</label>
+            <input type="password" id="w3cLoginPwd" required placeholder="demo123" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
           </div>
-          <button type="submit" class="btn-ui btn-ui-primary btn-ui-block" style="margin-bottom: 8px;">
+          <button type="submit" class="btn-ui btn-ui-primary btn-ui-block" style="padding: 10px; font-weight: 800;">
             Se connecter
-          </button>
-          <button type="button" class="btn-ui btn-ui-outline btn-ui-block" style="color: #475569; border-color: #CBD5E1;" onclick="W3CApp.fillDemoLogin()">
-            Compte testeur MMI (demo@mmi.fr)
           </button>
         </form>
 
-        <form id="w3cFormReg" onsubmit="W3CApp.handleRegister(event)" style="display: none; background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 16px; box-shadow: var(--shadow-sm);">
+        <!-- Formulaire Inscription -->
+        <form id="w3cFormReg" onsubmit="W3CApp.handleRegister(event)" style="display: none; background: #FFFFFF; border-radius: var(--radius-lg); border: 1px solid #ECEFF1; padding: 16px; box-shadow: var(--shadow-sm); margin-bottom: 12px;">
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
             <div>
-              <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Prenom</label>
+              <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px; color: #1A1C20;">Prénom :</label>
               <input type="text" id="w3cRegFirst" required placeholder="Lucas" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
             </div>
             <div>
-              <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Nom</label>
+              <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px; color: #1A1C20;">Nom :</label>
               <input type="text" id="w3cRegLast" required placeholder="Moreau" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
             </div>
           </div>
           <div style="margin-bottom: 10px;">
-            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Email</label>
+            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px; color: #1A1C20;">Email :</label>
             <input type="email" id="w3cRegEmail" required placeholder="lucas@mmi.fr" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
           </div>
           <div style="margin-bottom: 10px;">
-            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Telephone</label>
+            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px; color: #1A1C20;">Téléphone :</label>
             <input type="tel" id="w3cRegPhone" required placeholder="06 12 34 56 78" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
           </div>
           <div style="margin-bottom: 10px;">
-            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Adresse</label>
+            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px; color: #1A1C20;">Adresse :</label>
             <input type="text" id="w3cRegAddr" required placeholder="12 Avenue Foch, Noisy-le-Grand" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
           </div>
           <div style="margin-bottom: 12px;">
-            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px;">Mot de passe</label>
-            <input type="password" id="w3cRegPwd" required minlength="4" placeholder="••••••••" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
+            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px; color: #1A1C20;">Mot de passe :</label>
+            <input type="password" id="w3cRegPwd" required minlength="4" placeholder="Minimum 4 caractères" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
           </div>
-          <button type="submit" class="btn-ui btn-ui-primary btn-ui-block">
-            Creer mon compte
+          <button type="submit" class="btn-ui btn-ui-primary btn-ui-block" style="padding: 10px; font-weight: 800;">
+            Créer mon compte
           </button>
         </form>
       </div>
@@ -731,7 +786,7 @@
       </div>
 
       <div style="margin-bottom: 12px;">
-        <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 2px;">Adresse de livraison validee</label>
+        <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 2px;" id="w3cCheckoutAddrLabel">Adresse de livraison validee :</label>
         <input type="text" id="w3cCheckoutAddr" value="12 Avenue du Marechal Foch, 93160 Noisy-le-Grand" style="width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 0.85rem;">
       </div>
 

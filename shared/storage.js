@@ -135,8 +135,9 @@ const PizzaStorage = {
     const subtotal = cart.items.reduce((sum, it) => sum + (it.unitPrice * it.quantity), 0);
     const count = cart.items.reduce((sum, it) => sum + it.quantity, 0);
 
+    const isPickup = cart.deliveryMode === 'pickup';
     let deliveryFee = PIZZERIA_CONFIG.deliveryBaseFee;
-    if (subtotal >= PIZZERIA_CONFIG.freeDeliveryThreshold || subtotal === 0) {
+    if (isPickup || subtotal >= PIZZERIA_CONFIG.freeDeliveryThreshold || subtotal === 0) {
       deliveryFee = 0;
     }
 
@@ -147,13 +148,14 @@ const PizzaStorage = {
     return {
       subtotal: Number(subtotal.toFixed(2)),
       deliveryFee: Number(deliveryFee.toFixed(2)),
+      isPickup: isPickup,
       discount: discount,
       tip: tip,
       promoCode: cart.promoCode,
       total: total,
       count: count,
       isFreeDelivery: deliveryFee === 0 && subtotal > 0,
-      minOrderMet: subtotal >= PIZZERIA_CONFIG.minOrderDelivery,
+      minOrderMet: isPickup ? true : (subtotal >= PIZZERIA_CONFIG.minOrderDelivery),
       minRemaining: Math.max(0, PIZZERIA_CONFIG.minOrderDelivery - subtotal).toFixed(2)
     };
   },
@@ -335,6 +337,7 @@ const PizzaStorage = {
   createOrder({ cartItems, totals, customerInfo, deliveryAddress, paymentMethod, deliveryChannel = "direct" }) {
     const orders = this.getOrders();
     const orderNumber = "OPT-" + Math.floor(100000 + Math.random() * 900000);
+    const isPickup = totals.isPickup || deliveryChannel === 'pickup';
 
     const newOrder = {
       id: "ord_" + Date.now(),
@@ -343,19 +346,19 @@ const PizzaStorage = {
       step: 1,
       status: "confirmee",
       statusLabel: "Commande validee",
-      deliveryChannel: deliveryChannel,
-      channelName: deliveryChannel === "ubereats" ? "Uber Eats" : (deliveryChannel === "deliveroo" ? "Deliveroo" : "Opti'Noisy Express"),
+      deliveryChannel: isPickup ? "pickup" : deliveryChannel,
+      channelName: isPickup ? "Retrait en Magasin (Atelier Noisy)" : (deliveryChannel === "ubereats" ? "Uber Eats" : (deliveryChannel === "deliveroo" ? "Deliveroo" : "Opti'Noisy Express")),
       items: cartItems,
       totals: totals,
       customer: customerInfo,
-      address: deliveryAddress,
+      address: isPickup ? "Retrait à l'Atelier - 12 Avenue du Maréchal Foch, 93160 Noisy-le-Grand" : deliveryAddress,
       payment: {
         method: paymentMethod,
-        label: paymentMethod === "cb" ? "Carte Bancaire" : (paymentMethod === "applepay" ? "Apple Pay" : "Especes a la livraison"),
+        label: paymentMethod === "cb" ? "Carte Bancaire" : (paymentMethod === "applepay" ? "Apple Pay" : (isPickup ? "Espèces au comptoir" : "Espèces à la livraison")),
         paid: paymentMethod !== "especes"
       },
-      estimatedMinutes: PIZZERIA_CONFIG.estimatedDeliveryTimeMin,
-      eta: new Date(Date.now() + PIZZERIA_CONFIG.estimatedDeliveryTimeMin * 60000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      estimatedMinutes: isPickup ? 15 : PIZZERIA_CONFIG.estimatedDeliveryTimeMin,
+      eta: new Date(Date.now() + (isPickup ? 15 : PIZZERIA_CONFIG.estimatedDeliveryTimeMin) * 60000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
 
     orders.unshift(newOrder);

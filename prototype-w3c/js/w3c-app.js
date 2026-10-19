@@ -509,6 +509,27 @@ const W3CApp = {
       }
     }
 
+    // Gestion Retrait Magasin vs Livraison
+    const modeBadge = document.getElementById('w3cCartModeIndicatorBadge');
+    const bDel = document.getElementById('w3cCartModeDeliveryBtn');
+    const bPick = document.getElementById('w3cCartModePickupBtn');
+    const pickNotice = document.getElementById('w3cCartPickupNotice');
+    const chanBox = document.getElementById('w3cCartDeliveryChannelsBox');
+
+    if (totals.isPickup) {
+      if (modeBadge) { modeBadge.textContent = 'Retrait Magasin (0 €)'; modeBadge.style.background = 'var(--primary)'; modeBadge.style.color = '#FFF'; }
+      if (bDel) bDel.classList.remove('active');
+      if (bPick) bPick.classList.add('active');
+      if (pickNotice) pickNotice.style.display = 'block';
+      if (chanBox) chanBox.style.display = 'none';
+    } else {
+      if (modeBadge) { modeBadge.textContent = 'Livraison à domicile'; modeBadge.style.background = '#FEE2E2'; modeBadge.style.color = 'var(--primary)'; }
+      if (bDel) bDel.classList.add('active');
+      if (bPick) bPick.classList.remove('active');
+      if (pickNotice) pickNotice.style.display = 'none';
+      if (chanBox) chanBox.style.display = 'block';
+    }
+
     const subTotal = document.getElementById('w3cSubtotalText');
     const fee = document.getElementById('w3cDeliveryFeeText');
     const tot = document.getElementById('w3cTotalText');
@@ -540,7 +561,12 @@ const W3CApp = {
 
     const freeNotice = document.getElementById('w3cFreeDeliveryNotice');
     if (freeNotice) {
-      if (totals.subtotal === 0) {
+      if (totals.isPickup) {
+        freeNotice.style.display = 'block';
+        freeNotice.style.background = '#FEE2E2';
+        freeNotice.style.color = 'var(--primary)';
+        freeNotice.innerHTML = `🏪 <strong>Retrait à l'Atelier sélectionné</strong> • 12 Avenue Foch (Frais : 0 €)`;
+      } else if (totals.subtotal === 0) {
         freeNotice.style.display = 'none';
       } else if (totals.isFreeDelivery) {
         freeNotice.style.display = 'block';
@@ -653,6 +679,30 @@ const W3CApp = {
     if (btn) btn.classList.add('active');
   },
 
+  setOrderMode(mode) {
+    const isPickup = mode === 'pickup';
+    PizzaStorage.setDeliveryMode(isPickup ? 'pickup' : 'direct');
+
+    const btnDel = document.getElementById('w3cBtnGeoModeDelivery');
+    const btnPick = document.getElementById('w3cBtnGeoModePickup');
+    const cardPick = document.getElementById('w3cPickupInfoCard');
+    const flowDel = document.getElementById('w3cDeliveryFlowSection');
+
+    if (btnDel) btnDel.classList.toggle('active', !isPickup);
+    if (btnPick) btnPick.classList.toggle('active', isPickup);
+    if (cardPick) cardPick.style.display = isPickup ? 'block' : 'none';
+    if (flowDel) flowDel.style.display = isPickup ? 'none' : 'block';
+
+    this.updateCartUI();
+    this.showToast(isPickup ? "Mode Retrait à l'Atelier sélectionné (Frais : 0 €)" : "Mode Livraison à Domicile sélectionné");
+  },
+
+  confirmPickupMode() {
+    this.setOrderMode('pickup');
+    this.showToast("Retrait en magasin confirmé (12 Avenue Foch) !");
+    this.switchTab('cart');
+  },
+
   setDeliveryChannel(channel) {
     PizzaStorage.setDeliveryMode(channel);
 
@@ -721,11 +771,20 @@ const W3CApp = {
     const user = PizzaStorage.getCurrentUser();
     const loc = PizzaStorage.getSavedLocation();
     const addrInput = document.getElementById('w3cCheckoutAddr');
+    const addrLabel = document.getElementById('w3cCheckoutAddrLabel');
     if (addrInput) {
-      if (user && user.addresses?.[0]) {
-        addrInput.value = `${user.addresses[0].street}, ${user.addresses[0].postalCode} ${user.addresses[0].city}`;
-      } else if (loc && loc.address) {
-        addrInput.value = loc.address;
+      if (totals.isPickup) {
+        if (addrLabel) addrLabel.textContent = "Point de retrait au comptoir :";
+        addrInput.value = "Pizzeria Opti'Noisy • 12 Avenue Foch, 93160 Noisy-le-Grand";
+        addrInput.readOnly = true;
+      } else {
+        if (addrLabel) addrLabel.textContent = "Adresse de livraison validée :";
+        addrInput.readOnly = false;
+        if (user && user.addresses?.[0]) {
+          addrInput.value = `${user.addresses[0].street}, ${user.addresses[0].postalCode} ${user.addresses[0].city}`;
+        } else if (loc && loc.address) {
+          addrInput.value = loc.address;
+        }
       }
     }
 
@@ -1110,56 +1169,78 @@ const W3CApp = {
     const fReg = document.getElementById('w3cFormReg');
     const bLogin = document.getElementById('w3cTabBtnLogin');
     const bReg = document.getElementById('w3cTabBtnReg');
+    const alertBox = document.getElementById('w3cAuthAlertBanner');
+
+    if (alertBox) alertBox.style.display = 'none';
 
     if (mode === 'login') {
-      fLogin.style.display = 'block';
-      fReg.style.display = 'none';
-      bLogin.className = 'btn-ui btn-ui-primary';
-      bReg.className = 'btn-ui btn-ui-outline';
-      bReg.style.color = '#475569';
-      bReg.style.borderColor = '#CBD5E1';
+      if (fLogin) fLogin.style.display = 'block';
+      if (fReg) fReg.style.display = 'none';
+      if (bLogin) bLogin.classList.add('active');
+      if (bReg) bReg.classList.remove('active');
     } else {
-      fLogin.style.display = 'none';
-      fReg.style.display = 'block';
-      bLogin.className = 'btn-ui btn-ui-outline';
-      bLogin.style.color = '#475569';
-      bLogin.style.borderColor = '#CBD5E1';
-      bReg.className = 'btn-ui btn-ui-primary';
+      if (fLogin) fLogin.style.display = 'none';
+      if (fReg) fReg.style.display = 'block';
+      if (bLogin) bLogin.classList.remove('active');
+      if (bReg) bReg.classList.add('active');
+    }
+  },
+
+  quickDemoLogin() {
+    const res = PizzaStorage.loginUser('demo@mmi.fr', 'demo123');
+    if (res.success) {
+      this.showToast(`Bienvenue, ${res.user.firstName} ! (Compte Démo Connecté)`);
+      this.updateAccountUI();
     }
   },
 
   fillDemoLogin() {
-    document.getElementById('w3cLoginEmail').value = 'demo@mmi.fr';
-    document.getElementById('w3cLoginPwd').value = 'demo123';
-    this.showToast("Identifiants pre-remplis");
+    this.quickDemoLogin();
   },
 
   handleLogin(e) {
     e.preventDefault();
-    const res = PizzaStorage.loginUser(
-      document.getElementById('w3cLoginEmail').value,
-      document.getElementById('w3cLoginPwd').value
-    );
+    const alertBox = document.getElementById('w3cAuthAlertBanner');
+    const email = document.getElementById('w3cLoginEmail')?.value.trim();
+    const pwd = document.getElementById('w3cLoginPwd')?.value;
+
+    const res = PizzaStorage.loginUser(email, pwd);
     if (res.success) {
-      this.showToast(`Bienvenue, ${res.user.firstName}`);
+      if (alertBox) alertBox.style.display = 'none';
+      this.showToast(`Bienvenue, ${res.user.firstName} !`);
+      this.updateAccountUI();
     } else {
+      if (alertBox) {
+        alertBox.textContent = res.message || 'Identifiants incorrects. Utilisez le compte testeur ci-dessus.';
+        alertBox.style.display = 'block';
+      }
       this.showToast(res.message);
     }
   },
 
   handleRegister(e) {
     e.preventDefault();
+    const alertBox = document.getElementById('w3cAuthAlertBanner');
+    const firstName = document.getElementById('w3cRegFirst')?.value.trim();
+    const lastName = document.getElementById('w3cRegLast')?.value.trim();
+    const email = document.getElementById('w3cRegEmail')?.value.trim();
+    const phone = document.getElementById('w3cRegPhone')?.value.trim();
+    const address = document.getElementById('w3cRegAddr')?.value.trim();
+    const password = document.getElementById('w3cRegPwd')?.value;
+
     const res = PizzaStorage.registerUser({
-      firstName: document.getElementById('w3cRegFirst').value,
-      lastName: document.getElementById('w3cRegLast').value,
-      email: document.getElementById('w3cRegEmail').value,
-      phone: document.getElementById('w3cRegPhone').value,
-      address: document.getElementById('w3cRegAddr').value,
-      password: document.getElementById('w3cRegPwd').value
+      firstName, lastName, email, phone, address, password
     });
+
     if (res.success) {
-      this.showToast("Compte cree avec succes");
+      if (alertBox) alertBox.style.display = 'none';
+      this.showToast(`Compte créé avec succès ! Bienvenue, ${res.user.firstName}.`);
+      this.updateAccountUI();
     } else {
+      if (alertBox) {
+        alertBox.textContent = res.message;
+        alertBox.style.display = 'block';
+      }
       this.showToast(res.message);
     }
   },

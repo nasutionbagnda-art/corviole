@@ -295,32 +295,74 @@ body.desktop-expanded .mobile-app-wrapper {
   transform: scale(0.97);
 }
 
+/* Barre de recherche stylisee */
+.search-input-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #F1F3F5;
+  border: 1px solid #E2E8F0;
+  border-radius: 50px;
+  padding: 8px 16px;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+.search-input-group:focus-within {
+  background: #FFFFFF;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(190, 28, 31, 0.12);
+}
+.search-input-group svg {
+  flex-shrink: 0;
+  color: #888;
+}
+.search-input-group input {
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  width: 100%;
+  font-size: 0.88rem;
+  color: #1A1C20;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
 /* Categories Scroll */
 .category-scroll-container {
   display: flex;
   gap: 8px;
   overflow-x: auto;
-  padding: 8px 16px 12px;
+  padding: 4px 16px 12px;
+  margin: 0 -16px 12px;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 .category-scroll-container::-webkit-scrollbar {
   display: none;
 }
+.category-scroll-container::after {
+  content: '';
+  flex: 0 0 16px;
+}
 .category-pill {
   white-space: nowrap;
   background: #F1F3F5;
-  border: 1px solid transparent;
+  border: 1px solid #E2E8F0;
   color: #495057;
-  padding: 7px 14px;
+  padding: 7px 16px;
   border-radius: 50px;
   font-size: 0.82rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 .category-pill.active {
   background: var(--primary);
+  border-color: var(--primary);
   color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(190, 28, 31, 0.3);
 }
 
 /* Modal Selecteur Tailles */
@@ -641,4 +683,31 @@ body.desktop-expanded .floating-cart-bar {
     border: none !important;
     box-shadow: none !important;
   }
+}
+
+/* Auth Segment Control (DA Pizzeria) */
+.auth-segment-control {
+  display: flex;
+  background: #EAE6DF;
+  padding: 4px;
+  border-radius: 50px;
+  gap: 4px;
+}
+.auth-seg-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 8px 14px;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+.auth-seg-btn.active {
+  background: var(--primary);
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(190, 28, 31, 0.3);
 }
