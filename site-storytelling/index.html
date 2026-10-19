@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Opti'Noisy Pizza - L'authentique pizzeria artisanale au feu de bois a Noisy-le-Grand. Histoire, savoir-faire, carte signature et commandes en ligne.">
-  <title>Opti'Noisy Pizza - L'Artisanat Italien au Feu de Bois | Noisy-le-Grand</title>
+  <meta name="description" content="Opti'Noisy Pizza - L'authentique pizzeria artisanale au feu de bois à Noisy-le-Grand. Histoire, savoir-faire, carte signature et commandes en ligne.">
+  <title>Opti'Noisy Pizza - Pizzeria Artisanale au Feu de Bois | Noisy-le-Grand</title>
 
   <!-- Google Fonts: Playfair Display + Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Feuille de style Storytelling -->
+  <!-- Feuille de style Storytelling Mobile-First -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- Barre superieure d'annonces -->
+  <!-- Barre superieure Desktop (uniquement grand ecran) -->
   <div class="top-notice-bar">
     <div style="display: flex; align-items: center; gap: 8px;">
       <span style="background: var(--primary); color: #FFF; font-weight: 800; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; text-transform: uppercase;">Direct Pizzeria</span>
-      <span>Four au feu de bois a 450°C • Livraison express Noisy-le-Grand & Villes limitrophes</span>
+      <span>Cuisson au feu de bois à 450°C • Livraison express Noisy-le-Grand & Villes limitrophes</span>
     </div>
     <div class="top-notice-links">
       <a href="../prototype-bootstrap/index.html">App Mobile (Bootstrap)</a>
@@ -29,63 +29,66 @@
     </div>
   </div>
 
-  <!-- Header & Navigation -->
+  <!-- Header Mobile-First -->
   <header class="story-header">
     <div class="nav-container">
       <a href="#hero" class="brand-group">
         <img src="../assets/logo-opti-noisy.svg" alt="Opti'Noisy Pizza Logo">
-        <div>
-          <div class="brand-title">Opti'Noisy Pizza</div>
-          <div class="brand-tagline">Artigiani della Pizza • Est. Noisy</div>
+        <div class="brand-text">
+          <span class="brand-title">Opti'Noisy</span>
+          <span class="brand-tagline">Pizza au Feu de Bois</span>
         </div>
       </a>
 
-      <!-- Menu Principal Bureau -->
+      <!-- Menu Principal Desktop -->
       <ul class="nav-menu">
-        <li><a href="#histoire">Notre Histoire</a></li>
+        <li><a href="#carte">La Carte</a></li>
         <li><a href="#savoir-faire">Le Savoir-Faire</a></li>
-        <li><a href="#carte">Carte Signature</a></li>
+        <li><a href="#histoire">Notre Histoire</a></li>
         <li><a href="#galerie">Galerie</a></li>
-        <li><a href="#avis">Avis Clients</a></li>
-        <li><a href="#visite">Horaires & Contact</a></li>
+        <li><a href="#avis">Avis</a></li>
+        <li><a href="#visite">Horaires</a></li>
       </ul>
 
-      <!-- CTA d'action rapide -->
+      <!-- Actions Rapides -->
       <div class="nav-actions">
-        <a href="../prototype-bootstrap/index.html" class="btn-story btn-story-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-          <span>Commander en Ligne</span>
-        </a>
+        <button type="button" class="btn-header-order" onclick="openOrderModal()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          <span>Commander</span>
+        </button>
         <button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Menu Mobile">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Tiroir Navigation Mobile -->
-  <div id="mobileNavDrawer" style="position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: #FFF; z-index: 2000; box-shadow: -5px 0 25px rgba(0,0,0,0.2); transition: right 0.3s ease; padding: 24px; display: flex; flex-direction: column;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-      <strong style="font-size: 1.1rem;">Menu Navigation</strong>
-      <button type="button" id="closeMobileNav" style="background: none; border: none; font-size: 1.4rem; cursor: pointer;">&times;</button>
+  <!-- Tiroir Navigation Mobile Latéral -->
+  <div id="mobileNavDrawer">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 16px;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <img src="../assets/logo-opti-noisy.svg" alt="Opti'Noisy" style="height: 28px;">
+        <strong style="color: #FFF; font-size: 1rem;">Opti'Noisy Pizza</strong>
+      </div>
+      <button type="button" id="closeMobileNav" style="background: none; border: none; color: #FFF; font-size: 1.5rem; cursor: pointer; line-height: 1;">&times;</button>
     </div>
-    <ul style="list-style: none; display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px;">
-      <li><a href="#histoire" class="mobile-drawer-link" style="text-decoration: none; color: #1E293B; font-weight: 700;">Notre Histoire</a></li>
-      <li><a href="#savoir-faire" class="mobile-drawer-link" style="text-decoration: none; color: #1E293B; font-weight: 700;">Le Savoir-Faire</a></li>
-      <li><a href="#carte" class="mobile-drawer-link" style="text-decoration: none; color: #1E293B; font-weight: 700;">Carte Signature</a></li>
-      <li><a href="#galerie" class="mobile-drawer-link" style="text-decoration: none; color: #1E293B; font-weight: 700;">Galerie Photos</a></li>
-      <li><a href="#avis" class="mobile-drawer-link" style="text-decoration: none; color: #1E293B; font-weight: 700;">Avis Clients</a></li>
-      <li><a href="#visite" class="mobile-drawer-link" style="text-decoration: none; color: #1E293B; font-weight: 700;">Horaires & Acces</a></li>
+    <ul class="drawer-links-list">
+      <li><a href="#carte" class="drawer-link mobile-drawer-link">La Carte Signature</a></li>
+      <li><a href="#savoir-faire" class="drawer-link mobile-drawer-link">Le Savoir-Faire (48h)</a></li>
+      <li><a href="#histoire" class="drawer-link mobile-drawer-link">Notre Histoire</a></li>
+      <li><a href="#galerie" class="drawer-link mobile-drawer-link">Galerie de l'Atelier</a></li>
+      <li><a href="#avis" class="drawer-link mobile-drawer-link">Avis des Noiséens</a></li>
+      <li><a href="#visite" class="drawer-link mobile-drawer-link">Horaires & Contact</a></li>
+      <li><a href="../index.html" class="drawer-link mobile-drawer-link" style="color: var(--accent-gold);">Portail du TP</a></li>
     </ul>
     <div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px;">
-      <a href="../prototype-bootstrap/index.html" class="btn-story btn-story-primary btn-story-sm">Commander (Bootstrap)</a>
-      <a href="../prototype-w3c/index.html" class="btn-story btn-story-dark btn-story-sm">Commander (W3C Pur)</a>
+      <button type="button" class="btn-hero-main" style="width: 100%;" onclick="if(closeMobileNav) closeMobileNav.click(); openOrderModal();">
+        Commander en Ligne
+      </button>
     </div>
   </div>
 
-  <!-- ========================================== -->
-  <!-- HERO STORYTELLING (CPK & Home Slice Vibe) -->
-  <!-- ========================================== -->
+  <!-- HERO MOBILE-FIRST -->
   <section class="hero-story-section" id="hero">
     <div class="hero-bg-overlay"></div>
     <div class="hero-gradient"></div>
@@ -97,185 +100,71 @@
       </div>
 
       <h1 class="hero-title">
-        L'Amour de la Pâte Parfaite,<br>
-        <span>L'Âme Artisanale de Noisy.</span>
+        L'Amour de la Vraie Pizza,<br>
+        <span>Cuite au Feu de Bois.</span>
       </h1>
 
       <p class="hero-subtitle">
-        Inspirée par les pizzerias indépendantes de légende : une cuisson foudroyante au feu de bois à 450°C, 
-        une farine tipo 00 importée de Campanie et des ingrédients frais travaillés chaque matin par notre maître pizzaiolo.
+        Pâte alvéolée pétrie chaque matin, farine tipo 00 de Campanie, sauce San Marzano DOP et cuisson minute à 450°C sur pierre réfractaire à Noisy-le-Grand.
       </p>
 
       <div class="hero-cta-group">
-        <a href="#carte" class="btn-story btn-story-primary" style="font-size: 1rem; padding: 14px 28px;">
-          Explorer la Carte Signature
+        <button type="button" class="btn-hero-main" onclick="openOrderModal()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+          Commander Maintenant
+        </button>
+        <a href="#carte" class="btn-hero-secondary">
+          Voir la Carte
         </a>
-        <a href="../prototype-bootstrap/index.html" class="btn-story btn-story-outline" style="border-color: #FFF; color: #FFF; font-size: 1rem; padding: 14px 28px;">
-          Commander Tout de Suite
-        </a>
       </div>
 
-      <!-- Chiffres Clés & Piliers -->
-      <div class="hero-stats-bar">
-        <div class="stat-item">
-          <div class="stat-number">48 h</div>
-          <div class="stat-label">Maturation a froid</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">450 °C</div>
-          <div class="stat-label">Four a bois napolitain</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">100 %</div>
-          <div class="stat-label">Ingredients AOP & Frais</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">8 km</div>
-          <div class="stat-label">Rayon de livraison direct</div>
-        </div>
+      <!-- 4 Piliers Clés (Chips Mobile) -->
+      <div class="hero-highlights-row">
+        <span class="highlight-chip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          48h de Levée
+        </span>
+        <span class="highlight-chip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          Four à Bois 450°C
+        </span>
+        <span class="highlight-chip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          100% Frais & AOP
+        </span>
+        <span class="highlight-chip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          Livraison 8 km
+        </span>
       </div>
     </div>
   </section>
 
   <!-- ========================================== -->
-  <!-- SECTION : NOTRE HISTOIRE (Storytelling) -->
+  <!-- SECTION : LA CARTE SIGNATURE (MOBILE-FIRST) -->
   <!-- ========================================== -->
-  <section class="section-wrapper" id="histoire">
-    <div class="story-split-grid">
-      <div class="story-text-col">
-        <span class="section-tag">Genèse & Passion</span>
-        <h3>Pourquoi courir après des pizzas industrielles quand on peut vivre la véritable alchimie ?</h3>
-        <p>
-          Opti'Noisy Pizza est née au cœur de Noisy-le-Grand d'une obsession simple : redonner à la pizza ses lettres de noblesse 
-          sans compromis ni raccourcis industriels. 
-        </p>
-        <p>
-          À l'image de <strong>Home Slice Pizza</strong> à Austin qui a réinventé l'amour de la croûte new-yorkaise artisanale, 
-          ou de l'esprit novateur de <strong>California Pizza Kitchen</strong>, nous refusons les pâtons congelés et les sauces prêtes à l'emploi. 
-          Ici, chaque boule de pâte est pétrie sur place, façonnée à la main et repose pendant deux jours entiers pour développer une complexité aromatique incomparable.
-        </p>
-        <div class="story-quote-card">
-          « Une vraie pizza ne triche pas. Le croustillant de la croûte extérieure, le moelleux alvéolé du bord, 
-          et la fraîcheur d'un basilic fraîchement cueilli : c'est notre serment quotidien envers Noisy. »
-          <div style="font-weight: 800; font-style: normal; margin-top: 6px; font-size: 0.85rem; color: var(--primary);">
-            — Marco & l'Équipe des Pizzaioli Opti'Noisy
-          </div>
-        </div>
-        <p>
-          Installés au 12 Avenue du Maréchal Foch, nous servons les familles, les étudiants du campus Descartes et tous les amoureux 
-          du goût authentique qui savent faire la différence dès la première bouchée.
-        </p>
-        <div style="margin-top: 24px;">
-          <a href="#savoir-faire" class="btn-story btn-story-outline">
-            Découvrir notre méthode de fabrication →
-          </a>
-        </div>
-      </div>
-
-      <div class="story-media-col">
-        <img src="../assets/OPTINOISY-Mob-visuel-intro2.jpg" alt="Pâte à pizza artisanale Opti Noisy" class="story-image-main">
-        <div class="story-badge-floating">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          <div>
-            <strong>100% Fait Maison</strong>
-            <span style="font-size: 0.75rem; color: #94A3B8;">Pâte étirée à la main • Zéro surgelé</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================================== -->
-  <!-- SECTION : LE SAVOIR-FAIRE (4 PILIERS) -->
-  <!-- ========================================== -->
-  <section style="background: #F4EFEB; padding: 80px 20px;" id="savoir-faire">
-    <div style="max-width: 1240px; margin: 0 auto;">
-      <div class="section-header">
-        <span class="section-tag">Notre Rituel Artisanal</span>
-        <h2 class="section-title">Les 4 Piliers de l'Expérience Opti'Noisy</h2>
-        <p class="section-desc">
-          De la sélection du blé à la flamme du bois de hêtre, chaque détail compte pour créer une pizza mémorable.
-        </p>
-      </div>
-
-      <div class="craft-grid">
-        <!-- Pilier 1 -->
-        <div class="craft-card">
-          <div class="craft-icon-circle">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
-          </div>
-          <h3 class="craft-title">1. Fermentation 48h</h3>
-          <p class="craft-desc">
-            Une maturation prolongée à température dirigée. L'action naturelle des levures digère les amidons, 
-            garantissant une légèreté absolue et une digestibilité parfaite.
-          </p>
-        </div>
-
-        <!-- Pilier 2 -->
-        <div class="craft-card">
-          <div class="craft-icon-circle">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-          </div>
-          <h3 class="craft-title">2. Four à Bois 450°C</h3>
-          <p class="craft-desc">
-            Alimenté exclusivement au bois de chêne et de hêtre certifié. Une saisie à haute température en 90 secondes 
-            sur pierre réfractaire pour saisir la croûte sans dessécher la garniture.
-          </p>
-        </div>
-
-        <!-- Pilier 3 -->
-        <div class="craft-card">
-          <div class="craft-icon-circle">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-          </div>
-          <h3 class="craft-title">3. Terroirs AOP d'Italie</h3>
-          <p class="craft-desc">
-            Tomates pelées San Marzano DOP, Mozzarella Fior di Latte d'Agerola filante et douce, huile d'olive vierge extra pressée à froid 
-            et origan sauvage de Calabre.
-          </p>
-        </div>
-
-        <!-- Pilier 4 -->
-        <div class="craft-card">
-          <div class="craft-icon-circle">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
-          </div>
-          <h3 class="craft-title">4. Trois Formats d'Or</h3>
-          <p class="craft-desc">
-            Junior (26 cm pour les déjeuners solo), Moyenne (31 cm pour les gourmands) et Familiale géante (40 cm 
-            à partager entre amis). À chacun sa juste mesure.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========================================== -->
-  <!-- SECTION : CARTE SIGNATURE (SEMI-COMMANDES) -->
-  <!-- ========================================== -->
-  <section class="section-wrapper menu-showcase-section" id="carte">
+  <section class="section-wrapper" id="carte">
     <div class="section-header">
-      <span class="section-tag">Notre Recueil Culinaire</span>
+      <span class="section-tag">Sélection Artisanale</span>
       <h2 class="section-title">La Carte Signature</h2>
       <p class="section-desc">
-        Des recettes classiques napolitaines aux créations audacieuses de notre chef. 
-        Cliquez sur une pizza pour la commander directement dans l'application mobile.
+        Façonnées à la main, disponibles en formats Junior (26cm), Moyenne (31cm) et Familiale (40cm).
       </p>
     </div>
 
-    <!-- Filtres Interactifs -->
-    <div class="menu-filter-bar">
-      <button type="button" class="filter-btn active" data-filter="all">Toutes les Pizzas</button>
-      <button type="button" class="filter-btn" data-filter="viandes">Carnées & Caractère</button>
-      <button type="button" class="filter-btn" data-filter="fromages">Fromages AOP</button>
-      <button type="button" class="filter-btn" data-filter="veggie">Végétariennes</button>
-      <button type="button" class="filter-btn" data-filter="salades">Salades Fraîches</button>
+    <!-- Filtres Horizontaux Défilants sur Mobile -->
+    <div class="category-scroll-bar">
+      <button type="button" class="cat-pill active" data-filter="all">Toutes les Recettes</button>
+      <button type="button" class="cat-pill" data-filter="viandes">Carnées</button>
+      <button type="button" class="cat-pill" data-filter="fromages">Fromages AOP</button>
+      <button type="button" class="cat-pill" data-filter="veggie">Végétariennes</button>
+      <button type="button" class="cat-pill" data-filter="salades">Salades</button>
     </div>
 
     <!-- Grille des Produits Phares -->
     <div class="menu-cards-grid" id="storyMenuGrid">
 
-      <!-- Reine -->
+      <!-- Reine Tradition -->
       <article class="story-pizza-card" data-category="viandes">
         <div class="card-img-wrap">
           <img src="../assets/OPTINOISY-Mob-pizza-reine.jpg" alt="Pizza Reine">
@@ -286,80 +175,74 @@
             <h3 class="card-pizza-name">La Reine Tradition</h3>
             <span class="card-price">dès 11.50 €</span>
           </div>
-          <p class="card-pizza-desc">Sauce tomate San Marzano, mozzarella fior di latte, jambon de dinde supérieur et champignons de Paris frais émincés minute.</p>
+          <p class="card-pizza-desc">Sauce tomate San Marzano, mozzarella fior di latte, jambon supérieur et champignons de Paris frais émincés minute.</p>
           <div class="card-sizes-pills">
             <span class="size-pill">Junior 26cm</span>
             <span class="size-pill">Moyenne 31cm</span>
             <span class="size-pill">Familiale 40cm</span>
           </div>
           <div class="card-actions-row">
-            <a href="../prototype-bootstrap/index.html" class="btn-story btn-story-primary btn-story-sm" style="flex: 1;">
-              Commander (Bootstrap)
-            </a>
-            <a href="../prototype-w3c/index.html" class="btn-story btn-story-outline btn-story-sm" style="flex: 1;">
-              Commander (W3C)
-            </a>
+            <button type="button" class="btn-card-order" onclick="openOrderModal()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path></svg>
+              Commander
+            </button>
           </div>
         </div>
       </article>
 
-      <!-- 4 Fromages -->
+      <!-- Quattro Formaggi -->
       <article class="story-pizza-card" data-category="fromages">
         <div class="card-img-wrap">
           <img src="../assets/OPTINOISY-Mob-pizza-4-fromages.jpg" alt="Pizza 4 Fromages">
-          <span class="card-tag-badge">Crémeuse</span>
+          <span class="card-tag-badge" style="background: #E19B0F; color: #000;">Gourmande</span>
         </div>
         <div class="card-body">
           <div class="card-title-row">
             <h3 class="card-pizza-name">Quattro Formaggi</h3>
             <span class="card-price">dès 12.00 €</span>
           </div>
-          <p class="card-pizza-desc">Base crème fleurette, mozzarella fior di latte, gorgonzola fondant, fromage de chèvre affiné et copeaux de parmesan reggiano 24 mois.</p>
+          <p class="card-pizza-desc">Base crème, fior di latte, gorgonzola fondant, chèvre de Sainte-Maure et copeaux de Grana Padano 24 mois.</p>
           <div class="card-sizes-pills">
             <span class="size-pill">Junior 26cm</span>
             <span class="size-pill">Moyenne 31cm</span>
             <span class="size-pill">Familiale 40cm</span>
           </div>
           <div class="card-actions-row">
-            <a href="../prototype-bootstrap/index.html" class="btn-story btn-story-primary btn-story-sm" style="flex: 1;">
-              Commander (Bootstrap)
-            </a>
-            <a href="../prototype-w3c/index.html" class="btn-story btn-story-outline btn-story-sm" style="flex: 1;">
-              Commander (W3C)
-            </a>
+            <button type="button" class="btn-card-order" onclick="openOrderModal()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path></svg>
+              Commander
+            </button>
           </div>
         </div>
       </article>
 
-      <!-- Chèvre Miel -->
+      <!-- Chèvre Chaud & Miel -->
       <article class="story-pizza-card" data-category="fromages">
         <div class="card-img-wrap">
           <img src="../assets/OPTINOISY-Mob-pizza-chevre-miel.jpg" alt="Pizza Chèvre Miel">
-          <span class="card-tag-badge">Gourmande</span>
+          <span class="card-tag-badge" style="background: #E19B0F; color: #000;">Signature</span>
         </div>
         <div class="card-body">
           <div class="card-title-row">
             <h3 class="card-pizza-name">Chèvre Chaud & Miel</h3>
             <span class="card-price">dès 12.00 €</span>
           </div>
-          <p class="card-pizza-desc">Crème fraîche onctueuse, mozzarella, bûche de chèvre de Sainte-Maure, filet de miel d'acacia caramélisé au four et cerneaux de noix.</p>
+          <p class="card-pizza-desc">Crème fraîche onctueuse, mozzarella, bûche de chèvre rôtie, filet de miel d'acacia caramélisé et cerneaux de noix.</p>
           <div class="card-sizes-pills">
             <span class="size-pill">Junior 26cm</span>
             <span class="size-pill">Moyenne 31cm</span>
             <span class="size-pill">Familiale 40cm</span>
           </div>
           <div class="card-actions-row">
-            <a href="../prototype-bootstrap/index.html" class="btn-story btn-story-primary btn-story-sm" style="flex: 1;">
-              Commander (Bootstrap)
-            </a>
-            <a href="../prototype-w3c/index.html" class="btn-story btn-story-outline btn-story-sm" style="flex: 1;">
-              Commander (W3C)
-            </a>
+            <button type="button" class="btn-card-order" onclick="openOrderModal()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path></svg>
+              Commander
+            </button>
           </div>
         </div>
       </article>
 
-      <!-- Cannibale -->
+      <!-- La Cannibale -->
       <article class="story-pizza-card" data-category="viandes">
         <div class="card-img-wrap">
           <img src="../assets/OPTINOISY-Mob-pizza-cannibale.jpg" alt="Pizza Cannibale">
@@ -370,24 +253,22 @@
             <h3 class="card-pizza-name">La Cannibale</h3>
             <span class="card-price">dès 13.00 €</span>
           </div>
-          <p class="card-pizza-desc">Sauce tomate, mozzarella, viande hachée pur bœuf assaisonnée, filet de poulet rôti mariné et sauce barbecue fumée au bois de hêtre.</p>
+          <p class="card-pizza-desc">Sauce tomate, fior di latte, bœuf haché assaisonné, poulet rôti mariné et filet de sauce barbecue au bois fumé.</p>
           <div class="card-sizes-pills">
             <span class="size-pill">Junior 26cm</span>
             <span class="size-pill">Moyenne 31cm</span>
             <span class="size-pill">Familiale 40cm</span>
           </div>
           <div class="card-actions-row">
-            <a href="../prototype-bootstrap/index.html" class="btn-story btn-story-primary btn-story-sm" style="flex: 1;">
-              Commander (Bootstrap)
-            </a>
-            <a href="../prototype-w3c/index.html" class="btn-story btn-story-outline btn-story-sm" style="flex: 1;">
-              Commander (W3C)
-            </a>
+            <button type="button" class="btn-card-order" onclick="openOrderModal()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path></svg>
+              Commander
+            </button>
           </div>
         </div>
       </article>
 
-      <!-- Végétarienne -->
+      <!-- Primavera Veggie -->
       <article class="story-pizza-card" data-category="veggie">
         <div class="card-img-wrap">
           <img src="../assets/OPTINOISY-Mob-pizza-vegetarienne.jpg" alt="Pizza Végétarienne">
@@ -398,19 +279,17 @@
             <h3 class="card-pizza-name">Primavera Veggie</h3>
             <span class="card-price">dès 11.00 €</span>
           </div>
-          <p class="card-pizza-desc">Coulis de tomates San Marzano, mozzarella, poivrons rouges grillés, oignons rouges confits, champignons frais et cœurs d'artichauts marinés.</p>
+          <p class="card-pizza-desc">Coulis San Marzano, fior di latte, poivrons marinés, oignons rouges confits, champignons et cœurs d'artichauts.</p>
           <div class="card-sizes-pills">
             <span class="size-pill">Junior 26cm</span>
             <span class="size-pill">Moyenne 31cm</span>
             <span class="size-pill">Familiale 40cm</span>
           </div>
           <div class="card-actions-row">
-            <a href="../prototype-bootstrap/index.html" class="btn-story btn-story-primary btn-story-sm" style="flex: 1;">
-              Commander (Bootstrap)
-            </a>
-            <a href="../prototype-w3c/index.html" class="btn-story btn-story-outline btn-story-sm" style="flex: 1;">
-              Commander (W3C)
-            </a>
+            <button type="button" class="btn-card-order" onclick="openOrderModal()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path></svg>
+              Commander
+            </button>
           </div>
         </div>
       </article>
@@ -426,151 +305,206 @@
             <h3 class="card-pizza-name">Salade César Noiséenne</h3>
             <span class="card-price">9.50 €</span>
           </div>
-          <p class="card-pizza-desc">Cœur de romaine croquante, aiguillettes de poulet pané doré, croûtons maison frottés à l'ail, copeaux de Grana Padano et sauce César onctueuse.</p>
+          <p class="card-pizza-desc">Romaine croquante, filets de poulet pané, croûtons à l'ail, copeaux de Grana Padano et sauce César maison.</p>
           <div class="card-sizes-pills">
             <span class="size-pill">Portion Repas</span>
-            <span class="size-pill">Assaisonnement Séparé</span>
+            <span class="size-pill">Sauce à part</span>
           </div>
           <div class="card-actions-row">
-            <a href="../prototype-bootstrap/index.html" class="btn-story btn-story-primary btn-story-sm" style="flex: 1;">
-              Commander (Bootstrap)
-            </a>
-            <a href="../prototype-w3c/index.html" class="btn-story btn-story-outline btn-story-sm" style="flex: 1;">
-              Commander (W3C)
-            </a>
+            <button type="button" class="btn-card-order" onclick="openOrderModal()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path></svg>
+              Commander
+            </button>
           </div>
         </div>
       </article>
 
     </div>
 
-    <!-- Bandeau Promo Invitation -->
-    <div style="margin-top: 50px; background: #FFF; border: 2px dashed var(--accent-crust); border-radius: var(--radius-lg); padding: 24px; text-align: center; box-shadow: var(--shadow-sm);">
-      <span style="background: var(--accent-gold); color: #000; font-weight: 800; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; text-transform: uppercase;">Offre de Bienvenue MMI</span>
-      <h3 style="font-family: var(--font-serif); font-size: 1.4rem; font-weight: 800; margin: 8px 0 4px;">Profitez de 15% de réduction avec le code promo : <span style="color: var(--primary);">MMI2026</span></h3>
-      <p style="font-size: 0.85rem; color: #64748B; margin-bottom: 14px;">Valable sur l'ensemble de notre carte via nos applications de commande directe.</p>
-      <div style="display: flex; justify-content: center; gap: 10px;">
-        <a href="../prototype-bootstrap/index.html" class="btn-story btn-story-primary btn-story-sm">Ouvrir l'App Bootstrap</a>
-        <a href="../prototype-w3c/index.html" class="btn-story btn-story-dark btn-story-sm">Ouvrir l'App W3C</a>
+    <!-- Encart Promo MMI -->
+    <div style="margin-top: 32px;" class="promo-callout">
+      <span class="promo-code-badge">Offre de Bienvenue • Code MMI2026</span>
+      <h3 style="font-family: var(--font-serif); font-size: 1.25rem; margin-bottom: 6px; color: #FFF;">
+        Profitez de 15% de réduction sur votre première commande
+      </h3>
+      <p style="font-size: 0.85rem; color: #94A3B8; margin-bottom: 14px;">
+        Saisissez le code promo <strong>MMI2026</strong> lors de la validation de votre panier.
+      </p>
+      <button type="button" class="btn-hero-main" style="margin: 0 auto; display: inline-flex;" onclick="openOrderModal()">
+        Utiliser le code promo
+      </button>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION : LE SAVOIR-FAIRE (4 PILIERS) -->
+  <!-- ========================================== -->
+  <section class="section-wrapper" id="savoir-faire" style="background: rgba(255,255,255,0.02); border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06);">
+    <div class="section-header">
+      <span class="section-tag">Notre Méthode</span>
+      <h2 class="section-title">Les 4 Piliers de l'Artisanat</h2>
+      <p class="section-desc">
+        Du choix de la farine jusqu'à la sortie du four, aucun raccourci industriel.
+      </p>
+    </div>
+
+    <div class="craft-grid">
+      <div class="craft-card">
+        <div class="craft-icon-circle">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        </div>
+        <h3 class="craft-title">1. Fermentation 48h</h3>
+        <p class="craft-desc">Maturation lente à froid. Les levures digèrent les amidons : une pâte légère, alvéolée et parfaitement digeste.</p>
+      </div>
+
+      <div class="craft-card">
+        <div class="craft-icon-circle">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        </div>
+        <h3 class="craft-title">2. Four à Bois 450°C</h3>
+        <p class="craft-desc">Cuisson éclair en 90 secondes sur pierre de lave napolitaine pour saisir la pâte sans assécher les ingrédients.</p>
+      </div>
+
+      <div class="craft-card">
+        <div class="craft-icon-circle">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        </div>
+        <h3 class="craft-title">3. Terroirs AOP d'Italie</h3>
+        <p class="craft-desc">Tomates pelées San Marzano DOP, mozzarella Fior di Latte d'Agerola et huile d'olive extra vierge pressée à froid.</p>
+      </div>
+
+      <div class="craft-card">
+        <div class="craft-icon-circle">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+        </div>
+        <h3 class="craft-title">4. Trois Formats d'Or</h3>
+        <p class="craft-desc">Junior (26 cm / solo), Moyenne (31 cm / classique) ou Familiale (40 cm géante à partager). À chacun sa faim.</p>
       </div>
     </div>
   </section>
 
   <!-- ========================================== -->
-  <!-- SECTION : GALERIE DE L'ARTISANAT -->
+  <!-- SECTION : NOTRE HISTOIRE (Storytelling) -->
+  <!-- ========================================== -->
+  <section class="section-wrapper" id="histoire">
+    <div class="story-split-grid">
+      <div class="story-text-col">
+        <span class="section-tag">Genèse & Passion</span>
+        <h3>Redonner à la pizza ses lettres de noblesse à Noisy-le-Grand.</h3>
+        <p>
+          Opti'Noisy Pizza est née du refus des pâtons industriels décongelés et des sauces standardisées. Ici, nous pétrissons à la main chaque boule de pâte avec une farine tipo 00 à haute teneur en protéines.
+        </p>
+        <div class="story-quote-card">
+          « Une vraie pizza ne triche pas : le croustillant sous la dent, le moelleux alvéolé de la corniche, et la fraîcheur du basilic. C'est notre promesse quotidienne. »
+        </div>
+        <p>
+          Installés au 12 Avenue Foch, nous livrons les foyers noiséens, les étudiants de Descartes et les amateurs d'authentique gastronomie italienne.
+        </p>
+      </div>
+
+      <div class="story-media-col">
+        <img src="../assets/OPTINOISY-Mob-visuel-intro2.jpg" alt="Pâte artisanale Opti'Noisy" class="story-image-main">
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SECTION : GALERIE DE L'ATELIER -->
   <!-- ========================================== -->
   <section class="section-wrapper" id="galerie">
     <div class="section-header">
       <span class="section-tag">Dans les Coulisses</span>
-      <h2 class="section-title">La Galerie Gourmande</h2>
+      <h2 class="section-title">La Galerie de l'Atelier</h2>
       <p class="section-desc">
-        Des gestes précis, la danse des flammes et le croustillant de nos créations immortalisés dans notre atelier noiséen.
+        La précision des gestes et la danse des flammes au feu de bois.
       </p>
     </div>
 
-    <div class="gallery-grid">
-      <div class="gallery-item">
-        <img src="../assets/OPTINOISY-visuel-intro1.jpg" alt="Four à bois crépitant">
-        <div class="gallery-caption">Le Cœur du Four à 450°C</div>
+    <div class="gallery-scroll-reel">
+      <div class="gallery-card-item">
+        <img src="../assets/OPTINOISY-visuel-intro1.jpg" alt="Four à bois 450°C">
+        <div class="gallery-card-caption">Le Four à 450°C</div>
       </div>
-      <div class="gallery-item">
+      <div class="gallery-card-item">
         <img src="../assets/OPTINOISY-Mob-visuel-intro3.jpg" alt="Façonnage de la pâte">
-        <div class="gallery-caption">Étirage manuel de la pâte à 68% d'hydratation</div>
+        <div class="gallery-card-caption">Étirage manuel de la pâte</div>
       </div>
-      <div class="gallery-item">
+      <div class="gallery-card-item">
         <img src="../assets/OPTINOISY-Mob-visuel-intro4.jpg" alt="Ingrédients frais">
-        <div class="gallery-caption">Fior di Latte & Basilic Frais</div>
+        <div class="gallery-card-caption">Fior di Latte & Basilic frais</div>
       </div>
-      <div class="gallery-item">
+      <div class="gallery-card-item">
         <img src="../assets/OPTINOISY-Mob-visuel-intro5.jpg" alt="Sortie du four">
-        <div class="gallery-caption">Léopardage parfait de la croûte</div>
+        <div class="gallery-card-caption">Léopardage de la croûte</div>
       </div>
-      <div class="gallery-item">
+      <div class="gallery-card-item">
         <img src="../assets/OPTINOISY-Mob-visuel-intro6.jpg" alt="Dressage minute">
-        <div class="gallery-caption">Finition à l'Huile d'Olive Vierge Extra</div>
-      </div>
-      <div class="gallery-item">
-        <img src="../assets/OPTINOISY-Mob-visuel-intro7.jpg" alt="Partage à table">
-        <div class="gallery-caption">La convivialité italienne au quotidien</div>
+        <div class="gallery-card-caption">Finition huile d'olive vierge</div>
       </div>
     </div>
   </section>
 
   <!-- ========================================== -->
-  <!-- SECTION : AVIS & TÉMOIGNAGES -->
+  <!-- SECTION : AVIS CLIENTS -->
   <!-- ========================================== -->
-  <section class="section-wrapper reviews-section" id="avis">
+  <section class="section-wrapper" id="avis">
     <div class="section-header">
-      <span class="section-tag" style="color: #FFA5A7;">La Voix de nos Habitués</span>
+      <span class="section-tag">Avis Clients</span>
       <h2 class="section-title">Ce qu'en pensent les Noiséens</h2>
-      <p class="section-desc">
-        Une note moyenne de 4.9/5 basée sur plus de 1 200 commandes livrées avec le sourire.
-      </p>
+      <p class="section-desc">Note moyenne 4.9/5 basée sur plus de 1 200 commandes livrées.</p>
     </div>
 
     <div class="reviews-grid">
-      <!-- Avis 1 -->
       <div class="review-card">
         <div class="review-rating">
-          <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
         </div>
-        <p class="review-text">
-          « Enfin une véritable pizza au feu de bois à Noisy-le-Grand ! La pâte est aérée comme dans les meilleures trattorias de Naples. 
-          Mention spéciale pour la Reine Traditionnelle et le délai de livraison qui bat tous les records. »
-        </p>
+        <p class="review-text">« La pâte est incroyable : légère et alvéolée comme à Naples. La Reine Tradition est à tomber ! »</p>
         <div class="reviewer-info">
           <div class="reviewer-avatar">S</div>
           <div>
             <div class="reviewer-name">Sophie R.</div>
-            <div class="reviewer-meta">Habitante Quartier Mont d'Est • Commande hebdomadaire</div>
+            <div class="reviewer-meta">Noisy Mont d'Est</div>
           </div>
         </div>
       </div>
 
-      <!-- Avis 2 -->
       <div class="review-card">
         <div class="review-rating">
-          <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
         </div>
-        <p class="review-text">
-          « Étudiant à l'IUT Champs, on commande avec toute la coloc au moins deux fois par mois. 
-          Le format Familiale 40cm est imbattable en rapport qualité/prix, et le système de suivi en direct est ultra fluide. »
-        </p>
+        <p class="review-text">« Étudiant à l'IUT Champs, le format Familiale 40cm pour la coloc est imbattable et la livraison est super rapide. »</p>
         <div class="reviewer-info">
           <div class="reviewer-avatar">K</div>
           <div>
             <div class="reviewer-name">Karim M.</div>
-            <div class="reviewer-meta">Campus IUT Noisy-Champs • Client fidèle</div>
+            <div class="reviewer-meta">Campus Descartes</div>
           </div>
         </div>
       </div>
 
-      <!-- Avis 3 -->
       <div class="review-card">
         <div class="review-rating">
-          <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
         </div>
-        <p class="review-text">
-          « La pizza Chèvre Miel est une œuvre d'art ! La pâte a ce parfum de levain inimitable et ne pèse pas sur l'estomac. 
-          Bravo à l'équipe, on sent la passion artisanale dans chaque ingrédient. »
-        </p>
+        <p class="review-text">« La Chèvre Chaud et Miel est un chef-d'œuvre. Ingrédients nobles, zéro goût chimique. Bravo ! »</p>
         <div class="reviewer-info">
           <div class="reviewer-avatar">A</div>
           <div>
             <div class="reviewer-name">Alexandre B.</div>
-            <div class="reviewer-meta">Centre-Ville Noisy-le-Grand • Amateur de gastronomie</div>
+            <div class="reviewer-meta">Centre-Ville Noisy</div>
           </div>
         </div>
       </div>
@@ -578,80 +512,54 @@
   </section>
 
   <!-- ========================================== -->
-  <!-- SECTION : HORAIRES, ACCÈS & CONTACT -->
+  <!-- SECTION : HORAIRES & ACCÈS -->
   <!-- ========================================== -->
   <section class="section-wrapper" id="visite">
     <div class="section-header">
-      <span class="section-tag">Rendez-nous Visite</span>
-      <h2 class="section-title">À l'Atelier ou Chez Vous</h2>
-      <p class="section-desc">
-        Venez sentir la douce odeur du bois de hêtre et voir la pâte tournoyer au comptoir, ou faites-vous livrer en direct.
-      </p>
+      <span class="section-tag">Infos Pratiques</span>
+      <h2 class="section-title">À l'Atelier ou en Livraison</h2>
     </div>
 
-    <div class="visit-split-grid">
-      <div>
-        <h3 style="font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 20px;">Informations Pratiques</h3>
-        <ul class="visit-info-list">
-          <li class="visit-info-item">
-            <div class="visit-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-            </div>
-            <div class="visit-item-text">
-              <strong>Adresse de l'Atelier</strong>
-              <p>12 Avenue du Maréchal Foch, 93160 Noisy-le-Grand<br>À 3 minutes de la Mairie et du Théâtre des Bergeries.</p>
-            </div>
-          </li>
-          <li class="visit-info-item">
-            <div class="visit-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-            </div>
-            <div class="visit-item-text">
-              <strong>Horaires d'Ouverture</strong>
-              <p>Du Lundi au Dimanche : 11h30 – 14h30 & 18h30 – 23h00<br>Service continu le week-end en livraison express.</p>
-            </div>
-          </li>
-          <li class="visit-info-item">
-            <div class="visit-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-            </div>
-            <div class="visit-item-text">
-              <strong>Ligne Directe Commandes</strong>
-              <p>01 43 05 00 00 • contact@optinoisy-pizza.fr</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div style="background: #F8FAFC; border-radius: var(--radius-md); padding: 24px; border: 1px solid #E2E8F0; display: flex; flex-direction: column; justify-content: space-between;">
-        <div>
-          <span style="font-size: 0.75rem; font-weight: 800; color: var(--secondary); text-transform: uppercase;">Zone & Canaux de Commande</span>
-          <h4 style="font-family: var(--font-serif); font-size: 1.3rem; margin: 6px 0 10px;">Comment commander ce soir ?</h4>
-          <p style="font-size: 0.88rem; color: #64748B; line-height: 1.6; margin-bottom: 20px;">
-            Pour bénéficier du tarif direct sans majoration et des 15% de réduction avec le code promo <strong>MMI2026</strong>, 
-            utilisez directement nos deux applications web mobiles conçues pour le projet :
-          </p>
-
-          <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
-            <a href="../prototype-bootstrap/index.html" class="btn-story btn-story-primary">
-              Commander via l'App Bootstrap 5.3
-            </a>
-            <a href="../prototype-w3c/index.html" class="btn-story btn-story-dark">
-              Commander via l'App W3C Standard Pur
-            </a>
+    <div class="visit-box">
+      <ul class="visit-info-list">
+        <li class="visit-info-item">
+          <div class="visit-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
           </div>
-        </div>
-
-        <div style="border-top: 1px solid #E2E8F0; padding-top: 14px;">
-          <small style="color: #64748B; font-size: 0.75rem; display: block; margin-bottom: 8px;">Également disponible sur nos passerelles partenaires :</small>
-          <div style="display: flex; gap: 10px;">
-            <a href="https://www.ubereats.com/fr" target="_blank" rel="noopener noreferrer" style="background: #FFF; border: 1px solid #E2E8F0; padding: 6px 14px; border-radius: var(--radius-sm); display: flex; align-items: center; text-decoration: none;">
-              <img src="../assets/LOGO-UBER-EAT.png" alt="Uber Eats" style="height: 16px; object-fit: contain;">
-            </a>
-            <a href="https://deliveroo.fr/fr" target="_blank" rel="noopener noreferrer" style="background: #FFF; border: 1px solid #E2E8F0; padding: 6px 14px; border-radius: var(--radius-sm); display: flex; align-items: center; text-decoration: none;">
-              <img src="../assets/logo-deliveroo.png" alt="Deliveroo" style="height: 16px; object-fit: contain;">
-            </a>
+          <div class="visit-text">
+            <strong>Adresse de l'Atelier</strong>
+            <p>12 Avenue du Maréchal Foch, 93160 Noisy-le-Grand</p>
           </div>
+        </li>
+        <li class="visit-info-item">
+          <div class="visit-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <div class="visit-text">
+            <strong>Horaires de Service</strong>
+            <p>7j/7 : 11h30 – 14h30 & 18h30 – 23h00</p>
+          </div>
+        </li>
+        <li class="visit-info-item">
+          <div class="visit-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          </div>
+          <div class="visit-text">
+            <strong>Téléphone Direct</strong>
+            <p><a href="tel:0143050000" style="color: #FF6668; text-decoration: none; font-weight: 700;">01 43 05 00 00</a></p>
+          </div>
+        </li>
+      </ul>
+
+      <div style="display: flex; flex-direction: column; justify-content: center; gap: 12px;">
+        <strong style="color: #FFF; font-size: 0.95rem;">Commander en direct :</strong>
+        <button type="button" class="btn-hero-main" style="width: 100%;" onclick="openOrderModal()">
+          Lancer une commande en ligne
+        </button>
+        <div style="display: flex; gap: 10px; align-items: center; justify-content: center; margin-top: 8px;">
+          <span style="font-size: 0.72rem; color: #64748B;">Partenaires :</span>
+          <img src="../assets/LOGO-UBER-EAT.png" alt="Uber Eats" style="height: 14px; opacity: 0.8;">
+          <img src="../assets/logo-deliveroo.png" alt="Deliveroo" style="height: 14px; opacity: 0.8;">
         </div>
       </div>
     </div>
@@ -659,51 +567,120 @@
 
   <!-- Footer -->
   <footer class="story-footer">
-    <div class="footer-container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <img src="../assets/logo-opti-noisy.svg" alt="Opti Noisy Logo">
-          <p>
-            Pizzeria artisanale au feu de bois à Noisy-le-Grand. Cuisson minute, pâtes maturées 48 heures au levain et sélection rigoureuse d'ingrédients italiens AOP.
-          </p>
-        </div>
-        <div>
-          <h4 class="footer-title">Navigation Rapide</h4>
-          <ul class="footer-links">
-            <li><a href="#histoire">Notre Histoire</a></li>
-            <li><a href="#savoir-faire">Le Savoir-Faire</a></li>
-            <li><a href="#carte">La Carte Signature</a></li>
-            <li><a href="#galerie">Galerie Photos</a></li>
-            <li><a href="#avis">Avis Clients</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="footer-title">Projet Académique</h4>
-          <ul class="footer-links">
-            <li><a href="../index.html">Portail Global du TP</a></li>
-            <li><a href="../prototype-bootstrap/index.html">Prototype Bootstrap 5.3</a></li>
-            <li><a href="../prototype-w3c/index.html">Prototype W3C Pur (Vanilla)</a></li>
-            <li><a href="https://www.univ-gustave-eiffel.fr" target="_blank" rel="noopener">IUT Gustave Eiffel - Champs</a></li>
-          </ul>
-        </div>
+    <div style="max-width: 1240px; margin: 0 auto;">
+      <div style="margin-bottom: 16px;">
+        <img src="../assets/logo-opti-noisy.svg" alt="Opti'Noisy Pizza Logo" style="height: 36px; margin-bottom: 8px;">
+        <p style="font-size: 0.82rem; color: #94A3B8; max-width: 500px; margin: 0 auto;">
+          Opti'Noisy Pizza • Pizzeria artisanale au feu de bois à Noisy-le-Grand.
+        </p>
       </div>
-
-      <div class="footer-bottom">
-        <div>
-          &copy; 2026 Opti'Noisy Pizza. Tous droits réservés. Projet MMI3 Web Mobile & Capacitor.
-        </div>
-        <div style="display: flex; gap: 16px;">
-          <span>Farine tipo 00 certifiée</span>
-          <span>•</span>
-          <span>Four 450°C</span>
-          <span>•</span>
-          <span>Zéro compromis</span>
-        </div>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-bottom: 20px; font-size: 0.82rem;">
+        <a href="../index.html">Portail TP Simulateur</a>
+        <a href="../prototype-bootstrap/index.html">Prototype Bootstrap 5.3</a>
+        <a href="../prototype-w3c/index.html">Prototype Pure W3C</a>
+        <a href="../admin/index.html">Back-Office Cuisine</a>
+      </div>
+      <div style="font-size: 0.72rem; color: #4B5563;">
+        &copy; 2026 Opti'Noisy Pizza • TP Web Mobile MMI3 • Université Paris-Saclay / IUT de Vélizy.
       </div>
     </div>
   </footer>
 
-  <!-- Script JS -->
+  <!-- BARRE FLOTTANTE MOBILE DE COMMANDE (En bas de l'écran sur smartphone) -->
+  <aside class="mobile-bottom-bar" aria-label="Action rapide commande">
+    <div class="bottom-bar-info">
+      <span class="bottom-bar-brand">Opti'Noisy Pizza</span>
+      <span class="bottom-bar-sub">Livraison express ~30 min</span>
+    </div>
+    <button type="button" class="btn-bottom-cta" onclick="openOrderModal()">
+      <span>Commander</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </button>
+  </aside>
+
+  <!-- MODALE CHOIX DE COMMANDE (Bottom-Sheet sur smartphone) -->
+  <div class="order-modal-backdrop" id="orderModalBackdrop" onclick="if(event.target===this) closeOrderModal()">
+    <div class="order-modal-sheet">
+      <div class="order-modal-header">
+        <h3 class="order-modal-title">Commander chez Opti'Noisy</h3>
+        <button type="button" class="btn-close-modal" onclick="closeOrderModal()">&times;</button>
+      </div>
+
+      <p style="font-size: 0.82rem; color: #94A3B8; margin-bottom: 16px;">
+        Choisissez votre plateforme de commande :
+      </p>
+
+      <div class="order-choices-list">
+        <!-- Choix 1 : Bootstrap -->
+        <a href="../prototype-bootstrap/index.html" class="order-choice-card highlight">
+          <div class="order-choice-text">
+            <strong>Application Mobile (Bootstrap 5.3)</strong>
+            <span>Recommandée • Suivi stepper en direct & panier complet</span>
+          </div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF4D50" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+
+        <!-- Choix 2 : W3C Pur -->
+        <a href="../prototype-w3c/index.html" class="order-choice-card">
+          <div class="order-choice-text">
+            <strong>Application Mobile Pure W3C (Standard)</strong>
+            <span>100% Vanilla JS & CSS Grid/Flexbox sans framework</span>
+          </div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+
+        <!-- Choix 3 : Uber Eats -->
+        <a href="https://www.ubereats.com/fr" target="_blank" rel="noopener noreferrer" class="order-choice-card">
+          <div class="order-choice-text" style="display: flex; align-items: center; gap: 10px;">
+            <img src="../assets/LOGO-UBER-EAT.png" alt="Uber Eats" style="height: 16px;">
+            <div>
+              <strong>Passerelle Uber Eats</strong>
+              <span>Livraison via notre compte partenaire</span>
+            </div>
+          </div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+
+        <!-- Choix 4 : Deliveroo -->
+        <a href="https://deliveroo.fr/fr" target="_blank" rel="noopener noreferrer" class="order-choice-card">
+          <div class="order-choice-text" style="display: flex; align-items: center; gap: 10px;">
+            <img src="../assets/logo-deliveroo.png" alt="Deliveroo" style="height: 16px;">
+            <div>
+              <strong>Passerelle Deliveroo</strong>
+              <span>Livraison via notre compte partenaire</span>
+            </div>
+          </div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </a>
+      </div>
+
+      <div style="background: rgba(225, 155, 15, 0.1); border: 1px solid rgba(225, 155, 15, 0.3); border-radius: 10px; padding: 10px 14px; text-align: center; font-size: 0.78rem; color: #FFB340;">
+        Code Promo -15% : <strong>MMI2026</strong> sur l'App Directe
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
   <script src="js/script.js"></script>
+  <script>
+    function openOrderModal() {
+      const backdrop = document.getElementById('orderModalBackdrop');
+      if (backdrop) {
+        backdrop.style.display = 'flex';
+        setTimeout(() => backdrop.classList.add('open'), 10);
+        document.body.style.overflow = 'hidden';
+      }
+    }
+    function closeOrderModal() {
+      const backdrop = document.getElementById('orderModalBackdrop');
+      if (backdrop) {
+        backdrop.classList.remove('open');
+        setTimeout(() => {
+          backdrop.style.display = 'none';
+          document.body.style.overflow = '';
+        }, 250);
+      }
+    }
+  </script>
 </body>
 </html>

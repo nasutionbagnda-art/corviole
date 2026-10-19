@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initMenuFilters() {
-  const filterButtons = document.querySelectorAll('.filter-btn');
+  const filterButtons = document.querySelectorAll('.cat-pill, .filter-btn');
   const cards = document.querySelectorAll('.story-pizza-card');
 
   filterButtons.forEach(btn => {

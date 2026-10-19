@@ -84,20 +84,23 @@
 
     /* Prototypes Cards Grid */
     .proto-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 24px;
       margin-bottom: 45px;
     }
     .proto-card {
+      flex: 1 1 260px;
+      max-width: 290px;
+      min-width: 250px;
       background: var(--dark-card);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: var(--radius);
-      padding: 28px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       position: relative;
-      overflow: hidden;
       transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
     }
     .proto-card:hover {
@@ -106,50 +109,39 @@
       box-shadow: 0 16px 36px rgba(190, 28, 31, 0.2);
     }
     .proto-card-badge {
-      position: absolute;
-      top: 20px;
-      right: 20px;
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
       font-size: 0.72rem;
       font-weight: 800;
-      padding: 4px 10px;
+      padding: 4px 12px;
       border-radius: 50px;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 14px;
     }
     .proto-card-badge.bs { background: #6F42C1; color: #FFF; }
     .proto-card-badge.w3c { background: #13672F; color: #FFF; }
 
     .proto-title {
-      font-size: 1.4rem;
+      font-size: 1.25rem;
       font-weight: 800;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       color: #FFF;
+      line-height: 1.3;
     }
     .proto-desc {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: #9CA3AF;
-      margin-bottom: 18px;
+      margin-bottom: 24px;
+      line-height: 1.55;
       flex: 1;
-    }
-    .proto-features {
-      list-style: none;
-      margin-bottom: 22px;
-      font-size: 0.85rem;
-    }
-    .proto-features li {
-      margin-bottom: 6px;
-      color: #D1D5DB;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .proto-features li svg {
-      color: #34D399;
-      flex-shrink: 0;
     }
 
     .proto-btn-group {
       display: flex;
       gap: 10px;
+      margin-top: auto;
     }
     .btn {
       display: inline-flex;
@@ -315,7 +307,7 @@
 
   <div class="container">
 
-    <!-- Grille des 2 Prototypes -->
+    <!-- Grille des 4 Réalisations -->
     <section class="proto-grid">
       
       <!-- Prototype 1 : Bootstrap 5 -->
@@ -323,33 +315,11 @@
         <span class="proto-card-badge bs">Prototype 1 • Bootstrap</span>
         <h2 class="proto-title">Prototype Bootstrap 5.3</h2>
         <p class="proto-desc">
-          Application web mobile responsive complète construite avec le framework Bootstrap 5.3 et personnalisation SCSS/CSS.
+          Application web mobile responsive complète construite avec le framework Bootstrap 5.3 et personnalisation CSS.
         </p>
-        <ul class="proto-features">
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Architecture Mobile-First avec Bottom Nav native
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Modales Bootstrap fluides (Tailles, Extras, Paiement)
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Carte Leaflet avec détection GPS HTML5 & rayon 8km
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Passerelles officielles Uber Eats & Deliveroo
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Simulation bancaire CB 3D-Secure & Apple Pay
-          </li>
-        </ul>
         <div class="proto-btn-group">
           <a href="prototype-bootstrap/index.html" class="btn btn-primary">
-            Ouvrir en plein écran
+            Plein écran
           </a>
           <button type="button" class="btn btn-secondary" onclick="loadSimulator('prototype-bootstrap/index.html', 'bs')">
             Tester ici
@@ -362,33 +332,11 @@
         <span class="proto-card-badge w3c">Prototype 2 • Pur W3C</span>
         <h2 class="proto-title">Prototype Pur W3C</h2>
         <p class="proto-desc">
-          Application conforme aux standards stricts W3C : HTML5 sémantique pur, CSS3 moderne (Variables, Grid, Flexbox) et Vanilla JS, sans aucune bibliothèque externe de style.
+          Application conforme aux standards stricts W3C : HTML5 sémantique pur, CSS3 moderne (Variables, Grid, Flexbox) et Vanilla JS, sans aucun framework CSS externe.
         </p>
-        <ul class="proto-features">
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Zéro framework CSS externe (100% CSS3 Pur)
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Validable W3C & balises sémantiques strictes
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Modales et Bottom Sheets animées en CSS natif
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Sélecteur interactif des 3 tailles de pizza (SVGs)
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Gestion du panier, compte & persistance LocalStorage
-          </li>
-        </ul>
         <div class="proto-btn-group">
           <a href="prototype-w3c/index.html" class="btn btn-primary" style="background: var(--secondary);">
-            Ouvrir en plein écran
+            Plein écran
           </a>
           <button type="button" class="btn btn-secondary" onclick="loadSimulator('prototype-w3c/index.html', 'w3c')">
             Tester ici
@@ -401,33 +349,11 @@
         <span class="proto-card-badge" style="background: #E19B0F; color: #000;">Nouveau • Storytelling</span>
         <h2 class="proto-title">Site Vitrine & Storytelling</h2>
         <p class="proto-desc">
-          Site web éditorial et semi-commandes inspiré de <strong>California Pizza Kitchen</strong> et <strong>Home Slice Pizza</strong>. Focus sur l'artisanat, la fermentation 48h, le four Stefano Ferrara à 450°C et les terroirs AOP d'Italie.
+          Site web mobile-first éditorial et semi-commandes inspiré de l'artisanat : pâte au levain 48h, four à bois napolitain et sélection des terroirs.
         </p>
-        <ul class="proto-features">
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Récit narratif de marque (Pâte au levain 48h & Four à bois)
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Filtres interactifs sur la carte signature
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Passerelles de commande directe vers les 2 prototypes
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Galerie d'artisanat haute définition (visuels officiels)
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Avis clients noiséens & guide d'accès atelier
-          </li>
-        </ul>
         <div class="proto-btn-group">
           <a href="site-storytelling/index.html" class="btn btn-primary" style="background: #E19B0F; color: #000;">
-            Ouvrir en plein écran
+            Plein écran
           </a>
           <button type="button" class="btn btn-secondary" onclick="loadSimulator('site-storytelling/index.html', 'story')">
             Tester ici
@@ -440,33 +366,11 @@
         <span class="proto-card-badge" style="background: #0284C7; color: #FFF;">Nouveau • Back-Office</span>
         <h2 class="proto-title">Back-Office & Écran Cuisine</h2>
         <p class="proto-desc">
-          Tableau de bord restaurant professionnel (KDS / POS) indépendant pour le suivi en direct des commandes clients, mise à jour des étapes de cuisson et gestion financière.
+          Tableau de bord restaurant (KDS / POS) synchronisé en temps réel pour le suivi des commandes, le pilotage de la cuisson et la gestion financière.
         </p>
-        <ul class="proto-features">
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Synchronisation temps réel cross-tabs sans recharger la page
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Transitions de statut en 1 clic (Validée &rarr; Au four &rarr; En route &rarr; Livrée)
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            5 KPIs en direct : Commandes actives, Four, Livraison, CA & Panier moyen
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Instructions spéciales mises en évidence & édition de notes cuisine
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            Générateur de commandes de test pour démonstration jury
-          </li>
-        </ul>
         <div class="proto-btn-group">
           <a href="admin/index.html" target="_blank" class="btn btn-primary" style="background: #0284C7; color: #FFF;">
-            Ouvrir le Back-Office
+            Plein écran
           </a>
           <button type="button" class="btn btn-secondary" onclick="loadSimulator('admin/index.html', 'admin')">
             Tester ici
